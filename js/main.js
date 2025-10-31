@@ -19,6 +19,21 @@ document.addEventListener('DOMContentLoaded', function () {
         badge.textContent = skill;
         container.appendChild(badge);
     });
+        /* Simple entrada con fade + slide al cargar la página */
+    (function(){
+        var b = document.body;
+        // Aplicar estado inicial inmediatamente para evitar parpadeo
+        b.style.opacity = '0';
+        b.style.transform = 'translateY(10px)';
+        b.style.transition = 'opacity .6s ease, transform .6s ease';
+
+        window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+            b.style.opacity = '1';
+            b.style.transform = 'translateY(0)';
+        });
+        });
+    })();
 
     // SLIDER DE PROYECTOS
     class ProjectSlider {
@@ -41,8 +56,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 indicator.addEventListener('click', () => this.goToSlide(index));
             });
             
-            // Auto-play (opcional)
-            // setInterval(() => this.nextSlide(), 5000);
+            // Auto-play
+            this.autoPlayDelay = 5000;
+            this.startAutoPlay = () => {
+                this.stopAutoPlay();
+                this.autoPlayInterval = setInterval(() => this.nextSlide(), this.autoPlayDelay);
+            };
+            this.stopAutoPlay = () => {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            };
+
+            // Iniciar autoplay
+            this.startAutoPlay();
+
+            // Pausar al hover y reanudar al salir
+            if (this.wrapper) {
+                this.wrapper.addEventListener('mouseenter', () => this.stopAutoPlay());
+                this.wrapper.addEventListener('mouseleave', () => this.startAutoPlay());
+            }
+
+            // Pausar al interactuar con botones/indicadores y reanudar después
+            const interactiveElems = [this.prevBtn, this.nextBtn, ...Array.from(this.indicators)];
+            interactiveElems.forEach(el => {
+                if (!el) return;
+                el.addEventListener('click', () => {
+                    this.stopAutoPlay();
+                    setTimeout(() => this.startAutoPlay(), 1000);
+                });
+            });
+
+            // Pausar cuando la pestaña no está visible
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) this.stopAutoPlay();
+                else this.startAutoPlay();
+            });
         }
         
         goToSlide(slideIndex) {
@@ -115,4 +165,5 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
 });
