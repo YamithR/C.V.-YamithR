@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/proyectos.css">
 </head>
 <body data-theme="dark">
     
@@ -44,7 +45,7 @@
             <!-- Imagen Principal -->
             <div class="col-lg-8 mb-4">
                 <div class="project-hero">
-                    <img src="../assets/img/DibujoPlataforma.png" alt="Simulador Mecánico Bote Fluvial" class="img-fluid rounded shadow">
+                    <img src="../assets/img/SimuladorBote/DibujoPlataforma.png" alt="Simulador Mecánico Bote Fluvial" class="img-fluid rounded shadow">
                 </div>
             </div>
             
@@ -54,22 +55,26 @@
                 <div class="project-sidebar bg-dark p-4 rounded shadow h-100">
                     <h3 class="project-title">Simulador Mecánico Bote Fluvial</h3>
                     <div class="project-meta mb-3">
-                        <span class="badge bg-primary">ONIRIS-ID</span>
-                        <span class="badge bg-success">Diciembre 2024</span>
-                        <span class="badge bg-info">Consultor</span>
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-primary">Consultor</span>
+                        <span class="badge bg-success">Prototipado</span>
+                        <span class="badge bg-info">3D Printing</span>
+                        <span class="badge bg-danger">SolidWorks</span>
+                        <span class="badge bg-secondary">Mecatronica</span>
                     </div>
                     <div class="project-tech">
-                        <h6><i class="bi bi-gear-fill"></i> Tecnologías:</h6>
+                        <h6><i class="bi bi-chevron-right"></i> Tecnologías:</h6>
                         <ul class="list-unstyled">
-                            <li><i class="bi bi-check-circle text-success"></i> Análisis de Materiales</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Python Pqt5</li>
                             <li><i class="bi bi-check-circle text-success"></i> Prototipado</li>
                             <li><i class="bi bi-check-circle text-success"></i> Simulación Mecánica</li>
-                            <li><i class="bi bi-check-circle text-success"></i> Informes Técnicos</li>
+                            <li><i class="bi bi-check-circle text-success"></i> CAD</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Impresión 3D</li>
                         </ul>
                     </div>
-                    <a href="../certificados/oniris.pdf" download class="btn btn-primary w-100 mb-2">
+                    <!-- <a href="../certificados/oniris.pdf" download class="btn btn-primary w-100 mb-2">
                         <i class="bi bi-download"></i> Descargar Certificado
-                    </a>
+                    </a> -->
                     <a href="../index.html" class="btn btn-outline-secondary w-100">
                         <i class="bi bi-arrow-left"></i> Volver al CV
                     </a>
@@ -82,19 +87,16 @@
             <div class="col-12">
                 <h4 class="mb-4">Descripción del Proyecto</h4>
                 <p class="lead">
-                    Lideré el desarrollo y validación de un prototipo a escala de simulador mecánico de bote fluvial para ONIRIS-ID. 
-                    Este proyecto requirió análisis exhaustivo de materiales, experimentación rigurosa y redacción de informes técnicos 
-                    detallados para la validación del prototipo.
+                    Desarrollo y validación de prototipo escala de simulador mecánico de bote fluvial para ONIRIS-ID. La Armada nacional de Colombia para la muestra de unos de sus proyectos en curso tenia una maqueta de simulador mecánico de bote fluvial, por lo que se me contrató como consultor externo para analizar y mejorar el diseño mecánico y electrónico del prototipo, realizar un estudio de materiales óptimos para su construcción, desarrollar los modelos CAD en SolidWorks, programar la interfaz electrónica y validar el comportamiento mecánico del simulador mediante experimentación.
                 </p>
                 
                 <div class="row">
                     <div class="col-md-6">
                         <h5><i class="bi bi-target"></i> Objetivos</h5>
                         <ul>
-                            <li>Desarrollar prototipo funcional a escala</li>
+                            <li>Desarrollar prototipo funcional</li>
                             <li>Realizar análisis de materiales óptimos</li>
                             <li>Validar comportamiento mecánico</li>
-                            <li>Documentar proceso técnico completo</li>
                         </ul>
                     </div>
                     <div class="col-md-6">
@@ -102,109 +104,110 @@
                         <ul>
                             <li>Prototipo validado exitosamente</li>
                             <li>Reducción de costos de materiales</li>
-                            <li>Informes técnicos completos</li>
-                            <li>Liderazgo del equipo de desarrollo</li>
+                            <li>Mejoras estéticas y funcionales del prototipo</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <h5><i class="bi bi-person-check"></i> Reconocimiento</h5>
                     <blockquote class="blockquote">
                         <p>"Durante el proyecto trabajó con competencia técnica y liderazgo en el equipo."</p>
                         <footer class="blockquote-footer">Carlos Mario Soto Montaño, Ingeniero Mecánico, M.Sc. Materiales Avanzados - Director ONIRIS-ID</footer>
                     </blockquote>
-                </div>
+                </div> -->
             </div>
         </div>
         <hr class="my-5">
 
         <h3>Galería</h3>
         <div class="row g-3">
+            <!-- Imágenes -->
             <div class="col-6 col-md-4">
-            <img src="../assets/img/DibujoPlataforma.png" class="img-fluid rounded gallery-img" alt="Dibujo Plataforma" data-bs-toggle="modal" data-bs-target="#imageModal">
+                <img src="../assets/img/SimuladorBote/BaseYEnsapsulado-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Base y Encapsulado - Vista Lateral" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/DibujoPlataforma.png" class="img-fluid rounded gallery-img" alt="Extrusora 2" data-bs-toggle="modal" data-bs-target="#imageModal">
+                <img src="../assets/img/SimuladorBote/BaseYEnsapsulado-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Base y Encapsulado - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/DibujoPlataforma.png" class="img-fluid rounded gallery-img" alt="Extrusora 3" data-bs-toggle="modal" data-bs-target="#imageModal">
+                <img src="../assets/img/SimuladorBote/DibujoPlataforma.png" class="img-fluid rounded gallery-img" alt="Dibujo de la Plataforma" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/DisbujoPlataforma-ZoomArticulaciones.jpg" class="img-fluid rounded gallery-img" alt="Dibujo Plataforma - Zoom Articulaciones" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/EjeV1-Explosionado.jpg" class="img-fluid rounded gallery-img" alt="Eje V1 - Vista Explosionada" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/EnsamblePremilinar3D.jpg" class="img-fluid rounded gallery-img" alt="Ensamble Preliminar 3D" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/Impresion3D.jpg" class="img-fluid rounded gallery-img" alt="Impresión 3D" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Frontal" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Lateral" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/prototipoV1-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Prototipo V1 - Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Prototipo V2 - Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/Soporte-EjeV1_Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Soporte - Eje V1 Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/Electronica-VistaInferior.jpg" class="img-fluid rounded gallery-img" alt="Electrónica - Vista Inferior" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SimuladorBote/EnsambleEnPresentacion.jpg" class="img-fluid rounded gallery-img" alt="Ensamble en Presentación" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+
+            <!-- Video -->
+            <div class="col-12 col-md-8">
+                <div class="ratio ratio-16x9">
+                    <video controls class="rounded">
+                        <source src="../assets/vid/SimuladorBote/EnsambleProgramado_Test.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
             </div>
         </div>
 
-        <!-- Modal mejorado para imágenes -->
+        <!-- Modal para imágenes -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header border-0">
-                <div class="zoom-controls">
-                    <button class="btn btn-outline-light me-2" id="zoomIn"><i class="bi bi-zoom-in"></i></button>
-                    <button class="btn btn-outline-light me-2" id="zoomOut"><i class="bi bi-zoom-out"></i></button>
-                    <button class="btn btn-outline-light" id="resetZoom"><i class="bi bi-arrows-angle-contract"></i></button>
+                <div class="modal-content bg-dark text-white">
+                    <div class="modal-header border-0">
+                        <div class="zoom-controls">
+                            <button class="btn btn-outline-light me-2" id="zoomIn" title="Acercar"><i class="bi bi-zoom-in"></i></button>
+                            <button class="btn btn-outline-light me-2" id="zoomOut" title="Alejar"><i class="bi bi-zoom-out"></i></button>
+                            <button class="btn btn-outline-light" id="resetZoom" title="Restablecer zoom"><i class="bi bi-arrows-angle-contract"></i></button>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="image-container">
+                            <img id="modalImage" src="" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <small id="modalCaption" class="text-white"></small>
+                    </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center align-items-center p-0">
-                <div class="image-container">
-                    <img id="modalImage" src="" alt="" class="img-fluid">
-                </div>
-                </div>
-                <div class="modal-footer border-0">
-                <small id="modalCaption" class="text-muted"></small>
-                </div>
-            </div>
             </div>
         </div>
 
-        <style>
-            .gallery-img {
-            cursor: zoom-in;
-            transition: transform .15s ease;
-            }
-            .gallery-img:hover {
-            transform: scale(1.02);
-            }
-            .image-container {
-            overflow: auto;
-            max-height: 80vh;
-            width: 100%;
-            position: relative;
-            }
-            .modal-xl {
-            max-width: 90vw;
-            }
-            #modalImage {
-            transform-origin: center;
-            transition: transform 0.3s ease;
-            }
+
         </style>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-            const modalImage = document.getElementById('modalImage');
-            let currentZoom = 1;
 
-            document.getElementById('zoomIn').addEventListener('click', () => {
-                currentZoom = Math.min(currentZoom * 1.2, 3);
-                modalImage.style.transform = `scale(${currentZoom})`;
-            });
-
-            document.getElementById('zoomOut').addEventListener('click', () => {
-                currentZoom = Math.max(currentZoom / 1.2, 1);
-                modalImage.style.transform = `scale(${currentZoom})`;
-            });
-
-            document.getElementById('resetZoom').addEventListener('click', () => {
-                currentZoom = 1;
-                modalImage.style.transform = 'scale(1)';
-            });
-
-            // Reset zoom when modal closes
-            document.getElementById('imageModal').addEventListener('hidden.bs.modal', () => {
-                currentZoom = 1;
-                modalImage.style.transform = 'scale(1)';
-            });
-            });
         </script>
     </main>
     </main>
@@ -216,42 +219,6 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <div class="container">
-            <p>&copy; 2025 Yamith Juseth Romero Aldana. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const modalEl = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalCaption = document.getElementById('modalCaption');
-
-        // Cuando el modal se abre mediante data-bs-toggle, bootstrap ofrece event.relatedTarget
-        modalEl.addEventListener('show.bs.modal', function (event) {
-            const trigger = event.relatedTarget;
-            if (!trigger) return;
-            // trigger es la imagen que se hizo clic
-            modalImage.src = trigger.src || '';
-            modalImage.alt = trigger.alt || '';
-            modalCaption.textContent = trigger.alt || '';
-        });
-
-        // Limpiar src al cerrar para liberar memoria y evitar parpadeos
-        modalEl.addEventListener('hidden.bs.modal', function () {
-            modalImage.src = '';
-            modalImage.alt = '';
-            modalCaption.textContent = '';
-        });
-    });
-    </script>
-
+    <script src="../js/proyectos.js"></script>
 </body>
 </html>
