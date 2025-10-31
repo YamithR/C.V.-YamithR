@@ -95,4 +95,5 @@ document.addEventListener('DOMContentLoaded', function () {
         currentZoom = 1;
         modalImage.style.transform = 'scale(1) translate(0px, 0px)';
     });
+    
 });
