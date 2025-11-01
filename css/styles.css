@@ -208,7 +208,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.5);
+    background: rgba(30, 41, 59, 0.8);
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -219,7 +219,7 @@
 }
 
 [data-theme="dark"] .indicator {
-    background: rgba(30, 41, 59, 0.8);
+    background: rgba(255,255,255,0.5);
 }
 
 [data-theme="dark"] .indicator.active {

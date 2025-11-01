@@ -19,27 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
         badge.textContent = skill;
         container.appendChild(badge);
     });
-        /* Simple entrada con fade + slide al cargar la página */
-    (function(){
-        var b = document.body;
-        // Aplicar estado inicial inmediatamente para evitar parpadeo
-        b.style.opacity = '0';
-        b.style.transform = 'translateY(10px)';
-        b.style.transition = 'opacity .6s ease, transform .6s ease';
-
-        window.addEventListener('load', function(){
-        requestAnimationFrame(function(){
-            b.style.opacity = '1';
-            b.style.transform = 'translateY(0)';
-        });
-        });
-    })();
 
     // SLIDER DE PROYECTOS
     class ProjectSlider {
         constructor() {
             this.currentSlide = 0;
-            this.totalSlides = 4;
+            this.totalSlides = 7;
             this.wrapper = document.querySelector('.slider-wrapper');
             this.prevBtn = document.querySelector('.prev-btn');
             this.nextBtn = document.querySelector('.next-btn');
@@ -124,10 +109,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializar slider
     new ProjectSlider();
 
-    // Aplicar tema según hora (6 AM - 6 PM claro)
+    // Aplicar tema según hora (6 AM - 12 AM claro)
     function applyThemeByHour() {
         const hour = new Date().getHours();
-        const isDay = hour >= 6 && hour < 18;
+        const isDay = hour >= 6 && hour < 12;
 
         if (isDay) {
             body.removeAttribute('data-theme');
