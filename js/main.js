@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
         'Python', 'C++', 'Ladder (PLC)', 'Arduino',
         'SolidWorks', 'AutoCAD', 'Impresión 3D',
         'Klipper / OrcaSlicer', 'Raspberry Pi', 'ESP32',
-        'MATLAB/Simulink', 'Linux'
+        'MATLAB/Simulink', 'Linux', 'HTML/CSS', 'Tinkercad', 'Git/GitHub',
+        'Microsoft Office', 'Inkscape', 'Fritzing', 'OrcaSlicer', 'Onshape', 'Proteus'
     ];
 
     const container = document.querySelector('.skills-container');
@@ -150,5 +151,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+    
+    // Animación de volteo de imagen de perfil
+    const profileContainer = document.querySelector('.profile-image-container');
+    if (profileContainer) {
+        // Giro automático después de 1.5 segundos
+        setTimeout(() => {
+            profileContainer.classList.add('flipped');
+        }, 1500);
 
+        // Mantener la funcionalidad de giro al hacer clic
+        profileContainer.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    }
 });
+        
