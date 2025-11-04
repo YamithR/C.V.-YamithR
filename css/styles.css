@@ -27,9 +27,7 @@
     --border: #334155;
 }
 
-/* [MANTENER ESTILOS ANTERIORES...] */
-
-/* NUEVOS ESTILOS PARA SLIDER DE PROYECTOS */
+/* ESTILOS PARA SLIDER DE PROYECTOS */
 .projects-slider {
     position: relative;
     margin: 2rem 0;
@@ -503,4 +501,100 @@ footer::before {
     .hero .lead { font-size: 1.1rem; }
     .timeline { padding-left: 1.5rem; }
     .timeline-item::before { left: -1.8rem; }
+}
+/* Estilos para la sección de búsqueda */
+.search-section {
+    margin-bottom: 1rem;
+}
+
+#project-search {
+    border-radius: 0.5rem 0 0 0.5rem;
+    border-right: none;
+    transition: border-color 0.3s ease;
+}
+
+#project-search:focus {
+    border-color: var(--bs-primary);
+    box-shadow: none;
+}
+
+#clear-search {
+    border-radius: 0;
+    background-color: var(--bs-primary);
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#clear-search:hover {
+    background-color: #075a6e;
+}
+
+#gallery-btn {
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: var(--bs-primary);
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#gallery-btn:hover {
+    background-color: #075a6e;
+}
+
+/* Ocultar slides no coincidentes */
+.project-slide.hidden {
+    display: none !important;
+}
+
+/* Estilos para la galería de posters */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.gallery-poster {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-poster:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.gallery-content {
+    padding: 1.5rem;
+    color: var(--text);
+}
+
+.gallery-content h5 {
+    margin-bottom: 0.5rem;
+    color: var(--bs-primary);
+}
+
+.gallery-content p {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.gallery-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }

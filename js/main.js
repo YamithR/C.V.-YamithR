@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme-toggle');
     const icon = themeToggle.querySelector('i');
     const text = themeToggle.querySelector('span');
+    const searchInput = document.getElementById('project-search');
+    const clearSearch = document.getElementById('clear-search');
+    const projectSlides = document.querySelectorAll('.project-slide');
 
     // Habilidades técnicas
     const skills = [
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     class ProjectSlider {
         constructor() {
             this.currentSlide = 0;
-            this.totalSlides = 7;
+            this.totalSlides = 6;
             this.wrapper = document.querySelector('.slider-wrapper');
             this.prevBtn = document.querySelector('.prev-btn');
             this.nextBtn = document.querySelector('.next-btn');
@@ -165,5 +168,34 @@ document.addEventListener('DOMContentLoaded', function () {
             this.classList.toggle('flipped');
         });
     }
+    // Búsqueda de proyectos
+    function filterProjects() {
+        const query = searchInput.value.toLowerCase().trim();
+        projectSlides.forEach(slide => {
+            const title = slide.querySelector('.project-content h5').textContent.toLowerCase();
+            const description = slide.querySelector('.project-description').textContent.toLowerCase();
+            const tags = slide.getAttribute('data-tags').toLowerCase();
+            
+            if (query === '' || title.includes(query) || description.includes(query) || tags.includes(query)) {
+                slide.classList.remove('hidden');
+            } else {
+                slide.classList.add('hidden');
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterProjects);
+
+    // Limpiar búsqueda
+    clearSearch.addEventListener('click', () => {
+        searchInput.value = '';
+        projectSlides.forEach(slide => slide.classList.remove('hidden'));
+        searchInput.focus();
+    });
+
+
+
+
+
 });
         

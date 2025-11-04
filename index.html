@@ -72,10 +72,22 @@
 
         <!-- PROYECTOS - Slider Horizontal -->
         <section id="proyectos" class="mb-5">
-            <h2 class="section-title">Proyectos</h2>
+            <h2 class="section-title">Proyectos Destacados</h2>
             <div class="projects-slider">
+                <div class="search-section mb-3">
+                    <div class="input-group">
+                        <input type="text" id="project-search" class="form-control" placeholder="Buscar proyecto por nombre, descripción o etiqueta...">
+                        <button class="btn btn-primary" id="clear-search">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                        <a href="proyectos/galeria.html" class="btn btn-info" id="gallery-btn">
+                            <i class="bi bi-images"></i> Galería
+                        </a>
+                    </div>
+                </div>
                 <div class="slider-container">
                     <div class="slider-wrapper">
+
                         <!-- Proyecto 1: Simulador Mecánico Bote Fluvial -->
                         <div class="project-slide">
                             <div class="project-card">
@@ -88,7 +100,7 @@
                                 <div class="project-content">
                                     <h5>Simulador Mecánico Bote Fluvial</h5>
                                     <p class="project-description">Prototipo a escala para ONIRIS-ID. Análisis de materiales, experimentación y validación técnica de simulador fluvial.</p>
-                                    <div class="project-meta mb-3">
+                                    <div class="project-tags">
                                         <span class="badge bg-warning text-dark">ONIRIS-ID</span>
                                         <span class="badge bg-primary">Armada</span>
                                         <span class="badge bg-success">Prototipado</span>
@@ -249,13 +261,95 @@
                         <span class="indicator" data-slide="3"></span>
                         <span class="indicator" data-slide="4"></span>
                         <span class="indicator" data-slide="5"></span>
-                        <span class="indicator" data-slide="6"></span>
 
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Educación -->
+        <section id="educacion" class="mb-5">
+            <h2 class="section-title">Educación</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h5 class="fw-bold">Bachiller Académico <span class="text-muted fw-normal">— Colegio Sagrado Corazón de Jesús</span></h5>
+                    <p class="text-muted"><i class="bi bi-calendar-range"></i> 2020</p>
+                    <a href="certificados/Diploma de bachiller.pdf" download class="btn btn-sm btn-outline-info mt-2">
+                        <i class="bi bi-download"></i> Descargar Diploma
+                    </a>
+                </div>
+                <div class="timeline-item">
+                    <h5 class="fw-bold">Estructura y sintaxis de C++ <span class="text-muted fw-normal">— SENA</span></h5>
+                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Dic 12 2020</p>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-mortarboard-fill text-info"></i> Curso de programacion C++ Nivel Básico</li>
+                    </ul>
+                    <a href="certificados/Certificado de C++Lv1.pdf" download class="btn btn-sm btn-outline-info mt-2">
+                        <i class="bi bi-download"></i> Descargar Certificado C++Lv1
+                    </a>
+                </div>
+                <div class="timeline-item">
+                    <h5 class="fw-bold">Boocamp Programación <span class="text-muted fw-normal">— Talento Tech</span></h5>
+                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Ago 13 2025</p>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-mortarboard-fill text-info"></i> Bootcamp de Programación Full Stack Nivel Básico</li>
+                    </ul>
+                    <a href="certificados/TalectoTech-Programación.pdf" download class="btn btn-sm btn-outline-info mt-2">
+                        <i class="bi bi-download"></i> Descargar Certificado Bootcamp
+                    </a>
+                </div>
+
+                <div class="timeline-item">
+                    <h5 class="fw-bold">Ingeniería Mecatrónica <span class="text-muted fw-normal">— Universidad Autónoma del Caribe</span></h5>
+                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Feb 2021 – Jun 2025 (Previsto)</p>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-mortarboard-fill text-info"></i> Miembro Activo de IEEE</li>
+                        <li><i class="bi bi-mortarboard-fill text-info"></i> Cursos destacados: Automatización Industrial, IoT aplicado, Control de Sistemas Embebidos</li>
+                        <li><i class="bi bi-mortarboard-fill text-info"></i> Participación en INNOVATEC-NM 2024 (México) <span class="cert-badge">Internacional</span></li>
+                    </ul>
+                    <a href="certificados/innovatec_nm2024.pdf" download class="btn btn-sm btn-outline-info mt-2">
+                        <i class="bi bi-download"></i> Descargar Certificado INNOVATEC-NM
+                    </a>
+                </div>
+            </div>
+
+            <h5 class="mt-4 fw-bold">Formación Adicional</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-book text-primary"></i> Seminario: Innovación en IA (UAC, 2023)
+                            </div>
+                            <a href="certificados/uac_innovacion_ia.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                        <li class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-book text-primary"></i> Metodologías de Investigación Científica (Semillero UAC, 2022)
+                            </div>
+                            <a href="certificados/semillero_uac.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-book text-primary"></i> Feria de la Ciencia ACS 2025 – Anglo Colombia School <span class="cert-badge">2025</span>
+                            </div>
+                            <a href="certificados/acs2025.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                        <li class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-book text-primary"></i> Certificado de Pertenencia Indígena – Ministerio del Interior (2022)
+                            </div>
+                            <a href="certificados/indigena.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
         <!-- Experiencia Laboral -->
         <section id="experiencia" class="mb-5">
             <h2 class="section-title">Experiencia Laboral</h2>
@@ -350,88 +444,6 @@
             <p class="lead">Liderazgo • Comunicación asertiva • Gestión ágil de proyectos • Resolución de problemas complejos • Adaptabilidad intercultural</p>
         </section>
 
-        <!-- Educación -->
-        <section id="educacion" class="mb-5">
-            <h2 class="section-title">Educación</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Bachiller Académico <span class="text-muted fw-normal">— Colegio Sagrado Corazón de Jesús</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> 2020</p>
-                    <a href="certificados/Diploma de bachiller.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Diploma
-                    </a>
-                </div>
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Estructura y sintaxis de C++ <span class="text-muted fw-normal">— SENA</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Dic 12 2020</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Curso de programacion C++ Nivel Básico</li>
-                    </ul>
-                    <a href="certificados/Certificado de C++Lv1.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado C++Lv1
-                    </a>
-                </div>
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Boocamp Programación <span class="text-muted fw-normal">— Talento Tech</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Ago 13 2025</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Bootcamp de Programación Full Stack Nivel Básico</li>
-                    </ul>
-                    <a href="certificados/TalectoTech-Programación.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado Bootcamp
-                    </a>
-                </div>
-
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Ingeniería Mecatrónica <span class="text-muted fw-normal">— Universidad Autónoma del Caribe</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Feb 2021 – Jun 2025 (Previsto)</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Miembro Activo de IEEE</li>
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Cursos destacados: Automatización Industrial, IoT aplicado, Control de Sistemas Embebidos</li>
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Participación en INNOVATEC-NM 2024 (México) <span class="cert-badge">Internacional</span></li>
-                    </ul>
-                    <a href="certificados/innovatec_nm2024.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado INNOVATEC-NM
-                    </a>
-                </div>
-            </div>
-
-            <h5 class="mt-4 fw-bold">Formación Adicional</h5>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="bi bi-book text-primary"></i> Seminario: Innovación en IA (UAC, 2023)
-                            </div>
-                            <a href="certificados/uac_innovacion_ia.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="bi bi-book text-primary"></i> Metodologías de Investigación Científica (Semillero UAC, 2022)
-                            </div>
-                            <a href="certificados/semillero_uac.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="bi bi-book text-primary"></i> Feria de la Ciencia ACS 2025 – Anglo Colombia School <span class="cert-badge">2025</span>
-                            </div>
-                            <a href="certificados/acs2025.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="bi bi-book text-primary"></i> Certificado de Pertenencia Indígena – Ministerio del Interior (2022)
-                            </div>
-                            <a href="certificados/indigena.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
         <!-- Referencias -->
         <section id="referencias" class="mb-5">
