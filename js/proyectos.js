@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     if (themeToggle) {
         const icon = themeToggle.querySelector('i');
+        const text = themeToggle.querySelector('span');
         
         // Apply theme based on time (6 AM - 12 PM light mode)
         function applyThemeByHour() {
@@ -14,9 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isDay) {
                 body.removeAttribute('data-theme');
                 if (icon) icon.className = 'bi bi-sun-fill';
+                if (text) text.textContent = 'Modo Claro';
             } else {
                 body.setAttribute('data-theme', 'dark');
                 if (icon) icon.className = 'bi bi-moon-fill';
+                if (text) text.textContent = 'Modo Oscuro';
             }
         }
 
@@ -27,9 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (body.hasAttribute('data-theme')) {
                 body.removeAttribute('data-theme');
                 if (icon) icon.className = 'bi bi-sun-fill';
+                if (text) text.textContent = 'Modo Claro';
             } else {
                 body.setAttribute('data-theme', 'dark');
                 if (icon) icon.className = 'bi bi-moon-fill';
+                if (text) text.textContent = 'Modo Oscuro';
             }
         });
     }

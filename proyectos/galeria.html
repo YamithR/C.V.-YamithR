@@ -16,6 +16,9 @@
             <a class="navbar-brand" href="../index.html">
                 <i class="bi bi-person-circle"></i> Yamith Romero
             </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,11 +32,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../index.html#contacto">Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
-                            <i class="bi bi-moon-fill"></i>
-                        </button>
                     </li>
                 </ul>
             </div>
@@ -186,6 +184,7 @@
             
             if (themeToggle) {
                 const icon = themeToggle.querySelector('i');
+                const text = themeToggle.querySelector('span');
                 
                 // Apply theme based on time (6 AM - 12 PM light mode)
                 function applyThemeByHour() {
@@ -195,9 +194,11 @@
                     if (isDay) {
                         body.removeAttribute('data-theme');
                         if (icon) icon.className = 'bi bi-sun-fill';
+                        if (text) text.textContent = 'Modo Claro';
                     } else {
                         body.setAttribute('data-theme', 'dark');
                         if (icon) icon.className = 'bi bi-moon-fill';
+                        if (text) text.textContent = 'Modo Oscuro';
                     }
                 }
 
@@ -208,9 +209,11 @@
                     if (body.hasAttribute('data-theme')) {
                         body.removeAttribute('data-theme');
                         if (icon) icon.className = 'bi bi-sun-fill';
+                        if (text) text.textContent = 'Modo Claro';
                     } else {
                         body.setAttribute('data-theme', 'dark');
                         if (icon) icon.className = 'bi bi-moon-fill';
+                        if (text) text.textContent = 'Modo Oscuro';
                     }
                 });
             }
