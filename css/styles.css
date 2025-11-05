@@ -646,6 +646,13 @@ footer::before {
     align-items: center;
 }
 
+.chat-header .badge {
+    font-size: 0.7rem;
+    padding: 0.2em 0.5em;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
 #close-chat {
     background: none;
     border: none;

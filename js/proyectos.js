@@ -1,4 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Theme toggle functionality
+    const body = document.body;
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    if (themeToggle) {
+        const icon = themeToggle.querySelector('i');
+        
+        // Apply theme based on time (6 AM - 12 PM light mode)
+        function applyThemeByHour() {
+            const hour = new Date().getHours();
+            const isDay = hour >= 6 && hour < 12;
+
+            if (isDay) {
+                body.removeAttribute('data-theme');
+                if (icon) icon.className = 'bi bi-sun-fill';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                if (icon) icon.className = 'bi bi-moon-fill';
+            }
+        }
+
+        applyThemeByHour();
+
+        // Manual theme toggle
+        themeToggle.addEventListener('click', () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                if (icon) icon.className = 'bi bi-sun-fill';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                if (icon) icon.className = 'bi bi-moon-fill';
+            }
+        });
+    }
+
     const modalImage = document.getElementById('modalImage');
     const modalCaption = document.getElementById('modalCaption');
     const imageModal = document.getElementById('imageModal');

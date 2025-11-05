@@ -28,16 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
     class ProjectSlider {
         constructor() {
             this.currentSlide = 0;
-            this.totalSlides = 6;
             this.wrapper = document.querySelector('.slider-wrapper');
             this.prevBtn = document.querySelector('.prev-btn');
             this.nextBtn = document.querySelector('.next-btn');
             this.indicators = document.querySelectorAll('.indicator');
+            this.allSlides = document.querySelectorAll('.project-slide');
             
             this.init();
         }
         
         init() {
+            this.updateVisibleSlides();
+            
             this.prevBtn.addEventListener('click', () => this.prevSlide());
             this.nextBtn.addEventListener('click', () => this.nextSlide());
             
@@ -84,24 +86,58 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
         
-        goToSlide(slideIndex) {
-            this.currentSlide = slideIndex;
+        updateVisibleSlides() {
+            this.visibleSlides = Array.from(this.allSlides).filter(slide => !slide.classList.contains('hidden'));
+            this.totalSlides = this.visibleSlides.length;
+            
+            // Update indicators
+            this.indicators.forEach((indicator, index) => {
+                if (index < this.totalSlides) {
+                    indicator.style.display = 'block';
+                } else {
+                    indicator.style.display = 'none';
+                }
+            });
+            
+            // Adjust current slide if needed
+            if (this.currentSlide >= this.totalSlides && this.totalSlides > 0) {
+                this.currentSlide = 0;
+            }
+            
             this.updateSlider();
+        }
+        
+        goToSlide(slideIndex) {
+            if (slideIndex < this.totalSlides) {
+                this.currentSlide = slideIndex;
+                this.updateSlider();
+            }
         }
         
         nextSlide() {
-            this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-            this.updateSlider();
+            if (this.totalSlides > 0) {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateSlider();
+            }
         }
         
         prevSlide() {
-            this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-            this.updateSlider();
+            if (this.totalSlides > 0) {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateSlider();
+            }
         }
         
         updateSlider() {
-            const translateX = -this.currentSlide * 100;
-            this.wrapper.style.transform = `translateX(${translateX}%)`;
+            if (this.totalSlides === 0) return;
+            
+            // Calculate position based on visible slides
+            let position = 0;
+            for (let i = 0; i < this.currentSlide && i < this.visibleSlides.length; i++) {
+                position += 100;
+            }
+            
+            this.wrapper.style.transform = `translateX(-${position}%)`;
             
             // Actualizar indicadores
             this.indicators.forEach((indicator, index) => {
@@ -111,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     // Inicializar slider
-    new ProjectSlider();
+    const slider = new ProjectSlider();
 
     // Aplicar tema según hora (6 AM - 12 AM claro)
     function applyThemeByHour() {
@@ -174,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         projectSlides.forEach(slide => {
             const title = slide.querySelector('.project-content h5').textContent.toLowerCase();
             const description = slide.querySelector('.project-description').textContent.toLowerCase();
-            const tags = slide.getAttribute('data-tags').toLowerCase();
+            const tags = slide.getAttribute('data-tags') ? slide.getAttribute('data-tags').toLowerCase() : '';
             
             if (query === '' || title.includes(query) || description.includes(query) || tags.includes(query)) {
                 slide.classList.remove('hidden');
@@ -182,6 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 slide.classList.add('hidden');
             }
         });
+        
+        // Update slider after filtering
+        slider.updateVisibleSlides();
     }
 
     searchInput.addEventListener('input', filterProjects);
@@ -190,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     clearSearch.addEventListener('click', () => {
         searchInput.value = '';
         projectSlides.forEach(slide => slide.classList.remove('hidden'));
+        slider.updateVisibleSlides();
         searchInput.focus();
     });
 

@@ -30,52 +30,139 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../index.html#contacto">Contacto</a>
                     </li>
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <main class="container py-5">
-        <h2 class="section-title text-center mb-5">Galería de Proyectos</h2>
+        <h2 class="section-title text-center mb-4">Galería de Proyectos</h2>
+        
+        <!-- Search Section -->
+        <div class="search-section mb-4">
+            <div class="input-group">
+                <input type="text" id="project-search" class="form-control" placeholder="Buscar proyecto por nombre, descripción o etiqueta...">
+                <button class="btn btn-primary" id="clear-search">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
         <div class="gallery-container">
-            <!-- Poster 1: Simulador Mecánico Bote Fluvial -->
-            <div class="gallery-poster">
-                <img src="../assets/img/proyecto1.jpg" alt="Simulador Mecánico Bote Fluvial" class="gallery-image">
+            <!-- Proyecto 1: Simulador Mecánico Bote Fluvial -->
+            <div class="gallery-poster" data-tags="oniris-id armada prototipado 3d printing solidworks mecatronica simulador bote fluvial">
+                <img src="../assets/img/SimuladorBote/DibujoPlataforma.png" alt="Simulador Mecánico Bote Fluvial" class="gallery-image">
                 <div class="gallery-content">
                     <h5>Simulador Mecánico Bote Fluvial</h5>
-                    <p>Prototipo a escala para ONIRIS-ID con análisis de materiales y validación técnica.</p>
+                    <p class="project-description">Prototipo a escala para ONIRIS-ID. Análisis de materiales, experimentación y validación técnica de simulador fluvial.</p>
+                    <div class="project-tags mt-2">
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-primary">Armada</span>
+                        <span class="badge bg-success">Prototipado</span>
+                        <span class="badge bg-info">3D Printing</span>
+                        <span class="badge bg-danger">SolidWorks</span>
+                        <span class="badge bg-secondary">Mecatronica</span>
+                    </div>
                 </div>
-                <a href="proyecto1.html" class="gallery-link"></a>
+                <a href="Simulador_Mecánico_Bote_fluvial.html" class="gallery-link"></a>
             </div>
 
-            <!-- Poster 2: Extrusora Filamento Reciclado -->
-            <div class="gallery-poster">
-                <img src="../assets/img/proyecto2.jpg" alt="Extrusora Filamento Reciclado" class="gallery-image">
+            <!-- Proyecto 2: Mecanismos de Encoders M2.50 -->
+            <div class="gallery-poster" data-tags="oniris-id armada 3d printing solidworks mecánica encoders m2.50 mecanismos">
+                <img src="../assets/img/MecanismoEncoders/M2-VistaIsometrica.png" alt="Mecanismos de Encoders M2.50" class="gallery-image">
                 <div class="gallery-content">
-                    <h5>Extrusora de Filamento Reciclado</h5>
-                    <p>Máquina que reduce costos de material en 20% con control automatizado por Arduino.</p>
+                    <h5>Mecanismos de Encoders M2.50</h5>
+                    <p class="project-description">Diseño, impresión e implementación de mecanismos de encoders para ejes X Y de Simulador de Ametralladora M2.50.</p>
+                    <div class="project-tags mt-2">
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-primary">Armada</span>
+                        <span class="badge bg-info">3D Printing</span>
+                        <span class="badge bg-danger">SolidWorks</span>
+                        <span class="badge bg-secondary">Mecánica</span>
+                    </div>
                 </div>
-                <a href="proyecto2.html" class="gallery-link"></a>
+                <a href="Mecanismos_de_Encoders_de_M2.50.html" class="gallery-link"></a>
             </div>
 
-            <!-- Poster 3: Entorno Inteligente SCORBOT -->
-            <div class="gallery-poster">
-                <img src="../assets/img/proyecto3.jpg" alt="Entorno Inteligente SCORBOT" class="gallery-image">
+            <!-- Proyecto 3: Automatización de Granja 3D -->
+            <div class="gallery-poster" data-tags="oniris-id orcaslicer automatización 3d printing klipper mecatronica iot granja impresoras">
+                <img src="../assets/img/GranjaImpresoras3D/Integración.jpg" alt="Automatización de Granja de impresión 3D" class="gallery-image">
                 <div class="gallery-content">
-                    <h5>Entorno Inteligente SCORBOT</h5>
-                    <p>Integración IoT y Python para optimizar interacción humano-robot en educación.</p>
+                    <h5>Automatización de Granja de impresión 3D</h5>
+                    <p class="project-description">Integración de sensores IoT y programación Python para optimizar la interacción en la granja de impresión 3D.</p>
+                    <div class="project-tags mt-2">
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-info">OrcaSlicer</span>
+                        <span class="badge bg-success">Automatización</span>
+                        <span class="badge bg-info">3D Printing</span>
+                        <span class="badge bg-danger">Klipper</span>
+                        <span class="badge bg-secondary">Mecatronica</span>
+                        <span class="badge bg-primary">IoT</span>
+                    </div>
                 </div>
-                <a href="proyecto3.html" class="gallery-link"></a>
+                <a href="Automatizaciónde_Granja_3D.html" class="gallery-link"></a>
             </div>
 
-            <!-- Poster 4: Masajeador Automatizado -->
-            <div class="gallery-poster">
-                <img src="../assets/img/proyecto4.jpg" alt="Masajeador Automatizado" class="gallery-image">
+            <!-- Proyecto 4: Puesta en Marcha SCORBOT -->
+            <div class="gallery-poster" data-tags="uac automatización prototipado programación robótica iot mecatrónica control scorbot">
+                <img src="../assets/img/proyecto4.jpg" alt="Puesta en Marcha SCORBOT" class="gallery-image">
                 <div class="gallery-content">
-                    <h5>Masajeador Automatizado</h5>
-                    <p>Dispositivo mecatrónico validado en entornos clínicos con sensores de presión.</p>
+                    <h5>Puesta en Marcha SCORBOT</h5>
+                    <p class="project-description">Implementación de sistemas IoT, restauración de mecánica y desarrollo de controlador de robot SCORBOT para aplicaciones industriales.</p>
+                    <div class="project-tags mt-2">
+                        <span class="badge bg-danger">UAC</span>
+                        <span class="badge bg-success">Automatización</span>
+                        <span class="badge bg-success">Prototipado</span>
+                        <span class="badge bg-primary">Programación</span>
+                        <span class="badge bg-info">Robótica</span>
+                        <span class="badge bg-info">IoT</span>
+                        <span class="badge bg-secondary">Mecatrónica</span>
+                        <span class="badge bg-secondary">Control</span>
+                    </div>
                 </div>
                 <a href="proyecto4.html" class="gallery-link"></a>
+            </div>
+
+            <!-- Proyecto 5: SensoraCore -->
+            <div class="gallery-poster" data-tags="uac iot programación software sensores mecatrónica domótica sensoracore">
+                <img src="../assets/img/proyecto5.jpg" alt="SensoraCore" class="gallery-image">
+                <div class="gallery-content">
+                    <h5>SensoraCore</h5>
+                    <p class="project-description">Conjunto de Softwares de sistema de adquisición de datos de sensores orientados a domótica.</p>
+                    <div class="project-tags mt-2">
+                        <span class="badge bg-danger">UAC</span>
+                        <span class="badge bg-primary">IoT</span>
+                        <span class="badge bg-success">Programación</span>
+                        <span class="badge bg-success">Software</span>
+                        <span class="badge bg-info">Sensores</span>
+                        <span class="badge bg-secondary">Mecatrónica</span>
+                    </div>
+                </div>
+                <a href="proyecto5.html" class="gallery-link"></a>
+            </div>
+
+            <!-- Proyecto 6: MOMO-BoatController-RPi4 -->
+            <div class="gallery-poster" data-tags="oniris-id armada raspberry pi robótica software programación mecatrónica bote controlador">
+                <img src="../assets/img/proyecto6.jpg" alt="MOMO-BoatController-RPi4" class="gallery-image">
+                <div class="gallery-content">
+                    <h5>MOMO-BoatController-RPi4</h5>
+                    <p class="project-description">Controlador de bote fluvial basado en Raspberry Pi 4 para integración de sistemas de navegación y monitoreo remoto.</p>
+                    <div class="project-tags mt-2">
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-primary">Armada</span>
+                        <span class="badge bg-info">Raspberry Pi</span>
+                        <span class="badge bg-info">Robótica</span>
+                        <span class="badge bg-success">Software</span>
+                        <span class="badge bg-success">Programación</span>
+                        <span class="badge bg-secondary">Mecatrónica</span>
+                    </div>
+                </div>
+                <a href="proyecto6.html" class="gallery-link"></a>
             </div>
         </div>
     </main>
@@ -88,5 +175,75 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+            const searchInput = document.getElementById('project-search');
+            const clearSearch = document.getElementById('clear-search');
+            const galleryPosters = document.querySelectorAll('.gallery-poster');
+            
+            if (themeToggle) {
+                const icon = themeToggle.querySelector('i');
+                
+                // Apply theme based on time (6 AM - 12 PM light mode)
+                function applyThemeByHour() {
+                    const hour = new Date().getHours();
+                    const isDay = hour >= 6 && hour < 12;
+
+                    if (isDay) {
+                        body.removeAttribute('data-theme');
+                        if (icon) icon.className = 'bi bi-sun-fill';
+                    } else {
+                        body.setAttribute('data-theme', 'dark');
+                        if (icon) icon.className = 'bi bi-moon-fill';
+                    }
+                }
+
+                applyThemeByHour();
+
+                // Manual theme toggle
+                themeToggle.addEventListener('click', () => {
+                    if (body.hasAttribute('data-theme')) {
+                        body.removeAttribute('data-theme');
+                        if (icon) icon.className = 'bi bi-sun-fill';
+                    } else {
+                        body.setAttribute('data-theme', 'dark');
+                        if (icon) icon.className = 'bi bi-moon-fill';
+                    }
+                });
+            }
+            
+            // Search functionality
+            function filterProjects() {
+                const query = searchInput.value.toLowerCase().trim();
+                galleryPosters.forEach(poster => {
+                    const title = poster.querySelector('h5').textContent.toLowerCase();
+                    const description = poster.querySelector('.project-description').textContent.toLowerCase();
+                    const tags = poster.getAttribute('data-tags') ? poster.getAttribute('data-tags').toLowerCase() : '';
+                    
+                    if (query === '' || title.includes(query) || description.includes(query) || tags.includes(query)) {
+                        poster.style.display = 'block';
+                    } else {
+                        poster.style.display = 'none';
+                    }
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterProjects);
+            }
+
+            // Clear search
+            if (clearSearch) {
+                clearSearch.addEventListener('click', () => {
+                    searchInput.value = '';
+                    galleryPosters.forEach(poster => poster.style.display = 'block');
+                    searchInput.focus();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
