@@ -1,3 +1,67 @@
+/* Variables de tema - sincronizadas con styles.css */
+:root {
+    --bs-primary: #0d6efd;
+    --bs-secondary: #6c757d;
+    --bs-dark: #212529;
+    --bs-light: #f8f9fa;
+    --bs-success: #10b981;
+    --bs-info: #06b6d4;
+    --bs-warning: #f59e0b;
+    --bs-danger: #ef4444;
+    --text: #212529;
+    --bg: #ffffff;
+    --card-bg: #ffffff;
+    --border: #dee2e6;
+}
+
+[data-theme="dark"] {
+    --bs-primary: #06b6d4;
+    --bs-secondary: #64748b;
+    --bs-dark: #e2e8f0;
+    --bs-light: #1e293b;
+    --bs-success: #10b981;
+    --bs-info: #06b6d4;
+    --text: #e2e8f0;
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --border: #334155;
+}
+
+/* Aplicar variables al body */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Estilos para elementos específicos de proyectos */
+.project-hero {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.project-sidebar {
+    background-color: var(--card-bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border);
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+.project-sidebar h3,
+.project-sidebar h6 {
+    color: var(--text);
+}
+
+.project-title {
+    color: var(--bs-primary);
+}
+
+/* Texto muted para modo claro y oscuro */
+[data-theme="dark"] .text-muted {
+    color: #94a3b8 !important;
+}
+
 .gallery-img {
     cursor: zoom-in;
     transition: transform .15s ease;
@@ -64,7 +128,163 @@
 }
 
 .modal-body {
-    background-color: rgba(11, 4, 43, 0.9);
+    background-color: var(--card-bg);
+    transition: background-color 0.4s ease;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--border);
+    background-color: var(--card-bg);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: var(--card-bg);
+    color: var(--text);
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+    border-color: var(--border);
+}
+
+/* Navbar en páginas de proyectos */
+.navbar-dark {
+    background: linear-gradient(135deg, var(--bs-primary), #475569) !important;
+    transition: background 0.4s ease;
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .nav-link {
+    color: white !important;
+}
+
+/* Footer en páginas de proyectos */
+footer {
+    background: linear-gradient(135deg, var(--bs-primary), #475569);
+    color: white;
+    transition: background 0.4s ease;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, var(--bs-primary), var(--bs-info), var(--bs-success));
+}
+
+footer p {
+    color: white !important;
+    margin: 0;
+}
+
+[data-theme="dark"] footer {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: #e2e8f0;
+}
+
+/* Botones en sidebar */
+.btn-outline-secondary {
+    border-color: var(--border);
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: white;
+}
+
+.btn-outline-info {
+    border-color: var(--bs-info);
+    color: var(--bs-info);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-info:hover {
+    background-color: var(--bs-info);
+    border-color: var(--bs-info);
+    color: white;
+}
+
+[data-theme="dark"] .btn-outline-info {
+    border-color: var(--bs-info);
+    color: var(--bs-info);
+}
+
+[data-theme="dark"] .btn-outline-info:hover {
+    background-color: var(--bs-info);
+    color: white;
+}
+
+/* Headings en páginas de proyectos */
+h3, h4, h5, h6 {
+    color: var(--text);
+}
+
+/* Lista de tecnologías */
+.project-tech ul li {
+    color: var(--text);
+}
+
+/* Párrafos y lead */
+p, .lead {
+    color: var(--text);
+}
+
+/* Listas */
+ul li {
+    color: var(--text);
+}
+
+/* Botón close del modal */
+.btn-close {
+    filter: var(--bs-btn-close-white-filter, none);
+}
+
+[data-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Modal caption */
+#modalCaption {
+    color: var(--text);
+}
+
+/* Separador horizontal */
+hr {
+    border-color: var(--border);
+    opacity: 0.3;
+}
+
+/* Imágenes con bordes */
+.img-fluid.rounded {
+    border: 1px solid var(--border);
+    transition: border-color 0.4s ease;
+}
+
+/* Videos */
+video.rounded {
+    border: 1px solid var(--border);
+    transition: border-color 0.4s ease;
+}
+
+/* Galería */
+.row.g-3 {
+    margin-top: 1rem;
 }
 
 .zoom-controls {

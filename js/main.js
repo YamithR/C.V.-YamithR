@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const body = document.body;
-    const themeToggle = document.getElementById('theme-toggle');
-    const icon = themeToggle.querySelector('i');
-    const text = themeToggle.querySelector('span');
     const searchInput = document.getElementById('project-search');
     const clearSearch = document.getElementById('clear-search');
     const projectSlides = document.querySelectorAll('.project-slide');
@@ -148,37 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Inicializar slider
     const slider = new ProjectSlider();
-
-    // Aplicar tema según hora (6 AM - 12 AM claro)
-    function applyThemeByHour() {
-        const hour = new Date().getHours();
-        const isDay = hour >= 6 && hour < 12;
-
-        if (isDay) {
-            body.removeAttribute('data-theme');
-            icon.className = 'bi bi-sun-fill';
-            text.textContent = 'Modo Claro';
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            icon.className = 'bi bi-moon-fill';
-            text.textContent = 'Modo Oscuro';
-        }
-    }
-
-    applyThemeByHour();
-
-    // Cambio manual de tema
-    themeToggle.addEventListener('click', () => {
-        if (body.hasAttribute('data-theme')) {
-            body.removeAttribute('data-theme');
-            icon.className = 'bi bi-sun-fill';
-            text.textContent = 'Modo Claro';
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            icon.className = 'bi bi-moon-fill';
-            text.textContent = 'Modo Oscuro';
-        }
-    });
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

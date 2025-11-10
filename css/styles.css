@@ -356,6 +356,55 @@ body {
     padding-left: 2.5rem;
 }
 
+/* Contenedor scrolleable para timeline */
+.timeline-container {
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 1rem;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+/* Indicador de scroll (sombra en la parte inferior) */
+.timeline-container::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to top, var(--bg), transparent);
+    pointer-events: none;
+    display: block;
+}
+
+/* Scrollbar personalizado */
+.timeline-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+    background: var(--card-bg);
+    border-radius: 10px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+    background: var(--bs-primary);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-info);
+}
+
+/* Para Firefox */
+.timeline-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bs-primary) var(--card-bg);
+}
+
 .timeline::before {
     content: '';
     position: absolute;
@@ -369,7 +418,7 @@ body {
 
 .timeline-item {
     position: relative;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     background: var(--card-bg);
     color: var(--text);
     padding: 1.5rem;
@@ -377,6 +426,7 @@ body {
     border: 1px solid var(--border);
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
+    min-height: 200px;
 }
 
 [data-theme="dark"] .timeline-item {
@@ -501,6 +551,7 @@ footer::before {
     .hero .lead { font-size: 1.1rem; }
     .timeline { padding-left: 1.5rem; }
     .timeline-item::before { left: -1.8rem; }
+    .timeline-container { max-height: 500px; }
 }
 /* Estilos para la sección de búsqueda */
 .search-section {
