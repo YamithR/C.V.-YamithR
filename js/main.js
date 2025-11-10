@@ -1,8 +1,60 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('project-search');
     const clearSearch = document.getElementById('clear-search');
-    const projectSlides = document.querySelectorAll('.project-slide');
 
+    // Renderizar proyectos destacados dinámicamente
+    function renderProyectosDestacados() {
+        const sliderWrapper = document.getElementById('proyectos-slider');
+        const indicatorsContainer = document.getElementById('slider-indicators-container');
+        
+        if (!sliderWrapper || !indicatorsContainer) return;
+        
+        const proyectosDestacados = getProyectosDestacados();
+        
+        // Limpiar contenedor
+        sliderWrapper.innerHTML = '';
+        indicatorsContainer.innerHTML = '';
+        
+        // Renderizar cada proyecto
+        proyectosDestacados.forEach((proyecto, index) => {
+            // Crear slide del proyecto
+            const slide = document.createElement('div');
+            slide.className = 'project-slide';
+            slide.setAttribute('data-tags', proyecto.tags.join(' '));
+            
+            const badgesHTML = proyecto.badges.map(badge => 
+                `<span class="badge ${badge.class}">${badge.text}</span>`
+            ).join('\n                                        ');
+            
+            slide.innerHTML = `
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="${proyecto.image}" alt="${proyecto.title}" class="img-fluid">
+                        <div class="project-overlay">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h5>${proyecto.title}</h5>
+                        <p class="project-description">${proyecto.description}</p>
+                        <div class="project-tags">
+                            ${badgesHTML}
+                        </div>
+                    </div>
+                </div>
+                <a href="${proyecto.link}" class="project-link"></a>
+            `;
+            
+            sliderWrapper.appendChild(slide);
+            
+            // Crear indicador
+            const indicator = document.createElement('span');
+            indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+            indicator.setAttribute('data-slide', index);
+            indicatorsContainer.appendChild(indicator);
+        });
+    }
+    
     // Habilidades técnicas
     const skills = [
         'Python', 'C++', 'Ladder (PLC)', 'Arduino',
@@ -13,12 +65,14 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     const container = document.querySelector('.skills-container');
-    skills.forEach(skill => {
-        const badge = document.createElement('span');
-        badge.className = 'skill-badge';
-        badge.textContent = skill;
-        container.appendChild(badge);
-    });
+    if (container) {
+        skills.forEach(skill => {
+            const badge = document.createElement('span');
+            badge.className = 'skill-badge';
+            badge.textContent = skill;
+            container.appendChild(badge);
+        });
+    }
 
     // SLIDER DE PROYECTOS
     class ProjectSlider {
@@ -142,7 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     
-    // Inicializar slider
+    // Renderizar proyectos al cargar la página
+    renderProyectosDestacados();
+    
+    // Inicializar slider después de renderizar proyectos
     const slider = new ProjectSlider();
 
     // Smooth scroll
@@ -172,6 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Búsqueda de proyectos
     function filterProjects() {
         const query = searchInput.value.toLowerCase().trim();
+        const projectSlides = document.querySelectorAll('.project-slide');
+        
         projectSlides.forEach(slide => {
             const title = slide.querySelector('.project-content h5').textContent.toLowerCase();
             const description = slide.querySelector('.project-description').textContent.toLowerCase();
@@ -188,15 +247,20 @@ document.addEventListener('DOMContentLoaded', function () {
         slider.updateVisibleSlides();
     }
 
-    searchInput.addEventListener('input', filterProjects);
+    if (searchInput) {
+        searchInput.addEventListener('input', filterProjects);
+    }
 
     // Limpiar búsqueda
-    clearSearch.addEventListener('click', () => {
-        searchInput.value = '';
-        projectSlides.forEach(slide => slide.classList.remove('hidden'));
-        slider.updateVisibleSlides();
-        searchInput.focus();
-    });
+    if (clearSearch) {
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            const projectSlides = document.querySelectorAll('.project-slide');
+            projectSlides.forEach(slide => slide.classList.remove('hidden'));
+            slider.updateVisibleSlides();
+            searchInput.focus();
+        });
+    }
 
 
 
