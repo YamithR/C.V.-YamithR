@@ -4,736 +4,775 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timeline Horizontal - SensoraCore Deployments</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Marca la página cuando se muestra dentro de un iframe (index del sitio SensoraCore)
+        (function () {
+            var embedded = true;
+            try { embedded = window.self !== window.top; } catch (e) { embedded = true; }
+            if (embedded) document.documentElement.classList.add('embedded');
+        })();
+    </script>
+    <link rel="icon" href="../../../assets/img/sensoracore/SensoraCore.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/proyectos.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Modo embebido: sin navbar ni footer y con márgenes reducidos */
+        html.embedded nav.navbar,
+        html.embedded footer {
+            display: none !important;
         }
-        
-        body {
-            font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            color: #333;
-            overflow-x: auto;
+
+        html.embedded main.container {
+            padding-top: 1.25rem !important;
+            padding-bottom: 1.25rem !important;
         }
-        
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns:  repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 30px;
-            background: #f8f9fa;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius:  15px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
+
+        /* Colores de fase tomados del tema del CV */
+        .phase-alpha { --phase: var(--bs-primary); --on-phase: #ffffff; }
+        .phase-star  { --phase: var(--bs-success); --on-phase: #0f172a; }
+        .phase-beta  { --phase: var(--bs-warning); --on-phase: #0f172a; }
+
         .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--bs-primary);
+            line-height: 1.2;
         }
-        
+
         .stat-label {
-            font-size: 0.9em;
-            color: #666;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            opacity: 0.8;
         }
-        
-        /* TIMELINE HORIZONTAL */
-        .timeline-section {
-            padding: 60px 40px;
-            background: #f8f9fa;
+
+        .tl-badge {
+            background-color: var(--phase);
+            color: var(--on-phase);
+            font-size: 0.85rem;
+            padding: 0.45em 0.8em;
+            white-space: nowrap;
+        }
+
+        /* Leyenda de fases */
+        .phase-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .phase-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--phase);
+        }
+
+        /* Timeline horizontal */
+        .tl-scroll {
             overflow-x: auto;
+            padding: 0.5rem 0 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--bs-primary) var(--card-bg);
         }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 60px;
-            font-weight: 600;
-        }
-        
-        .timeline-horizontal {
+
+        .tl-track {
             position: relative;
-            min-width: 2400px;
-            padding: 40px 0;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(8, minmax(230px, 1fr));
+            gap: 1.25rem;
+            align-items: stretch;
+            min-width: 2000px;
         }
-        
-        /* Línea principal horizontal */
-        .timeline-line {
+
+        .tl-line {
             position: absolute;
             top: 50%;
             left: 3%;
             right: 3%;
-            height:  6px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: 5px;
+            transform: translateY(-50%);
+            background: linear-gradient(to right, var(--bs-primary), var(--bs-info));
+            border-radius: 3px;
         }
-        
-        /* Contenedor de items */
-        .timeline-items {
+
+        .tl-item {
             position: relative;
+            display: grid;
+            grid-template-rows: 1fr auto 1fr;
+            justify-items: center;
+            text-align: center;
+        }
+
+        .tl-slot {
             display: flex;
-            justify-content: space-between;
-            padding: 0 3%;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
-        
-        /* Item individual */
-        .timeline-item-h {
+
+        .tl-slot.tl-top { justify-content: flex-end; }
+        .tl-slot.tl-bottom { justify-content: flex-start; }
+
+        .tl-connector {
+            width: 2px;
+            height: 28px;
+            background-color: var(--phase);
+            opacity: 0.6;
+        }
+
+        .tl-marker {
             position: relative;
-            width: 11%;
-            text-align: center;
-        }
-        
-        /* Marcador circular */
-        .timeline-marker-h {
-            position: relative;
-            width: 30px;
-            height: 30px;
-            margin: 0 auto 20px;
-            background: white;
-            border:  6px solid #667eea;
-            border-radius: 50%;
-            box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.2);
-            z-index: 2;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .timeline-item-h:hover .timeline-marker-h {
-            transform: scale(1.3);
-            border-color: #764ba2;
-            box-shadow: 0 0 0 10px rgba(118, 75, 162, 0.3);
-        }
-        
-        /* Marcador especial para versiones beta */
-        .timeline-item-h.beta .timeline-marker-h {
-            border-color: #f5576c;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 0 0 6px rgba(245, 87, 108, 0.2);
-        }
-        
-        .timeline-item-h.beta:hover .timeline-marker-h {
-            border-color: #f5576c;
-            box-shadow: 0 0 0 10px rgba(245, 87, 108, 0.3);
-        }
-        
-        /* Marcador especial para versión estrella */
-        .timeline-item-h.star .timeline-marker-h {
-            border-color:  #ffd700;
-            background: #ffd700;
-            box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.3);
-        }
-        
-        .timeline-item-h.star .timeline-marker-h::after {
-            content: '⭐';
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform:  translateX(-50%);
-            font-size: 1.5em;
-        }
-        
-        /* Línea vertical conectora */
-        .timeline-connector {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            height: 60px;
-            background: linear-gradient(180deg, #667eea 0%, transparent 100%);
-        }
-        
-        .timeline-item-h:nth-child(even) .timeline-connector {
-            top: auto;
-            bottom:15px;
-            background:linear-gradient(0deg, #667eea 0%, transparent 100%);
-        }
-        
-        /* Contenido del card */
-        .timeline-content-h {
-            background: white;
-            padding: 20px;
-            border-radius:  15px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            min-height: 280px;
-            transition: all 0.3s ease;
-            margin-top: 80px;
-        }
-        
-        .timeline-item-h:nth-child(even) .timeline-content-h {
-            margin-top: 0;
-            margin-bottom: 80px;
-        }
-        
-        .timeline-item-h:hover .timeline-content-h {
-            transform: translateY(-10px);
-            box-shadow:  0 12px 25px rgba(0,0,0,0.15);
-        }
-        
-        .version-badge-h {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius:  20px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            font-size:  1em;
-            white-space: nowrap;
-        }
-        
-        .beta-badge-h {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .star-badge-h {
-            background:  linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #333;
-        }
-        
-        .date-h {
-            color: #666;
-            font-size: 0.85em;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-        
-        .description-h {
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 0.95em;
-        }
-        
-        .highlights-h {
-            text-align: left;
-            margin-top: 12px;
-        }
-        
-        .highlights-h ul {
-            list-style: none;
-            padding:  0;
-        }
-        
-        .highlights-h li {
-            padding: 4px 0;
-            color: #555;
-            font-size: 0.85em;
-            line-height: 1.4;
-        }
-        
-        .highlights-h li::before {
-            content: '✓ ';
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-        
-        /* Charts Section */
-        .chart-container {
-            padding: 40px;
-            margin: 20px 0;
-        }
-        
-        .chart-wrapper {
-            position: relative;
-            height: 400px;
-            margin-bottom: 40px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .chart-title {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        /* Leyenda de fases */
-        .phases-legend {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom:  40px;
-            flex-wrap: wrap;
-        }
-        
-        .phase-item {
+            z-index: 1;
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            justify-content: center;
+            background-color: var(--card-bg);
+            border: 5px solid var(--phase);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg);
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
-        
-        .phase-color {
-            width: 20px;
-            height: 20px;
-            border-radius:  50%;
+
+        .tl-item.phase-star .tl-marker {
+            width: 30px;
+            height: 30px;
+            border-width: 0;
+            background-color: var(--phase);
+            color: var(--on-phase);
+            font-size: 0.85rem;
         }
-        
-        .phase-alpha { background: #667eea; }
-        .phase-beta { background: #f5576c; }
-        .phase-star { background: #ffd700; }
-        
-        /* Scroll indicator */
-        .scroll-hint {
-            text-align: center;
-            color: #666;
-            padding: 20px;
-            font-style: italic;
+
+        .tl-item:hover .tl-marker {
+            transform: scale(1.25);
         }
-        
-        @media (max-width: 1024px) {
-            .timeline-horizontal {
-                min-width: 1800px;
-            }
-            
-            .scroll-hint {
-                display: block;
-            }
+
+        .tl-card {
+            width: 100%;
+            min-height: 260px;
+            padding: 1.1rem;
+            background-color: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--phase);
+            border-radius: 0.75rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        [data-theme="dark"] .tl-card {
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .tl-item:hover .tl-card {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .tl-date {
+            font-size: 0.85rem;
+            margin: 0.75rem 0;
+            opacity: 0.8;
+        }
+
+        .tl-desc {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tl-highlights {
+            text-align: left;
+            margin: 0.75rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .tl-highlights li {
+            padding: 0.2rem 0;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .tl-highlights li .bi {
+            color: var(--phase);
+            margin-right: 0.3rem;
+        }
+
+        /* Gráficas */
+        .chart-box {
+            position: relative;
+            height: 360px;
+        }
+
+        /* Menú desplegable SensoraCore de la navbar (colores del tema) */
+        .navbar .dropdown-menu {
+            background-color: var(--card-bg);
+            border-color: var(--border);
+        }
+
+        .navbar .dropdown-item {
+            color: var(--text);
+        }
+
+        .navbar .dropdown-item:hover,
+        .navbar .dropdown-item:focus {
+            background-color: var(--border);
+            color: var(--text);
+        }
+
+        .navbar .dropdown-item.active,
+        .navbar .dropdown-item:active {
+            background-color: var(--bs-primary);
+            color: #fff;
+        }
+
+        .navbar .dropdown-divider {
+            border-color: var(--border);
+        }
+            /* Aviso EOL: sin fondo fijo, hereda el color del tema claro/oscuro */
+        .sc-eol { border-left: 3px solid var(--bs-warning, #f59e0b); padding: .4rem .9rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>📊 Timeline de Deployments - SensoraCore</h1>
-            <p>Sistema de Monitoreo de Sensores WiFi ESP32 + PySide6</p>
-            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Mayo 2025 - Noviembre 2025</p>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Mostrar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">SensoraCore</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="../../SensoraCore.html"><i class="bi bi-person-badge"></i> Ficha en el CV</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="../index.html"><i class="bi bi-house"></i> Inicio del sitio</a></li>
+                            <li><a class="dropdown-item" href="documentacion_codigo.html"><i class="bi bi-code-slash"></i> Documentación de código</a></li>
+                            <li><a class="dropdown-item" href="MaquetacionSensoraCore.html"><i class="bi bi-window"></i> Maquetación</a></li>
+                            <li><a class="dropdown-item active" href="sensora_core_timeline_horizontal.html" aria-current="page"><i class="bi bi-clock-history"></i> Timeline</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html#proyectos">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html#experiencia">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        
-        <!-- Stats Grid -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">8</div>
-                <div class="stat-label">Total Releases</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">6</div>
-                <div class="stat-label">Meses Desarrollo</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">5</div>
-                <div class="stat-label">Sensores</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">Beta 2.0</div>
-                <div class="stat-label">Versión Actual</div>
-            </div>
+    </nav>
+
+    <main class="container py-5">
+
+        <!-- Encabezado -->
+        <div class="project-sidebar p-4 rounded shadow mb-4">
+            <h1 class="project-title h2 mb-2"><i class="bi bi-clock-history"></i> Timeline de Deployments - SensoraCore</h1>
+            <p class="mb-1">Sistema de Monitoreo de Sensores WiFi ESP32 + PySide6</p>
+            <p class="mb-0 small text-muted"><i class="bi bi-calendar-range"></i> Mayo 2025 - Noviembre 2025</p>
         </div>
-        
-        <!-- Timeline Horizontal Section -->
-        <div class="timeline-section">
-            <h2 class="section-title">🕐 Timeline Horizontal de Releases</h2>
-            
-            <!-- Leyenda de Fases -->
-            <div class="phases-legend">
-                <div class="phase-item">
-                    <div class="phase-color phase-alpha"></div>
-                    <span>Versiones Alpha</span>
-                </div>
-                <div class="phase-item">
-                    <div class="phase-color phase-star"></div>
-                    <span>Versión Estrella (Estable)</span>
-                </div>
-                <div class="phase-item">
-                    <div class="phase-color phase-beta"></div>
-                    <span>Versiones Beta</span>
+
+        <div class="sc-eol">
+            <p class="mb-0 small"><i class="bi bi-exclamation-triangle text-warning" aria-hidden="true"></i>
+                <strong>Fin de vida útil (EOL):</strong> Beta 2.0 es la última versión y no recibirá más actualizaciones.
+                El proyecto continuará bajo un nuevo nombre, con arquitectura en Rust y TypeScript.</p>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="row g-3 mb-5">
+            <div class="col-6 col-md-3">
+                <div class="project-sidebar p-3 rounded shadow-sm h-100 text-center">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Total Releases</div>
                 </div>
             </div>
-            
-            <div class="scroll-hint">👈 Desliza horizontalmente para ver todo el timeline 👉</div>
-            
-            <div class="timeline-horizontal">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-items">
-                    <!-- Item 1: Alpha 0.1 -->
-                    <div class="timeline-item-h">
-                        <div class="timeline-marker-h"></div>
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h">Alpha 0.1</span>
-                            <div class="date-h">📅 Mayo 25, 2025<br>05:54 UTC</div>
-                            <div class="description-h">Primera Versión Funcional</div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Conexión WiFi</li>
-                                    <li>Sensor Ángulo</li>
-                                    <li>Interfaz 2 paneles</li>
-                                    <li>Export Excel</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Item 2: Alpha 0.2.0 -->
-                    <div class="timeline-item-h">
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h">Alpha 0.2.0</span>
-                            <div class="date-h">📅 Mayo 25, 2025<br>21:25 UTC</div>
-                            <div class="description-h">Sistema Híbrido</div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Digital/Analógico</li>
-                                    <li>Sensor Ultrasónico</li>
-                                    <li>Brazo robótico</li>
-                                    <li>IR y capacitivos</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="timeline-marker-h"></div>
-                    </div>
-                    
-                    <!-- Item 3: Alpha 0.2.1 -->
-                    <div class="timeline-item-h">
-                        <div class="timeline-marker-h"></div>
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h">Alpha 0.2.1</span>
-                            <div class="date-h">📅 Mayo 25, 2025<br>22:52 UTC</div>
-                            <div class="description-h">Corrección Visual</div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Errores visuales</li>
-                                    <li>Mejoras UI</li>
-                                    <li>3 screenshots</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Item 4: Alpha 0.2.2 -->
-                    <div class="timeline-item-h">
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h">Alpha 0.2.2</span>
-                            <div class="date-h">📅 Mayo 26, 2025<br>02:05 UTC</div>
-                            <div class="description-h">Corrección Plotter</div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Visualización datos</li>
-                                    <li>Módulos mejorados</li>
-                                    <li>Plotter parcial</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="timeline-marker-h"></div>
-                    </div>
-                    
-                    <!-- Item 5: Alpha 0.2.3 - STAR -->
-                    <div class="timeline-item-h star">
-                        <div class="timeline-marker-h"></div>
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h star-badge-h">Alpha 0.2.3 ⭐</span>
-                            <div class="date-h">📅 Mayo 29, 2025<br>10:11 UTC</div>
-                            <div class="description-h">Versión Estable! </div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>✅ Completamente funcional</li>
-                                    <li>5 sensores</li>
-                                    <li>Sin errores</li>
-                                    <li>Lista educación</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Item 6: Alpha 0.2.4 -->
-                    <div class="timeline-item-h">
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h">Alpha 0.2.4</span>
-                            <div class="date-h">📅 Junio 23, 2025<br>16:56 UTC</div>
-                            <div class="description-h">Pre-Rework</div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Versión intermedia</li>
-                                    <li>Pre-refactorización</li>
-                                    <li>Preparación Beta</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="timeline-marker-h"></div>
-                    </div>
-                    
-                    <!-- Item 7: Beta 1.0 -->
-                    <div class="timeline-item-h beta">
-                        <div class="timeline-marker-h"></div>
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h beta-badge-h">Beta 1.0 🎉</span>
-                            <div class="date-h">📅 Agosto 25, 2025<br>20:20 UTC</div>
-                            <div class="description-h">Primera Beta! </div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Salto a Beta</li>
-                                    <li>Sistema completo</li>
-                                    <li>3 meses refinamiento</li>
-                                    <li>Uso preliminar</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Item 8: Beta 2.0 -->
-                    <div class="timeline-item-h beta">
-                        <div class="timeline-connector"></div>
-                        <div class="timeline-content-h">
-                            <span class="version-badge-h beta-badge-h">Beta 2.0 🔥</span>
-                            <div class="date-h">📅 Nov 23, 2025<br>21:20 UTC</div>
-                            <div class="description-h">Versión Actual</div>
-                            <div class="highlights-h">
-                                <ul>
-                                    <li>Latest release</li>
-                                    <li>Mejoras sobre 1.0</li>
-                                    <li>Testing extensivo</li>
-                                    <li>Hace 16 días</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="timeline-marker-h"></div>
-                    </div>
+            <div class="col-6 col-md-3">
+                <div class="project-sidebar p-3 rounded shadow-sm h-100 text-center">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Meses Desarrollo</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="project-sidebar p-3 rounded shadow-sm h-100 text-center">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Sensores</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="project-sidebar p-3 rounded shadow-sm h-100 text-center">
+                    <div class="stat-number">Beta 2.0</div>
+                    <div class="stat-label">Última versión (EOL)</div>
                 </div>
             </div>
         </div>
-        
-        <!-- Charts Section -->
-        <div class="chart-container">
-            <div class="chart-wrapper">
-                <div class="chart-title">📈 Progreso del Proyecto (0-100%)</div>
-                <canvas id="progressChart"></canvas>
+
+        <!-- Timeline horizontal -->
+        <section class="mb-5">
+            <h2 class="section-title"><i class="bi bi-clock-history"></i> Timeline Horizontal de Releases</h2>
+
+            <!-- Leyenda de fases -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                <span class="phase-legend-item phase-alpha"><span class="phase-dot"></span> Versiones Alpha</span>
+                <span class="phase-legend-item phase-star"><span class="phase-dot"></span> Versión Estrella (Estable)</span>
+                <span class="phase-legend-item phase-beta"><span class="phase-dot"></span> Versiones Beta</span>
             </div>
-            
-            <div class="chart-wrapper">
-                <div class="chart-title">📊 Releases por Mes</div>
-                <canvas id="monthlyChart"></canvas>
-            </div>
-        </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>📊 SensoraCore Timeline Dashboard - Vista Horizontal</p>
-            <p style="margin-top: 10px; opacity: 0.8;">
-                Generado el 2025-12-10 | Repository: YamithR/SensoraCore
+
+            <p class="text-center small text-muted fst-italic mb-3">
+                <i class="bi bi-arrow-left"></i> Desliza horizontalmente para ver todo el timeline <i class="bi bi-arrow-right"></i>
             </p>
+
+            <div class="tl-scroll">
+                <div class="tl-track">
+                    <div class="tl-line"></div>
+
+                    <!-- Item 1: Alpha 0.1 -->
+                    <div class="tl-item phase-alpha">
+                        <div class="tl-slot tl-top"></div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom">
+                            <div class="tl-connector"></div>
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Alpha 0.1</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Mayo 25, 2025<br>05:54 UTC</div>
+                                <div class="tl-desc">Primera Versión Funcional</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Conexión WiFi</li>
+                                    <li><i class="bi bi-check2"></i>Sensor Ángulo</li>
+                                    <li><i class="bi bi-check2"></i>Interfaz 2 paneles</li>
+                                    <li><i class="bi bi-check2"></i>Export Excel</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Alpha 0.2.0 -->
+                    <div class="tl-item phase-alpha">
+                        <div class="tl-slot tl-top">
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Alpha 0.2.0</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Mayo 25, 2025<br>21:25 UTC</div>
+                                <div class="tl-desc">Sistema Híbrido</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Digital/Analógico</li>
+                                    <li><i class="bi bi-check2"></i>Sensor Ultrasónico</li>
+                                    <li><i class="bi bi-check2"></i>Brazo robótico</li>
+                                    <li><i class="bi bi-check2"></i>IR y capacitivos</li>
+                                </ul>
+                            </div>
+                            <div class="tl-connector"></div>
+                        </div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom"></div>
+                    </div>
+
+                    <!-- Item 3: Alpha 0.2.1 -->
+                    <div class="tl-item phase-alpha">
+                        <div class="tl-slot tl-top"></div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom">
+                            <div class="tl-connector"></div>
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Alpha 0.2.1</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Mayo 25, 2025<br>22:52 UTC</div>
+                                <div class="tl-desc">Corrección Visual</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Errores visuales</li>
+                                    <li><i class="bi bi-check2"></i>Mejoras UI</li>
+                                    <li><i class="bi bi-check2"></i>3 screenshots</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Alpha 0.2.2 -->
+                    <div class="tl-item phase-alpha">
+                        <div class="tl-slot tl-top">
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Alpha 0.2.2</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Mayo 26, 2025<br>02:05 UTC</div>
+                                <div class="tl-desc">Corrección Plotter</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Visualización datos</li>
+                                    <li><i class="bi bi-check2"></i>Módulos mejorados</li>
+                                    <li><i class="bi bi-check2"></i>Plotter parcial</li>
+                                </ul>
+                            </div>
+                            <div class="tl-connector"></div>
+                        </div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom"></div>
+                    </div>
+
+                    <!-- Item 5: Alpha 0.2.3 - Versión estrella (estable) -->
+                    <div class="tl-item phase-star">
+                        <div class="tl-slot tl-top"></div>
+                        <div class="tl-marker" title="Versión Estrella (Estable)"><i class="bi bi-star-fill"></i></div>
+                        <div class="tl-slot tl-bottom">
+                            <div class="tl-connector"></div>
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Alpha 0.2.3 <i class="bi bi-star-fill"></i></span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Mayo 29, 2025<br>10:11 UTC</div>
+                                <div class="tl-desc">Versión Estable!</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Completamente funcional</li>
+                                    <li><i class="bi bi-check2"></i>5 sensores</li>
+                                    <li><i class="bi bi-check2"></i>Sin errores</li>
+                                    <li><i class="bi bi-check2"></i>Lista educación</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 6: Alpha 0.2.4 -->
+                    <div class="tl-item phase-alpha">
+                        <div class="tl-slot tl-top">
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Alpha 0.2.4</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Junio 23, 2025<br>16:56 UTC</div>
+                                <div class="tl-desc">Pre-Rework</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Versión intermedia</li>
+                                    <li><i class="bi bi-check2"></i>Pre-refactorización</li>
+                                    <li><i class="bi bi-check2"></i>Preparación Beta</li>
+                                </ul>
+                            </div>
+                            <div class="tl-connector"></div>
+                        </div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom"></div>
+                    </div>
+
+                    <!-- Item 7: Beta 1.0 -->
+                    <div class="tl-item phase-beta">
+                        <div class="tl-slot tl-top"></div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom">
+                            <div class="tl-connector"></div>
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Beta 1.0</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Agosto 25, 2025<br>20:20 UTC</div>
+                                <div class="tl-desc">Primera Beta!</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Salto a Beta</li>
+                                    <li><i class="bi bi-check2"></i>Sistema completo</li>
+                                    <li><i class="bi bi-check2"></i>3 meses refinamiento</li>
+                                    <li><i class="bi bi-check2"></i>Uso preliminar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 8: Beta 2.0 -->
+                    <div class="tl-item phase-beta">
+                        <div class="tl-slot tl-top">
+                            <div class="tl-card">
+                                <span class="badge tl-badge">Beta 2.0</span>
+                                <div class="tl-date"><i class="bi bi-calendar3"></i> Nov 23, 2025<br>21:20 UTC</div>
+                                <div class="tl-desc">Versión Actual</div>
+                                <ul class="tl-highlights">
+                                    <li><i class="bi bi-check2"></i>Latest release</li>
+                                    <li><i class="bi bi-check2"></i>Mejoras sobre 1.0</li>
+                                    <li><i class="bi bi-check2"></i>Testing extensivo</li>
+                                    <li><i class="bi bi-check2"></i>Hace 16 días</li>
+                                </ul>
+                            </div>
+                            <div class="tl-connector"></div>
+                        </div>
+                        <div class="tl-marker"></div>
+                        <div class="tl-slot tl-bottom"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráficas -->
+        <section class="mb-4">
+            <div class="row g-4">
+                <div class="col-xl-6">
+                    <div class="project-sidebar p-4 rounded shadow-sm h-100">
+                        <h2 class="h5 mb-3 text-center"><i class="bi bi-graph-up"></i> Progreso del Proyecto (0-100%)</h2>
+                        <div class="chart-box">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="project-sidebar p-4 rounded shadow-sm h-100">
+                        <h2 class="h5 mb-3 text-center"><i class="bi bi-bar-chart"></i> Releases por Mes</h2>
+                        <div class="chart-box">
+                            <canvas id="monthlyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Créditos del dashboard -->
+        <div class="text-center small text-muted mt-4">
+            <p class="mb-1">SensoraCore Timeline Dashboard - Vista Horizontal</p>
+            <p class="mb-0">Generado el 2025-12-10 | Repository: YamithR/SensoraCore</p>
         </div>
-    </div>
-    
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/theme.js"></script>
     <script>
-        // Chart 1: Progreso del Proyecto
-        const ctx1 = document.getElementById('progressChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: ['Alpha 0.1', 'Alpha 0.2.0', 'Alpha 0.2.1', 'Alpha 0.2.2', 'Alpha 0.2.3', 'Alpha 0.2.4', 'Beta 1.0', 'Beta 2.0'],
-                datasets: [{
-                    label: 'Progreso del Proyecto',
-                    data:  [10, 25, 30, 35, 50, 60, 85, 95],
-                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                    borderColor: 'rgba(102, 126, 234, 1)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension:  0.4,
-                    pointRadius: 8,
-                    pointHoverRadius: 10,
-                    pointBackgroundColor: [
-                        '#667eea', '#667eea', '#667eea', '#667eea', 
-                        '#ffd700', '#667eea', '#f5576c', '#f5576c'
-                    ],
-                    pointBorderColor:  '#fff',
-                    pointBorderWidth: 3
-                }]
-            },
-            options: {
-                responsive:  true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        padding: 15,
-                        titleFont: {
-                            size: 14
-                        },
-                        bodyFont: {
-                            size: 13
-                        }
-                    }
+        // Tema: replica la lógica de theme.js y sigue los cambios hechos en otra pestaña o en la página padre
+        (function () {
+            'use strict';
+            var body = document.body;
+
+            function readSaved() {
+                try { return localStorage.getItem('theme'); } catch (e) { return null; }
+            }
+
+            function applyTheme(isDark) {
+                var toggle = document.getElementById('theme-toggle');
+                var icon = toggle ? toggle.querySelector('i') : null;
+                var text = toggle ? toggle.querySelector('span') : null;
+                if (isDark) {
+                    body.setAttribute('data-theme', 'dark');
+                    if (icon) icon.className = 'bi bi-moon-fill';
+                    if (text) text.textContent = 'Modo Oscuro';
+                } else {
+                    body.removeAttribute('data-theme');
+                    if (icon) icon.className = 'bi bi-sun-fill';
+                    if (text) text.textContent = 'Modo Claro';
+                }
+            }
+
+            function initializeTheme() {
+                var saved = readSaved();
+                if (saved) {
+                    applyTheme(saved === 'dark');
+                } else {
+                    var hour = new Date().getHours();
+                    var isDay = hour >= 6 && hour < 11;
+                    applyTheme(!isDay);
+                }
+            }
+
+            // theme.js ya inicializa el tema cuando existe #theme-toggle
+            if (!document.getElementById('theme-toggle')) initializeTheme();
+
+            window.addEventListener('storage', function (e) {
+                if (e.key === 'theme' || e.key === null) initializeTheme();
+            });
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            function cssVar(name) {
+                return getComputedStyle(document.body).getPropertyValue(name).trim();
+            }
+
+            function withAlpha(color, alpha) {
+                var hex = color.replace('#', '');
+                if (/^[0-9a-f]{3}$/i.test(hex)) {
+                    hex = hex.split('').map(function (c) { return c + c; }).join('');
+                }
+                if (!/^[0-9a-f]{6}$/i.test(hex)) return color;
+                var n = parseInt(hex, 16);
+                return 'rgba(' + ((n >> 16) & 255) + ', ' + ((n >> 8) & 255) + ', ' + (n & 255) + ', ' + alpha + ')';
+            }
+
+            function themeColors() {
+                return {
+                    alpha: cssVar('--bs-primary') || '#0d6efd',
+                    star: cssVar('--bs-success') || '#10b981',
+                    beta: cssVar('--bs-warning') || '#f59e0b',
+                    neutral: cssVar('--bs-secondary') || '#6c757d',
+                    text: cssVar('--text') || '#212529',
+                    border: cssVar('--border') || '#dee2e6',
+                    card: cssVar('--card-bg') || '#ffffff'
+                };
+            }
+
+            function tooltipOptions(c) {
+                return {
+                    backgroundColor: c.card,
+                    titleColor: c.text,
+                    bodyColor: c.text,
+                    borderColor: c.border,
+                    borderWidth: 1,
+                    padding: 15,
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 13 }
+                };
+            }
+
+            // Fase de cada release: alpha, star (estable) o beta
+            var releasePhases = ['alpha', 'alpha', 'alpha', 'alpha', 'star', 'alpha', 'beta', 'beta'];
+            // Fase dominante de cada mes (null = mes sin releases)
+            var monthPhases = ['alpha', 'alpha', null, 'beta', null, 'beta'];
+
+            function monthColors(c, alpha) {
+                return monthPhases.map(function (p) {
+                    return withAlpha(p ? c[p] : c.neutral, p ? alpha : 0.3);
+                });
+            }
+
+            var c = themeColors();
+            Chart.defaults.font.family = "'Roboto', sans-serif";
+            Chart.defaults.color = c.text;
+
+            // Chart 1: Progreso del Proyecto
+            var ctx1 = document.getElementById('progressChart').getContext('2d');
+            var progressChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Alpha 0.1', 'Alpha 0.2.0', 'Alpha 0.2.1', 'Alpha 0.2.2', 'Alpha 0.2.3', 'Alpha 0.2.4', 'Beta 1.0', 'Beta 2.0'],
+                    datasets: [{
+                        label: 'Progreso del Proyecto',
+                        data: [10, 25, 30, 35, 50, 60, 85, 95],
+                        backgroundColor: withAlpha(c.alpha, 0.2),
+                        borderColor: c.alpha,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 8,
+                        pointHoverRadius: 10,
+                        pointBackgroundColor: releasePhases.map(function (p) { return c[p]; }),
+                        pointBorderColor: c.card,
+                        pointBorderWidth: 3
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            },
-                            font: {
-                                size: 12
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
-                        }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: tooltipOptions(c)
                     },
-                    x: {
-                        ticks: {
-                            font:  {
-                                size: 11
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function (value) { return value + '%'; },
+                                font: { size: 12 },
+                                color: c.text
                             },
-                            maxRotation: 45,
-                            minRotation: 45
+                            grid: { color: withAlpha(c.border, 0.6) }
                         },
-                        grid: {
-                            display: false
+                        x: {
+                            ticks: {
+                                font: { size: 11 },
+                                maxRotation: 45,
+                                minRotation: 45,
+                                color: c.text
+                            },
+                            grid: { display: false }
                         }
                     }
                 }
-            }
-        });
-        
-        // Chart 2: Releases por Mes
-        const ctx2 = document.getElementById('monthlyChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: ['Mayo 2025', 'Junio 2025', 'Julio 2025', 'Agosto 2025', 'Sept-Oct 2025', 'Noviembre 2025'],
-                datasets: [{
-                    label:  'Número de Releases',
-                    data: [5, 1, 0, 1, 0, 1],
-                    backgroundColor: [
-                        'rgba(102, 126, 234, 0.8)',
-                        'rgba(118, 75, 162, 0.8)',
-                        'rgba(200, 200, 200, 0.3)',
-                        'rgba(240, 147, 251, 0.8)',
-                        'rgba(200, 200, 200, 0.3)',
-                        'rgba(245, 87, 108, 0.8)'
-                    ],
-                    borderColor:  [
-                        'rgba(102, 126, 234, 1)',
-                        'rgba(118, 75, 162, 1)',
-                        'rgba(200, 200, 200, 1)',
-                        'rgba(240, 147, 251, 1)',
-                        'rgba(200, 200, 200, 1)',
-                        'rgba(245, 87, 108, 1)'
-                    ],
-                    borderWidth: 2,
-                    borderRadius: 10
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        padding: 15,
-                        titleFont: {
-                            size: 14
-                        },
-                        bodyFont: {
-                            size: 13
-                        }
-                    }
+            });
+
+            // Chart 2: Releases por Mes
+            var ctx2 = document.getElementById('monthlyChart').getContext('2d');
+            var monthlyChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Mayo 2025', 'Junio 2025', 'Julio 2025', 'Agosto 2025', 'Sept-Oct 2025', 'Noviembre 2025'],
+                    datasets: [{
+                        label: 'Número de Releases',
+                        data: [5, 1, 0, 1, 0, 1],
+                        backgroundColor: monthColors(c, 0.8),
+                        borderColor: monthColors(c, 1),
+                        borderWidth: 2,
+                        borderRadius: 10
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            font: {
-                                size: 12
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
-                        }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: tooltipOptions(c)
                     },
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 12
-                            }
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                                font: { size: 12 },
+                                color: c.text
+                            },
+                            grid: { color: withAlpha(c.border, 0.6) }
                         },
-                        grid: {
-                            display: false
+                        x: {
+                            ticks: {
+                                font: { size: 12 },
+                                color: c.text
+                            },
+                            grid: { display: false }
                         }
                     }
                 }
+            });
+
+            // Actualiza los colores de las gráficas al cambiar de tema
+            function refreshCharts() {
+                var t = themeColors();
+                Chart.defaults.color = t.text;
+
+                var ds1 = progressChart.data.datasets[0];
+                ds1.backgroundColor = withAlpha(t.alpha, 0.2);
+                ds1.borderColor = t.alpha;
+                ds1.pointBackgroundColor = releasePhases.map(function (p) { return t[p]; });
+                ds1.pointBorderColor = t.card;
+
+                var ds2 = monthlyChart.data.datasets[0];
+                ds2.backgroundColor = monthColors(t, 0.8);
+                ds2.borderColor = monthColors(t, 1);
+
+                [progressChart, monthlyChart].forEach(function (chart) {
+                    chart.options.plugins.tooltip = tooltipOptions(t);
+                    chart.options.scales.x.ticks.color = t.text;
+                    chart.options.scales.y.ticks.color = t.text;
+                    chart.options.scales.y.grid.color = withAlpha(t.border, 0.6);
+                    chart.update('none');
+                });
             }
-        });
+
+            new MutationObserver(refreshCharts).observe(document.body, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        })();
     </script>
 </body>
 </html>

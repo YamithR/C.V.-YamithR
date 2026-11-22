@@ -106,7 +106,7 @@ const proyectosData = [
         description: 'Controlador de bote fluvial basado en Raspberry Pi 4 para integración de sistemas de navegación y monitoreo remoto.',
         image: 'assets/img/MOMO-BoatController-RPi4/MOMO-BoatController-RPi4.png',
         video: null,
-        link: 'proyectos/proyecto6.html',
+        link: 'proyectos/MOMO-BoatController-RPi4.html',
         tags: ['oniris-id', 'armada', 'raspberry pi', 'robótica', 'software', 'programación', 'mecatrónica', 'bote', 'controlador'],
         badges: [
             { text: 'ONIRIS-ID', class: 'bg-warning text-dark' },
@@ -118,6 +118,26 @@ const proyectosData = [
             { text: 'Mecatrónica', class: 'bg-secondary' }
         ],
         featured: true,  // ← Cambiar a false para quitar de destacados
+        visible: true
+    },
+    {
+        id: 'protocalib',
+        title: 'ProtoCalib',
+        description: 'Kit modular de bajo costo para monitoreo, calibración y evaluación de sensores en entornos IoT educativos, con ESP32, MicroPython y una aplicación de escritorio PySide6. Publicado en OnBoard Knowledge Journal.',
+        image: 'assets/img/ProtoCalib/Figura2-ModulosSensores.png',
+        video: null,
+        link: 'proyectos/ProtoCalib.html',
+        tags: ['uac', 'investigación', 'iot', 'educación', 'sensores', 'prototipado', 'programación', 'mecatrónica', '3d printing', 'esp32', 'micropython', 'protocalib'],
+        badges: [
+            { text: 'UAC', class: 'bg-danger' },
+            { text: 'Investigación', class: 'bg-warning text-dark' },
+            { text: 'IoT', class: 'bg-primary' },
+            { text: 'Educación', class: 'bg-success' },
+            { text: 'Sensores', class: 'bg-info' },
+            { text: 'Prototipado', class: 'bg-success' },
+            { text: 'Programación', class: 'bg-secondary' }
+        ],
+        featured: false,  // ← Cambiar a true para agregar a destacados
         visible: true
     }
 ];
@@ -172,5 +192,53 @@ const filterGroups = [
         chips: [
             {label: 'Programación', tag: 'programación'}
         ]
+    }
+];
+
+// ============================================================
+// COLECCIONES DE LA GALERÍA (carpetas animadas)
+// ============================================================
+// Cada colección aparece como una carpeta en el slider "Colecciones",
+// a la derecha de los filtros. Al pulsar una carpeta, la galería muestra
+// solo sus proyectos; al pulsarla otra vez se vuelven a mostrar todos.
+//   - id:          identificador único, en minúsculas y con guiones.
+//   - title:       nombre que se muestra en la carpeta (ej. 'Armada').
+//   - description: frase corta que aparece sobre la galería al abrirla.
+//   - icon:        nombre de un ícono de bootstrap-icons 1.11.3, con o sin
+//                  el prefijo 'bi-' (ej. 'life-preserver'). Opcional.
+//   - projects:    lista de ids de proyectos (los 'id' de proyectosData).
+//                  Las imágenes de la carpeta se toman solas del campo
+//                  'image' de los primeros tres proyectos de la lista.
+//
+// Un mismo proyecto puede estar en varias colecciones.
+// Los ids que no existan en proyectosData (o con visible: false) se
+// ignoran, y una colección sin proyectos visibles no se muestra.
+// La colección se combina con la búsqueda y los chips (Y).
+//
+// Para AÑADIR una colección: copia un bloque { id, title, ... } y pégalo aquí.
+// Para QUITAR una colección: borra su bloque completo.
+// Para AÑADIR un proyecto a una colección: agrega su id a 'projects'.
+// El orden del arreglo es el orden de las carpetas en el slider.
+const colecciones = [
+    {
+        id: 'armada',
+        title: 'Armada',
+        description: 'Proyectos desarrollados para la Armada: simulación, mecanismos y control de botes.',
+        icon: 'life-preserver',
+        projects: ['simulador-bote', 'encoders-m250', 'momo-boat']
+    },
+    {
+        id: 'investigacion',
+        title: 'Investigación',
+        description: 'Proyectos de investigación aplicada en robótica, sensores y simulación.',
+        icon: 'lightbulb',
+        projects: ['scorbot', 'sensoracore', 'simulador-bote', 'protocalib']
+    },
+    {
+        id: 'personales',
+        title: 'Proyectos personales',
+        description: 'Proyectos propios de automatización, software y robótica.',
+        icon: 'person-workspace',
+        projects: ['sensoracore', 'granja-3d', 'scorbot', 'protocalib']
     }
 ];

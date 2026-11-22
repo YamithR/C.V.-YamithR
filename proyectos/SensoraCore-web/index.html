@@ -4,1229 +4,1212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SensoraCore - Sistema de Monitoreo de Sensores WiFi</title>
+    <link rel="icon" href="../../assets/img/sensoracore/SensoraCore.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/proyectos.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Estilos propios del sitio SensoraCore, basados en las variables de tema del CV */
+        :root {
+            --sc-nav-h: 56px;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
+        .sc-section {
+            scroll-margin-top: calc(var(--sc-nav-h) + 4.5rem);
         }
 
-        /* Header/Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .hero h1 {
-            font-size: 3.5em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .hero .subtitle {
-            font-size: 1.4em;
-            font-weight: 300;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .hero .version {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9em;
+        .sc-section h3 {
+            font-size: 1.25rem;
             font-weight: 600;
-            backdrop-filter: blur(10px);
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
         }
 
-        /* Navigation */
-        nav {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* Navegación interna por secciones */
+        .sc-section-nav {
+            background-color: var(--bg);
+            border-bottom: 1px solid var(--border);
+            z-index: 1010;
+            transition: background-color 0.4s ease, border-color 0.4s ease;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 15px 20px;
+        @media (min-width: 992px) {
+            .sc-section-nav {
+                position: sticky;
+                top: var(--sc-nav-h);
+            }
         }
 
-        nav ul li {
-            margin: 5px 15px;
+        .sc-section-nav .nav-link {
+            color: var(--text);
+            border-radius: 50px;
+            padding: 0.3rem 0.85rem;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
-        nav ul li a {
-            text-decoration: none;
-            color: #667eea;
+        .sc-section-nav .nav-link:hover,
+        .sc-section-nav .nav-link.active {
+            background-color: var(--bs-primary);
+            color: #fff;
+        }
+
+        /* Tarjetas (características, sensores, manuales) */
+        .sc-card {
+            background-color: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            transition: background-color 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sc-card:hover {
+            border-color: var(--bs-primary);
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
+        }
+
+        .sc-card h4 {
+            font-size: 1.05rem;
             font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            color: var(--text);
+            margin-bottom: 0.35rem;
         }
 
-        nav ul li a:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Section Styles */
-        .section {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .section h2 {
-            color: #667eea;
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .section h3 {
-            color: #764ba2;
-            font-size: 1.6em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .section p {
-            color: #555;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
-        .section ul {
-            margin-left: 25px;
-            margin-bottom: 15px;
-        }
-
-        .section ul li {
-            color: #555;
-            margin-bottom: 10px;
-            font-size: 1.05em;
-        }
-
-        /* Feature Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
-        }
-
-        .feature-card h4 {
-            color: #667eea;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            color: #666;
-            font-size: 1em;
-        }
-
-        /* Manual Downloads */
-        .manuals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .manual-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .manual-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
-            transform: translateY(-3px);
-        }
-
-        .manual-icon {
-            font-size: 2.5em;
-            color: #667eea;
-        }
-
-        .manual-info {
-            flex: 1;
-        }
-
-        .manual-info h4 {
-            color: #333;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .manual-info p {
-            color: #888;
-            font-size: 0.9em;
+        .sc-card p {
             margin-bottom: 0;
         }
 
-        .download-btn {
-            background: transparent;
-            color: #667eea;
-            border: 2px solid #667eea;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3em;
-            transition: all 0.3s ease;
+        .sc-card .bi {
+            color: var(--bs-primary);
         }
 
-        .download-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-        
-        .download-btn.disabled {
-            border-color: #999;
-            color: #999;
-            cursor: not-allowed;
-        }
-        
-        .download-btn.disabled:hover {
-            background: transparent;
-            color: #999;
-            transform: none;
-            box-shadow: none;
+        .sc-card .btn .bi {
+            color: inherit;
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            padding: 60px 40px;
-            border-radius: 15px;
-            margin-bottom: 40px;
+        .manual-icon {
+            font-size: 1.75rem;
+            line-height: 1;
+            flex-shrink: 0;
         }
 
-        .cta-section h2 {
-            color: white;
-            border: none;
-            margin-bottom: 20px;
+        /* Notas informativas */
+        .sc-note {
+            background-color: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--bs-info);
+            border-radius: 0.375rem;
+            padding: 0.85rem 1.1rem;
+            margin: 1.25rem 0;
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
+        .sc-note.sc-note-warning {
+            border-left-color: var(--bs-warning);
         }
 
-        .cta-btn {
-            background: white;
-            color: #667eea;
-            padding: 15px 35px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        .sc-note ul {
+            margin: 0.5rem 0 0;
         }
 
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        /* Bloques de código */
+        .sc-code {
+            background-color: var(--bs-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--bs-primary);
+            border-radius: 0.375rem;
+            padding: 0.85rem 1.1rem;
+            margin: 0.75rem 0 1.25rem;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
         }
 
-        .cta-btn.secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
+        .sc-code code {
+            color: inherit;
         }
 
-        .cta-btn.secondary:hover {
-            background: white;
-            color: #667eea;
+        /* Timeline embebido */
+        .sc-embed {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: var(--card-bg);
         }
 
-        /* Footer */
-        footer {
-            background: #2d3748;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
+        .sc-embed iframe {
+            border: 0;
         }
 
-        footer p {
-            color: #cbd5e0;
-            margin-bottom: 10px;
+        /* Menú desplegable SensoraCore de la navbar (colores del tema) */
+        .navbar .dropdown-menu {
+            background-color: var(--card-bg);
+            border-color: var(--border);
         }
 
-        footer a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
+        .navbar .dropdown-item {
+            color: var(--text);
         }
 
-        footer a:hover {
-            color: #764ba2;
+        .navbar .dropdown-item:hover,
+        .navbar .dropdown-item:focus {
+            background-color: var(--border);
+            color: var(--text);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5em;
-            }
-
-            .hero .subtitle {
-                font-size: 1.2em;
-            }
-
-            .section {
-                padding: 25px;
-            }
-
-            .section h2 {
-                font-size: 1.8em;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-btn {
-                width: 100%;
-                max-width: 300px;
-            }
+        .navbar .dropdown-item.active,
+        .navbar .dropdown-item:active {
+            background-color: var(--bs-primary);
+            color: #fff;
         }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        .navbar .dropdown-divider {
+            border-color: var(--border);
         }
 
-        /* Highlight Box */
-        .highlight-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 5px;
+        .sc-site-info a {
+            color: var(--bs-primary);
         }
-
-        .highlight-box strong {
-            color: #856404;
-        }
-
-        /* Info Box */
-        .info-box {
-            background: #d1ecf1;
-            border-left: 4px solid #17a2b8;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .info-box strong {
-            color: #0c5460;
-        }
+            /* Aviso EOL: sin fondo fijo, hereda el color del tema claro/oscuro */
+        .sc-eol { border-left: 3px solid var(--bs-warning, #f59e0b); padding: .4rem .9rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
-    <!-- Añadido para el CV: volver a la ficha del proyecto -->
-    <a href="../SensoraCore.html" style="position:fixed;top:12px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,0.85);color:#fff;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);">← Volver al CV</a>
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>🔧 SensoraCore</h1>
-        <p class="subtitle">Sistema de Monitoreo de Sensores WiFi ESP32</p>
-        <span class="version">Beta 1.0 - Compilador Terminado</span>
-    </div>
 
-    <!-- Navigation -->
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#caracteristicas">Características</a></li>
-            <li><a href="#quickstart">Inicio Rápido</a></li>
-            <li><a href="#sensores">Sensores</a></li>
-            <li><a href="#manuales-software">Manuales de Software</a></li>
-            <li><a href="#manuales-usuario">Manuales de Usuario</a></li>
-            <li><a href="#certificados">Certificados DNDA</a></li>
-                <li><a href="#timeline">Timeline</a></li>
-            <li><a href="#documentacion">Documentación</a></li>
-        </ul>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Mostrar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">SensoraCore</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="../SensoraCore.html"><i class="bi bi-person-badge"></i> Ficha en el CV</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item active" href="index.html" aria-current="page"><i class="bi bi-house"></i> Inicio del sitio</a></li>
+                            <li><a class="dropdown-item" href="Web-Index/documentacion_codigo.html"><i class="bi bi-code-slash"></i> Documentación de código</a></li>
+                            <li><a class="dropdown-item" href="Web-Index/MaquetacionSensoraCore.html"><i class="bi bi-window"></i> Maquetación</a></li>
+                            <li><a class="dropdown-item" href="Web-Index/sensora_core_timeline_horizontal.html"><i class="bi bi-clock-history"></i> Timeline</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#proyectos">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#experiencia">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- CTA Section -->
-        <div class="cta-section">
-            <h2>🚀 Comienza a Monitorear Sensores en Minutos</h2>
-            <p style="font-size: 1.2em; margin-bottom: 0;">Conecta tu ESP32, selecciona un sensor y visualiza datos en tiempo real</p>
-            <div class="cta-buttons">
-                <a href="#quickstart" class="cta-btn">Inicio Rápido</a>
-                <a href="#manuales-software" class="cta-btn secondary">Manuales de Software</a>
-                <a href="#manuales-usuario" class="cta-btn secondary">Manuales de Usuario</a>
-                <a href="#certificados" class="cta-btn secondary">Certificados DNDA</a>
-                <a href="Web-Index/documentacion_codigo.html" class="cta-btn secondary">Documentación de Código</a>
+    <!-- Navegación por secciones -->
+    <div class="sc-section-nav py-2">
+        <div class="container">
+            <ul class="nav justify-content-center flex-wrap gap-1" id="sectionNav">
+                <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#caracteristicas">Características</a></li>
+                <li class="nav-item"><a class="nav-link" href="#quickstart">Inicio Rápido</a></li>
+                <li class="nav-item"><a class="nav-link" href="#sensores">Sensores</a></li>
+                <li class="nav-item"><a class="nav-link" href="#manuales-software">Manuales de Software</a></li>
+                <li class="nav-item"><a class="nav-link" href="#manuales-usuario">Manuales de Usuario</a></li>
+                <li class="nav-item"><a class="nav-link" href="#certificados">Certificados DNDA</a></li>
+                <li class="nav-item"><a class="nav-link" href="#timeline">Timeline</a></li>
+                <li class="nav-item"><a class="nav-link" href="#documentacion">Documentación</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="container py-5">
+
+        <!-- Encabezado del proyecto -->
+        <header class="project-sidebar p-4 p-md-5 rounded shadow mb-5">
+            <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
+                <h1 class="project-title fw-bold mb-0">SensoraCore</h1>
+                <span class="badge bg-primary fs-6 fw-medium">Beta 2.0 - Última versión (EOL)</span>
             </div>
+            <p class="lead mb-4">Sistema de Monitoreo de Sensores WiFi ESP32</p>
+            <hr>
+            <h2 class="h4 mt-4 mb-2">Comienza a Monitorear Sensores en Minutos</h2>
+            <p class="mb-4">Conecta tu ESP32, selecciona un sensor y visualiza datos en tiempo real</p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#quickstart" class="btn btn-primary"><i class="bi bi-rocket-takeoff"></i> Inicio Rápido</a>
+                <a href="#manuales-software" class="btn btn-outline-secondary"><i class="bi bi-file-earmark-code"></i> Manuales de Software</a>
+                <a href="#manuales-usuario" class="btn btn-outline-secondary"><i class="bi bi-journal-text"></i> Manuales de Usuario</a>
+                <a href="#certificados" class="btn btn-outline-secondary"><i class="bi bi-patch-check"></i> Certificados DNDA</a>
+                <a href="Web-Index/documentacion_codigo.html" class="btn btn-outline-info"><i class="bi bi-code-slash"></i> Documentación de Código</a>
+            </div>
+        </header>
+
+        <div class="sc-eol">
+            <p class="mb-0 small"><i class="bi bi-exclamation-triangle text-warning" aria-hidden="true"></i>
+                <strong>Fin de vida útil (EOL):</strong> Beta 2.0 es la última versión y no recibirá más actualizaciones.
+                El proyecto continuará bajo un nuevo nombre, con arquitectura en Rust y TypeScript.</p>
         </div>
 
         <!-- Sobre el Proyecto -->
-        <section id="inicio" class="section">
-            <h2>📋 Sobre el Proyecto</h2>
-            <p>
-                <strong>SensoraCore</strong> es un sistema completo de monitoreo de sensores que combina hardware ESP32 
-                y software de escritorio desarrollado en Python con PySide6. Proyecto creado el <strong>25 de Mayo de 2024</strong> 
-                y diseñado para aplicaciones educativas y de prototipado, permite la lectura, visualización y análisis de 
+        <section id="inicio" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-info-circle"></i> Sobre el Proyecto</h2>
+            <p class="lead">
+                <strong>SensoraCore</strong> es un sistema completo de monitoreo de sensores que combina hardware ESP32
+                y software de escritorio desarrollado en Python con PySide6. Proyecto creado el <strong>25 de Mayo de 2024</strong>
+                y diseñado para aplicaciones educativas y de prototipado, permite la lectura, visualización y análisis de
                 múltiples tipos de sensores a través de conexión WiFi.
             </p>
-            
-            <h3>🎯 Objetivo</h3>
+
+            <h3><i class="bi bi-bullseye"></i> Objetivo</h3>
             <p>
-                Desarrollar <strong>módulos didácticos para la caracterización y calibración de sensores industriales</strong>, 
-                proporcionando una plataforma accesible y robusta para el aprendizaje y desarrollo de proyectos IoT. 
-                El sistema facilita la integración de sensores digitales y analógicos con capacidad de análisis en tiempo real, 
+                Desarrollar <strong>módulos didácticos para la caracterización y calibración de sensores industriales</strong>,
+                proporcionando una plataforma accesible y robusta para el aprendizaje y desarrollo de proyectos IoT.
+                El sistema facilita la integración de sensores digitales y analógicos con capacidad de análisis en tiempo real,
                 calibración persistente y exportación de datos para análisis científico.
             </p>
 
-            <div class="info-box">
-                <strong>💡 Ideal para:</strong> Estudiantes, educadores, makers, ingenieros y desarrolladores 
+            <div class="sc-note">
+                <i class="bi bi-lightbulb"></i> <strong>Ideal para:</strong> Estudiantes, educadores, makers, ingenieros y desarrolladores
                 interesados en IoT, robótica y sistemas embebidos.
             </div>
         </section>
 
         <!-- Características -->
-        <section id="caracteristicas" class="section">
-            <h2>✨ Características Principales</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h4>📡 Conectividad WiFi</h4>
-                    <p>Comunicación inalámbrica TCP/IP entre ESP32 y aplicación de escritorio con reconexión automática.</p>
+        <section id="caracteristicas" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-stars"></i> Características Principales</h2>
+
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-wifi"></i> Conectividad WiFi</h4>
+                        <p class="small">Comunicación inalámbrica TCP/IP entre ESP32 y aplicación de escritorio con reconexión automática.</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🔌 12+ Sensores Soportados</h4>
-                    <p>Potenciómetros, infrarojos, capacitivos, ultrasónicos, temperatura, gases, color y más.</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-plug"></i> 12+ Sensores Soportados</h4>
+                        <p class="small">Potenciómetros, infrarojos, capacitivos, ultrasónicos, temperatura, gases, color y más.</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>📊 Visualización en Tiempo Real</h4>
-                    <p>Gráficas dinámicas con matplotlib y actualización instantánea de datos.</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-graph-up-arrow"></i> Visualización en Tiempo Real</h4>
+                        <p class="small">Gráficas dinámicas con matplotlib y actualización instantánea de datos.</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>📁 Exportación Excel</h4>
-                    <p>Guarda tus mediciones con gráficos embebidos y estadísticas automáticas.</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-file-earmark-spreadsheet"></i> Exportación Excel</h4>
+                        <p class="small">Guarda tus mediciones con gráficos embebidos y estadísticas automáticas.</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🎨 Interfaz Intuitiva</h4>
-                    <p>UI moderna desarrollada con PySide6, fácil de usar y visualmente atractiva.</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-window"></i> Interfaz Intuitiva</h4>
+                        <p class="small">UI moderna desarrollada con PySide6, fácil de usar y visualmente atractiva.</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🔧 Calibración Integrada</h4>
-                    <p>Sistema de calibración lineal y guardado de parámetros por sensor.</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-sliders"></i> Calibración Integrada</h4>
+                        <p class="small">Sistema de calibración lineal y guardado de parámetros por sensor.</p>
+                    </div>
                 </div>
             </div>
 
-            <h3>🆕 Novedades en Beta 1.0 (25 Agosto 2024)</h3>
-            <ul>
-                <li>🎉 <strong>Compilador terminado:</strong> Script automatizado de compilación con PyInstaller</li>
-                <li>✅ <strong>Todos los módulos finalizados:</strong> 11 módulos de sensores completamente funcionales</li>
-                <li>✅ <strong>Calibración persistente:</strong> Almacenamiento de parámetros de calibración en JSON</li>
-                <li>✅ <strong>Pantalla OLED integrada:</strong> Visualización de estado e IP del dispositivo</li>
-                <li>✅ <strong>Firmware optimizado:</strong> 4 módulos main_parte para ESP32 (distancia/ángulo, velocidad/dirección, gases/temperatura, color/luz)</li>
-                <li>✅ <strong>Exportación Excel mejorada:</strong> Gráficas embebidas y estadísticas automáticas</li>
-                <li>✅ <strong>Flujos de calibración paso a paso:</strong> Interfaces guiadas para módulos de brillo y gas</li>
-            </ul>
-            
-            <h3>📅 Actualizaciones Recientes (Noviembre 2024)</h3>
-            <ul>
-                <li>🖥️ <strong>IP en pantalla OLED:</strong> Muestra la dirección IP durante el modo de espera</li>
-                <li>🔧 <strong>Build mejorado:</strong> Script de compilación optimizado para Python 3</li>
-                <li>📐 <strong>Protocolos actualizados:</strong> Mejoras en comunicación entre firmware y aplicación</li>
-            </ul>
+            <div class="row g-4 mt-2">
+                <div class="col-lg-7">
+                    <h3>Novedades en Beta 1.0 (25 Agosto 2024)</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Compilador terminado:</strong> Script automatizado de compilación con PyInstaller</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Todos los módulos finalizados:</strong> 11 módulos de sensores completamente funcionales</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Calibración persistente:</strong> Almacenamiento de parámetros de calibración en JSON</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Pantalla OLED integrada:</strong> Visualización de estado e IP del dispositivo</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Firmware optimizado:</strong> 4 módulos main_parte para ESP32 (distancia/ángulo, velocidad/dirección, gases/temperatura, color/luz)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Exportación Excel mejorada:</strong> Gráficas embebidas y estadísticas automáticas</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success"></i> <strong>Flujos de calibración paso a paso:</strong> Interfaces guiadas para módulos de brillo y gas</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <h3>Actualizaciones Recientes (Noviembre 2024)</h3>
+                    <ul>
+                        <li><strong>IP en pantalla OLED:</strong> Muestra la dirección IP durante el modo de espera</li>
+                        <li><strong>Build mejorado:</strong> Script de compilación optimizado para Python 3</li>
+                        <li><strong>Protocolos actualizados:</strong> Mejoras en comunicación entre firmware y aplicación</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <!-- Inicio Rápido -->
-        <section id="quickstart" class="section">
-            <h2>🚀 Inicio Rápido</h2>
-            
-            <h3>1️⃣ Configurar ESP32</h3>
-            <p><strong>Paso 1:</strong> Edita <code>SensoraCoreESP32/wifi_config.py</code> con tus credenciales WiFi:</p>
-            <div class="highlight-box">
-                <code>
-                    SSID = 'TuRedWiFi'<br>
-                    PASSWORD = 'TuContraseña'
-                </code>
+        <section id="quickstart" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-rocket-takeoff"></i> Inicio Rápido</h2>
+
+            <div class="row g-3">
+                <div class="col-lg-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0"><i class="bi bi-1-circle-fill" aria-hidden="true"></i><span class="visually-hidden">1.</span> Configurar ESP32</h3>
+                        <p><strong>Paso 1:</strong> Edita <code>SensoraCoreESP32/wifi_config.py</code> con tus credenciales WiFi:</p>
+                        <pre class="sc-code"><code>SSID = 'TuRedWiFi'
+PASSWORD = 'TuContraseña'</code></pre>
+                        <p class="mb-2"><strong>Paso 2:</strong> Sube el código al ESP32 usando Thonny, uPyCraft o ampy</p>
+                        <p><strong>Paso 3:</strong> Anota la IP que aparece en el monitor serial (ej: 192.168.1.100)</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0"><i class="bi bi-2-circle-fill" aria-hidden="true"></i><span class="visually-hidden">2.</span> Ejecutar Aplicación</h3>
+                        <pre class="sc-code"><code>cd SensoraCoreApp
+pip install -r requirements.txt
+python main.py</code></pre>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0"><i class="bi bi-3-circle-fill" aria-hidden="true"></i><span class="visually-hidden">3.</span> Conectar y Monitorear</h3>
+                        <ul class="mb-0">
+                            <li>Ingresa la IP del ESP32 en la aplicación</li>
+                            <li>Presiona "Conectar y encender LED integrado"</li>
+                            <li>Selecciona un sensor de la lista</li>
+                            <li>Observa los datos en tiempo real</li>
+                            <li>Exporta a Excel cuando lo necesites</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            
-            <p><strong>Paso 2:</strong> Sube el código al ESP32 usando Thonny, uPyCraft o ampy</p>
-            <p><strong>Paso 3:</strong> Anota la IP que aparece en el monitor serial (ej: 192.168.1.100)</p>
 
-            <h3>2️⃣ Ejecutar Aplicación</h3>
-            <div class="highlight-box">
-                <code>
-                    cd SensoraCoreApp<br>
-                    pip install -r requirements.txt<br>
-                    python main.py
-                </code>
-            </div>
-
-            <h3>3️⃣ Conectar y Monitorear</h3>
-            <ul>
-                <li>Ingresa la IP del ESP32 en la aplicación</li>
-                <li>Presiona "Conectar y encender LED integrado"</li>
-                <li>Selecciona un sensor de la lista</li>
-                <li>Observa los datos en tiempo real</li>
-                <li>Exporta a Excel cuando lo necesites</li>
-            </ul>
-
-            <div class="info-box">
-                <strong>📖 Más detalles:</strong> Consulta el <a href="SensoraCore/Docs/QUICKSTART.md">QUICKSTART.md</a> 
+            <div class="sc-note">
+                <i class="bi bi-book"></i> <strong>Más detalles:</strong> Consulta el <a href="SensoraCore/Docs/QUICKSTART.md">QUICKSTART.md</a>
                 completo para instrucciones detalladas de cada sensor.
             </div>
         </section>
 
         <!-- Sensores Disponibles -->
-        <section id="sensores" class="section">
-            <h2>🎛️ Sensores Disponibles</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h4>🔄 SIMPLE ANGLE</h4>
-                    <p>Potenciómetro como sensor de ángulo (0-270°)</p>
+        <section id="sensores" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-motherboard"></i> Sensores Disponibles</h2>
+
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-arrow-clockwise"></i> SIMPLE ANGLE</h4>
+                        <p class="small">Potenciómetro como sensor de ángulo (0-270°)</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🦾 ANGLE ARM</h4>
-                    <p>Múltiples potenciómetros simulando brazo robótico</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-robot"></i> ANGLE ARM</h4>
+                        <p class="small">Múltiples potenciómetros simulando brazo robótico</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🔴 INFRARED</h4>
-                    <p>Sensor de proximidad IR digital (Sharp GP2Y0A21YK)</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-broadcast"></i> INFRARED</h4>
+                        <p class="small">Sensor de proximidad IR digital (Sharp GP2Y0A21YK)</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>👆 CAPACITIVE</h4>
-                    <p>Sensor capacitivo digital para detección de proximidad</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-hand-index"></i> CAPACITIVE</h4>
+                        <p class="small">Sensor capacitivo digital para detección de proximidad</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>📏 ULTRASONIC</h4>
-                    <p>Sensor de distancia HC-SR04 (2-400 cm)</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-rulers"></i> ULTRASONIC</h4>
+                        <p class="small">Sensor de distancia HC-SR04 (2-400 cm)</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>⚡ OPTICAL SPEED</h4>
-                    <p>Control y monitoreo de velocidad con sensor óptico</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-speedometer2"></i> OPTICAL SPEED</h4>
+                        <p class="small">Control y monitoreo de velocidad con sensor óptico</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🎯 IR STEERING</h4>
-                    <p>Sistema de dirección basado en infrarojos</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-joystick"></i> IR STEERING</h4>
+                        <p class="small">Sistema de dirección basado en infrarojos</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🌡️ THERMOREGULATION</h4>
-                    <p>Múltiples sensores: LM35, DS18B20, MAX6675 (termopar K)</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-thermometer-half"></i> THERMOREGULATION</h4>
+                        <p class="small">Múltiples sensores: LM35, DS18B20, MAX6675 (termopar K)</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>💨 GAS REGULATION</h4>
-                    <p>Sensores MQ2/MQ3 con cálculo PPM real</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-wind"></i> GAS REGULATION</h4>
+                        <p class="small">Sensores MQ2/MQ3 con cálculo PPM real</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>💡 BRIGHTNESS</h4>
-                    <p>Sensor LDR para medición de luminosidad</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-lightbulb"></i> BRIGHTNESS</h4>
+                        <p class="small">Sensor LDR para medición de luminosidad</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🎨 COLOR CNY</h4>
-                    <p>Detección de color con sensores CNY70</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-palette"></i> COLOR CNY</h4>
+                        <p class="small">Detección de color con sensores CNY70</p>
+                    </div>
                 </div>
-                
-                <div class="feature-card">
-                    <h4>🌈 COLOR TCS</h4>
-                    <p>Sensor de color TCS3200 con filtros RGB</p>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="sc-card feature-card p-3 h-100">
+                        <h4><i class="bi bi-rainbow"></i> COLOR TCS</h4>
+                        <p class="small">Sensor de color TCS3200 con filtros RGB</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Manuales de Software -->
-        <section id="manuales-software" class="section">
-            <h2>💻 Manuales de Software</h2>
+        <section id="manuales-software" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-file-earmark-code"></i> Manuales de Software</h2>
             <p>Manuales técnicos del software de cada módulo con explicaciones de código, arquitectura y funcionalidades:</p>
-            
-            <div class="info-box">
-                <strong>📖 Formato:</strong> Los manuales de software están en formato DOCX (Microsoft Word) y contienen 
+
+            <div class="sc-note">
+                <i class="bi bi-file-earmark-word"></i> <strong>Formato:</strong> Los manuales de software están en formato DOCX (Microsoft Word) y contienen
                 documentación técnica del código, arquitectura de módulos, protocolos de comunicación y guías de desarrollo.
             </div>
-            
-            <div class="manuals-grid">
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>SIMPLE ANGLE</h4>
-                        <p>Manual de potenciómetro simple</p>
-                    </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/01. SENSORA_SIMPLE_ANGLE/SIMPLE_ANGLE_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
-                </div>
 
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>ANGLE ARM</h4>
-                        <p>Manual de brazo robótico</p>
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>SIMPLE ANGLE</h4>
+                            <p class="small text-muted">Manual de potenciómetro simple</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/01. SENSORA_SIMPLE_ANGLE/SIMPLE_ANGLE_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual SIMPLE ANGLE"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/02. SENSORA_ANGLE_ARM/SENSORA_ANGLE_ARM_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>INFRARED</h4>
-                        <p>Manual de sensor IR</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>ANGLE ARM</h4>
+                            <p class="small text-muted">Manual de brazo robótico</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/02. SENSORA_ANGLE_ARM/SENSORA_ANGLE_ARM_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual ANGLE ARM"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/03. SENSORA_INFRARED/SENSORA_INFRARED_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>CAPACITIVE</h4>
-                        <p>Manual de sensor capacitivo</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>INFRARED</h4>
+                            <p class="small text-muted">Manual de sensor IR</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/03. SENSORA_INFRARED/SENSORA_INFRARED_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual INFRARED"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/04. SENSORA_CAPACITIVE/SENSORA_CAPACITIVE_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>ULTRASONIC</h4>
-                        <p>Manual de sensor ultrasónico</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>CAPACITIVE</h4>
+                            <p class="small text-muted">Manual de sensor capacitivo</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/04. SENSORA_CAPACITIVE/SENSORA_CAPACITIVE_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual CAPACITIVE"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/05. SENSORA_ULTRASONIC/SENSORA_ULTRASONIC_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>OPTICAL SPEED</h4>
-                        <p>Manual de sensor de velocidad</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>ULTRASONIC</h4>
+                            <p class="small text-muted">Manual de sensor ultrasónico</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/05. SENSORA_ULTRASONIC/SENSORA_ULTRASONIC_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual ULTRASONIC"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/06. SENSORA_OPTICAL_SPEED/SENSORA_OPTICAL_SPEED_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>IR STEERING</h4>
-                        <p>Manual de dirección IR</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>OPTICAL SPEED</h4>
+                            <p class="small text-muted">Manual de sensor de velocidad</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/06. SENSORA_OPTICAL_SPEED/SENSORA_OPTICAL_SPEED_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual OPTICAL SPEED"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/07. SENSORA_IR_STEERING/SENSORA_IR_STEERING_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>THERMOREGULATION</h4>
-                        <p>Manual de sensores de temperatura</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>IR STEERING</h4>
+                            <p class="small text-muted">Manual de dirección IR</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/07. SENSORA_IR_STEERING/SENSORA_IR_STEERING_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual IR STEERING"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/08. SENSORA_THERMOREGULATION/THERMOREGULATION_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>GAS REGULATION</h4>
-                        <p>Manual de sensores de gas</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>THERMOREGULATION</h4>
+                            <p class="small text-muted">Manual de sensores de temperatura</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/08. SENSORA_THERMOREGULATION/THERMOREGULATION_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual THERMOREGULATION"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/09. SENSORA_GAS_REGULATION/SENSORA_GAS_REGULATION_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>BRIGHTNESS</h4>
-                        <p>Manual de sensor de luminosidad</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>GAS REGULATION</h4>
+                            <p class="small text-muted">Manual de sensores de gas</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/09. SENSORA_GAS_REGULATION/SENSORA_GAS_REGULATION_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual GAS REGULATION"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/10. SENSORA_BRIGHTNESS/SENSORA_BRIGHTNESS_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>COLOR CNY</h4>
-                        <p>Manual de detección de color CNY70</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>BRIGHTNESS</h4>
+                            <p class="small text-muted">Manual de sensor de luminosidad</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/10. SENSORA_BRIGHTNESS/SENSORA_BRIGHTNESS_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual BRIGHTNESS"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/11. SENSORA_COLOR_CNY/SENSORA_COLOR_CNY_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>COLOR TCS</h4>
-                        <p>Manual de sensor TCS3200</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>COLOR CNY</h4>
+                            <p class="small text-muted">Manual de detección de color CNY70</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/11. SENSORA_COLOR_CNY/SENSORA_COLOR_CNY_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual COLOR CNY"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/12. SENSORA_COLOR_TCS/SENSORA_COLOR_TCS_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>CONNECT</h4>
-                        <p>Manual de conexión WiFi</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>COLOR TCS</h4>
+                            <p class="small text-muted">Manual de sensor TCS3200</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/12. SENSORA_COLOR_TCS/SENSORA_COLOR_TCS_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual COLOR TCS"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/13. SENSORA_CONNECT/SENSORA_CONNECT_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📘</div>
-                    <div class="manual-info">
-                        <h4>ESP READING</h4>
-                        <p>Manual de lectura ESP32</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>CONNECT</h4>
+                            <p class="small text-muted">Manual de conexión WiFi</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/13. SENSORA_CONNECT/SENSORA_CONNECT_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual CONNECT"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/14. SENSORA_ESP_READING/SENSORA_ESP_READING_userManual.docx" class="download-btn" download title="Descargar manual">⬇</a>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-word manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>ESP READING</h4>
+                            <p class="small text-muted">Manual de lectura ESP32</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/14. SENSORA_ESP_READING/SENSORA_ESP_READING_userManual.docx" class="btn btn-outline-secondary btn-sm" download title="Descargar manual" aria-label="Descargar manual ESP READING"><i class="bi bi-download"></i></a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Manuales de Usuario y Prácticas -->
-        <section id="manuales-usuario" class="section">
-            <h2>📖 Manuales de Usuario y Prácticas de Laboratorio</h2>
+        <section id="manuales-usuario" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-journal-text"></i> Manuales de Usuario y Prácticas de Laboratorio</h2>
             <p>Documentación completa para usuarios finales con manuales de operación y prácticas guiadas de laboratorio:</p>
-            
-            <div class="info-box">
-                <strong>📚 Contenido:</strong> Cada sensor cuenta con dos documentos:
-                <ul style="margin-top: 10px;">
+
+            <div class="sc-note">
+                <i class="bi bi-collection"></i> <strong>Contenido:</strong> Cada sensor cuenta con dos documentos:
+                <ul>
                     <li><strong>Manual de Usuario (Serie A):</strong> Guía de operación, conexiones hardware, configuración y uso básico</li>
                     <li><strong>Práctica de Laboratorio (Serie B):</strong> Ejercicios prácticos, experimentos guiados y actividades didácticas</li>
                 </ul>
             </div>
-            
-            <h3 style="margin-top: 30px;">📘 Documentación por Sensor</h3>
-            
-            <div class="manuals-grid">
+
+            <h3>Documentación por Sensor</h3>
+
+            <div class="row g-3">
                 <!-- Simple Angle -->
-                <div class="manual-card">
-                    <div class="manual-icon">📐</div>
-                    <div class="manual-info">
-                        <h4>Ángulo Simple</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-arrow-clockwise manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Ángulo Simple</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A1_MANUAL_SIMPLE_ANGLE.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B1_PRACTICA_SIMPLE_ANGLE.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A1_MANUAL_SIMPLE_ANGLE.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B1_PRACTICA_SIMPLE_ANGLE.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Angle Arm -->
-                <div class="manual-card">
-                    <div class="manual-icon">🦾</div>
-                    <div class="manual-info">
-                        <h4>Brazo Angulado</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-robot manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Brazo Angulado</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A2_MANUAL_ANGLE_ARM.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B2_PRACTICA_ANGLE_ARM.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A2_MANUAL_ANGLE_ARM.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B2_PRACTICA_ANGLE_ARM.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Infrared -->
-                <div class="manual-card">
-                    <div class="manual-icon">🔴</div>
-                    <div class="manual-info">
-                        <h4>Infrarrojo</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-broadcast manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Infrarrojo</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A3_MANUAL_INFRARED.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B3_PRACTICA_INFRARED.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A3_MANUAL_INFRARED.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B3_PRACTICA_INFRARED.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Capacitive -->
-                <div class="manual-card">
-                    <div class="manual-icon">👆</div>
-                    <div class="manual-info">
-                        <h4>Capacitivo</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-hand-index manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Capacitivo</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A4_MANUAL_CAPACITIVE.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B4_PRACTICA_CAPACITIVE.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A4_MANUAL_CAPACITIVE.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B4_PRACTICA_CAPACITIVE.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Ultrasonic -->
-                <div class="manual-card">
-                    <div class="manual-icon">📡</div>
-                    <div class="manual-info">
-                        <h4>Ultrasónico</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-rulers manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Ultrasónico</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A5_MANUAL_ULTRASONIC.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B5_PRACTICA_ULTRASONIC.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A5_MANUAL_ULTRASONIC.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B5_PRACTICA_ULTRASONIC.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Optical Speed -->
-                <div class="manual-card">
-                    <div class="manual-icon">💨</div>
-                    <div class="manual-info">
-                        <h4>Velocidad Óptica</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-speedometer2 manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Velocidad Óptica</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A6_MANUAL_OPTICAL_SPEED.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B6_PRACTICA_OPTICAL_SPEED.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A6_MANUAL_OPTICAL_SPEED.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B6_PRACTICA_OPTICAL_SPEED.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- IR Steering -->
-                <div class="manual-card">
-                    <div class="manual-icon">🎮</div>
-                    <div class="manual-info">
-                        <h4>Dirección IR</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-joystick manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Dirección IR</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A7_MANUAL_IR_STEERING.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B7_PRACTICA_IR_STEERING.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A7_MANUAL_IR_STEERING.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B7_PRACTICA_IR_STEERING.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Thermoregulation -->
-                <div class="manual-card">
-                    <div class="manual-icon">🌡️</div>
-                    <div class="manual-info">
-                        <h4>Termorregulación</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-thermometer-half manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Termorregulación</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A8_MANUAL_THERMOREGULATION.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B8_PRACTICA_THERMOREGULATION.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A8_MANUAL_THERMOREGULATION.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B8_PRACTICA_THERMOREGULATION.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Gas Regulation -->
-                <div class="manual-card">
-                    <div class="manual-icon">💨</div>
-                    <div class="manual-info">
-                        <h4>Regulación de Gases</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-wind manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Regulación de Gases</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A9_MANUAL_GAS_REGULATION.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B9_PRACTICA_GAS_REGULATION.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A9_MANUAL_GAS_REGULATION.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B9_PRACTICA_GAS_REGULATION.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Brightness -->
-                <div class="manual-card">
-                    <div class="manual-icon">💡</div>
-                    <div class="manual-info">
-                        <h4>Brillo</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-lightbulb manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Brillo</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A10_MANUAL_BRIGHTNESS.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B10_PRACTICA_BRIGHTNESS.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A10_MANUAL_BRIGHTNESS.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B10_PRACTICA_BRIGHTNESS.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Color CNY -->
-                <div class="manual-card">
-                    <div class="manual-icon">🎨</div>
-                    <div class="manual-info">
-                        <h4>Color CNY</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-palette manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Color CNY</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A11_MANUAL_COLOR_CNY.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B11_PRACTICA_COLOR_CNY.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A11_MANUAL_COLOR_CNY.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B11_PRACTICA_COLOR_CNY.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
 
                 <!-- Color TCS -->
-                <div class="manual-card">
-                    <div class="manual-icon">🌈</div>
-                    <div class="manual-info">
-                        <h4>Color TCS</h4>
-                        <p>Manual y Práctica</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex flex-wrap align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-rainbow manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>Color TCS</h4>
+                            <p class="small text-muted">Manual y Práctica</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A12_MANUAL_COLOR_TCS.docx" class="btn btn-outline-secondary btn-sm" title="Descargar Manual"><i class="bi bi-file-earmark-text"></i> Manual</a>
+                            <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B12_PRACTICA_COLOR_TCS.docx" class="btn btn-outline-info btn-sm" title="Descargar Práctica"><i class="bi bi-clipboard-check"></i> Práctica</a>
+                        </div>
                     </div>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Manuales/A12_MANUAL_COLOR_TCS.docx" class="download-btn" title="Descargar Manual">📄</a>
-                    <a href="SensoraCore/Docs/SensoraCore_Documentacion/Practicas/B12_PRACTICA_COLOR_TCS.docx" class="download-btn" title="Descargar Práctica" style="margin-left: 10px;">🔬</a>
                 </div>
             </div>
         </section>
 
         <!-- Certificados de Registro -->
-        <section id="certificados" class="section">
-            <h2>📜 Certificados de Registro - DNDA</h2>
+        <section id="certificados" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-patch-check"></i> Certificados de Registro - DNDA</h2>
             <p>Certificados oficiales de registro de software emitidos por la <strong>Dirección Nacional de Derechos de Autor</strong>:</p>
-            
-            <div class="info-box warning">
-                <strong>⚖️ Propiedad Intelectual:</strong> Los módulos de SensoraCore están registrados 
-                ante la Dirección Nacional de Derechos de Autor. Los certificados PDF validan la 
-                autoría y fecha de creación de cada componente. <em>Algunos certificados están pendientes de emisión.</em>
+
+            <div class="sc-note sc-note-warning">
+                <i class="bi bi-shield-check"></i> <strong>Propiedad Intelectual:</strong> <em> Los módulos de SensoraCore están registrados
+                ante la Dirección Nacional de Derechos de Autor. Los certificados PDF validan la
+                autoría y fecha de creación de cada componente.</em>
             </div>
-            
-            <div class="manuals-grid">
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>SIMPLE ANGLE</h4>
-                        <p>Certificado DNDA</p>
-                    </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/158. Dnda_Documento SENSORA_SIMPLE ANGLE.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
-                </div>
 
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>ANGLE ARM</h4>
-                        <p>Certificado DNDA</p>
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>SIMPLE ANGLE</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/158. Dnda_Documento SENSORA_SIMPLE ANGLE.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado SIMPLE ANGLE"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/159. Dnda_Documento SENSORA_ANGLE ARM.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>INFRARED</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>ANGLE ARM</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/159. Dnda_Documento SENSORA_ANGLE ARM.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado ANGLE ARM"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/160. Dnda_Documento SENSORA_INFRARED.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>CAPACITIVE</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>INFRARED</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/160. Dnda_Documento SENSORA_INFRARED.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado INFRARED"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/161. Dnda_Documento SENSORA_CAPACITIVE.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>ULTRASONIC</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>CAPACITIVE</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/161. Dnda_Documento SENSORA_CAPACITIVE.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado CAPACITIVE"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/162. Dnda_Documento SENSORA_ULTRASONIC.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>OPTICAL SPEED</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>ULTRASONIC</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/162. Dnda_Documento SENSORA_ULTRASONIC.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado ULTRASONIC"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/163. Dnda_Documento SENSORA_OPTICAL SPEED.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>IR STEERING</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>OPTICAL SPEED</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/163. Dnda_Documento SENSORA_OPTICAL SPEED.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado OPTICAL SPEED"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/164. Dnda_Documento SENSORA_IR STEERING.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>THERMOREGULATION</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>IR STEERING</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/164. Dnda_Documento SENSORA_IR STEERING.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado IR STEERING"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/165. Dnda_Documento SENSORA_THERMOREGULATION.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>GAS REGULATION</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>THERMOREGULATION</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/165. Dnda_Documento SENSORA_THERMOREGULATION.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado THERMOREGULATION"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/166. Dnda_Documento SENSORA_GAS REGULATION.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>BRIGHTNESS</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>GAS REGULATION</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/166. Dnda_Documento SENSORA_GAS REGULATION.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado GAS REGULATION"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/167. Dnda_Documento SENSORA_BRIGHTNESS.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>COLOR CNY</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>BRIGHTNESS</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/167. Dnda_Documento SENSORA_BRIGHTNESS.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado BRIGHTNESS"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/168. Dnda_Documento SENSORA_COLOR CNY.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>COLOR TCS</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>COLOR CNY</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/168. Dnda_Documento SENSORA_COLOR CNY.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado COLOR CNY"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/169. Dnda_Documento SENSORA_COLOR TCS.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>CONNECT</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>COLOR TCS</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/169. Dnda_Documento SENSORA_COLOR TCS.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado COLOR TCS"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/170. Dnda_Documento SENSORA_CONNECT.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
                 </div>
-
-                <div class="manual-card">
-                    <div class="manual-icon">📜</div>
-                    <div class="manual-info">
-                        <h4>ESP READING</h4>
-                        <p>Certificado DNDA</p>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>CONNECT</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/170. Dnda_Documento SENSORA_CONNECT.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado CONNECT"><i class="bi bi-download"></i></a>
                     </div>
-                    <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/171. Dnda_Documento SENSORA_ESP READING.pdf" class="download-btn" download title="Descargar certificado">⬇</a>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card manual-card d-flex align-items-center gap-3 p-3 h-100">
+                        <i class="bi bi-file-earmark-pdf manual-icon"></i>
+                        <div class="flex-grow-1">
+                            <h4>ESP READING</h4>
+                            <p class="small text-muted">Certificado DNDA</p>
+                        </div>
+                        <a href="SensoraCore/Docs/Registros_de_SW/Registro De Software/171. Dnda_Documento SENSORA_ESP READING.pdf" class="btn btn-outline-secondary btn-sm" download title="Descargar certificado" aria-label="Descargar certificado ESP READING"><i class="bi bi-download"></i></a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Documentación Técnica -->
-        <section id="documentacion" class="section">
-            <h2>📖 Documentación Técnica</h2>
-            
-            <h3>🔍 Documentación de Código</h3>
-            <p>
-                Accede a la documentación completa del código fuente, incluyendo ejemplos de uso, 
-                explicación de funciones y algoritmos implementados.
-            </p>
-            <a href="Web-Index/documentacion_codigo.html" style="display: inline-block; background: #667eea; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; margin-bottom: 20px;">
-                Ver Documentación de Código
-            </a>
+        <section id="documentacion" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-book"></i> Documentación Técnica</h2>
 
-            <h3>🎨 Maquetación de Interfaz</h3>
-            <p>
-                Consulta el diseño y estructura de la interfaz de usuario de SensoraCore.
-            </p>
-            <a href="Web-Index/MaquetacionSensoraCore.html" style="display: inline-block; background: #667eea; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; margin-bottom: 20px;">
-                Ver Maquetación
-            </a>
-
-            <h3>📋 Recursos Adicionales</h3>
-            <ul>
-                <li><strong>Lista de Sensores:</strong> <a href="SensoraCore/Docs/Lista_de_sensores.md">Lista_de_sensores.md</a></li>
-                <li><strong>Requisitos:</strong> <a href="SensoraCore/Docs/requirements.txt">requirements.txt</a></li>
-                <li><strong>QUICKSTART:</strong> <a href="SensoraCore/Docs/QUICKSTART.md">QUICKSTART.md</a></li>
-            </ul>
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card p-3 h-100 d-flex flex-column">
+                        <h3 class="mt-0">Documentación de Código</h3>
+                        <p>
+                            Accede a la documentación completa del código fuente, incluyendo ejemplos de uso,
+                            explicación de funciones y algoritmos implementados.
+                        </p>
+                        <a href="Web-Index/documentacion_codigo.html" class="btn btn-primary mt-auto align-self-start">
+                            <i class="bi bi-code-slash"></i> Ver Documentación de Código
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="sc-card p-3 h-100 d-flex flex-column">
+                        <h3 class="mt-0">Maquetación de Interfaz</h3>
+                        <p>
+                            Consulta el diseño y estructura de la interfaz de usuario de SensoraCore.
+                        </p>
+                        <a href="Web-Index/MaquetacionSensoraCore.html" class="btn btn-primary mt-auto align-self-start">
+                            <i class="bi bi-layout-text-window"></i> Ver Maquetación
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0">Recursos Adicionales</h3>
+                        <ul class="mb-0">
+                            <li><strong>Lista de Sensores:</strong> <a href="SensoraCore/Docs/Lista_de_sensores.md">Lista_de_sensores.md</a></li>
+                            <li><strong>Requisitos:</strong> <a href="SensoraCore/Docs/requirements.txt">requirements.txt</a></li>
+                            <li><strong>QUICKSTART:</strong> <a href="SensoraCore/Docs/QUICKSTART.md">QUICKSTART.md</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Timeline Section -->
-        <section id="timeline" class="section">
-            <h2>🕒 Timeline de Releases</h2>
+        <!-- Timeline -->
+        <section id="timeline" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-clock-history"></i> Timeline de Releases</h2>
             <p>Consulta el histórico de releases y el progreso del proyecto en el timeline interactivo.</p>
-            <div style="margin-top: 20px;">
-                <!-- Responsive iframe container -->
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
-                    <iframe src="Web-Index/sensora_core_timeline_horizontal.html" title="SensoraCore Timeline Horizontal" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" loading="lazy"></iframe>
-                </div>
-                <p style="margin-top: 12px; font-size: 0.95em; color: #666;">Si lo prefieres, puedes abrir el timeline en una nueva ventana: <a href="Web-Index/sensora_core_timeline_horizontal.html" target="_blank" rel="noopener noreferrer">Ver Timeline</a>.</p>
+            <div class="sc-embed ratio ratio-16x9 shadow-sm mt-3">
+                <iframe src="Web-Index/sensora_core_timeline_horizontal.html" title="SensoraCore Timeline Horizontal" loading="lazy"></iframe>
             </div>
+            <p class="small text-muted mt-3">Si lo prefieres, puedes abrir el timeline en una nueva ventana: <a href="Web-Index/sensora_core_timeline_horizontal.html" target="_blank" rel="noopener noreferrer">Ver Timeline</a>.</p>
         </section>
 
         <!-- Arquitectura del Sistema -->
-        <section class="section">
-            <h2>🏗️ Arquitectura del Sistema</h2>
-            
-            <h3>Hardware</h3>
-            <ul>
-                <li><strong>Microcontrolador:</strong> ESP32 con WiFi integrado</li>
-                <li><strong>Sensores:</strong> Digitales y analógicos de diversos tipos</li>
-                <li><strong>Comunicación:</strong> TCP/IP sobre WiFi</li>
-                <li><strong>Display opcional:</strong> OLED I2C para estado local</li>
-            </ul>
+        <section id="arquitectura" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-diagram-3"></i> Arquitectura del Sistema</h2>
 
-            <h3>Software - Firmware ESP32</h3>
-            <ul>
-                <li><strong>Lenguaje:</strong> MicroPython</li>
-                <li><strong>Protocolo:</strong> Servidor TCP en puerto 8080</li>
-                <li><strong>Formato de datos:</strong> Texto plano "SENSOR:valor"</li>
-                <li><strong>Módulos principales:</strong> red.py, main.py</li>
-            </ul>
-
-            <h3>Software - Aplicación Desktop</h3>
-            <ul>
-                <li><strong>Framework:</strong> PySide6 (Qt for Python)</li>
-                <li><strong>Visualización:</strong> matplotlib para gráficos</li>
-                <li><strong>Exportación:</strong> openpyxl para Excel</li>
-                <li><strong>Arquitectura:</strong> Módulos por sensor con threading</li>
-            </ul>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0">Hardware</h3>
+                        <ul class="mb-0">
+                            <li><strong>Microcontrolador:</strong> ESP32 con WiFi integrado</li>
+                            <li><strong>Sensores:</strong> Digitales y analógicos de diversos tipos</li>
+                            <li><strong>Comunicación:</strong> TCP/IP sobre WiFi</li>
+                            <li><strong>Display opcional:</strong> OLED I2C para estado local</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0">Software - Firmware ESP32</h3>
+                        <ul class="mb-0">
+                            <li><strong>Lenguaje:</strong> MicroPython</li>
+                            <li><strong>Protocolo:</strong> Servidor TCP en puerto 8080</li>
+                            <li><strong>Formato de datos:</strong> Texto plano "SENSOR:valor"</li>
+                            <li><strong>Módulos principales:</strong> red.py, main.py</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="sc-card p-3 h-100">
+                        <h3 class="mt-0">Software - Aplicación Desktop</h3>
+                        <ul class="mb-0">
+                            <li><strong>Framework:</strong> PySide6 (Qt for Python)</li>
+                            <li><strong>Visualización:</strong> matplotlib para gráficos</li>
+                            <li><strong>Exportación:</strong> openpyxl para Excel</li>
+                            <li><strong>Arquitectura:</strong> Módulos por sensor con threading</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Solución de Problemas -->
-        <section class="section">
-            <h2>🔧 Solución de Problemas</h2>
-            
-            <h3>ESP32 no se conecta al WiFi</h3>
-            <ul>
-                <li>Verifica SSID y contraseña en <code>wifi_config.py</code></li>
-                <li>Asegúrate que la red WiFi esté disponible y sea 2.4GHz</li>
-                <li>Reinicia el ESP32 y verifica el monitor serial</li>
-            </ul>
+        <section id="solucion-problemas" class="sc-section mb-5">
+            <h2 class="section-title"><i class="bi bi-tools"></i> Solución de Problemas</h2>
 
-            <h3>App no puede conectar al ESP32</h3>
-            <ul>
-                <li>Verifica que ESP32 esté encendido y conectado al WiFi</li>
-                <li>Usa la IP correcta mostrada en el monitor serial</li>
-                <li>Verifica que ambos estén en la misma red WiFi</li>
-                <li>Desactiva temporalmente el firewall para probar</li>
-            </ul>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h3 class="mt-0">ESP32 no se conecta al WiFi</h3>
+                    <ul>
+                        <li>Verifica SSID y contraseña en <code>wifi_config.py</code></li>
+                        <li>Asegúrate que la red WiFi esté disponible y sea 2.4GHz</li>
+                        <li>Reinicia el ESP32 y verifica el monitor serial</li>
+                    </ul>
 
-            <h3>Error al instalar dependencias</h3>
-            <div class="highlight-box">
-                <code>
-                    pip install --upgrade pip<br>
-                    pip install PySide6 matplotlib openpyxl scipy
-                </code>
+                    <h3>App no puede conectar al ESP32</h3>
+                    <ul>
+                        <li>Verifica que ESP32 esté encendido y conectado al WiFi</li>
+                        <li>Usa la IP correcta mostrada en el monitor serial</li>
+                        <li>Verifica que ambos estén en la misma red WiFi</li>
+                        <li>Desactiva temporalmente el firewall para probar</li>
+                    </ul>
+
+                    <h3>Error al instalar dependencias</h3>
+                    <pre class="sc-code"><code>pip install --upgrade pip
+pip install PySide6 matplotlib openpyxl scipy</code></pre>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mt-0">Las gráficas no se muestran</h3>
+                    <p><i class="bi bi-check-circle-fill text-success"></i> <strong>Solucionado en Beta 1.0:</strong> Las gráficas ahora se muestran correctamente desde el primer uso con renderizado mejorado.</p>
+
+                    <h3>Error al exportar a Excel</h3>
+                    <p><i class="bi bi-check-circle-fill text-success"></i> <strong>Solucionado en Beta 1.0:</strong> Sistema de exportación completamente funcional para todos los sensores con gráficas embebidas.</p>
+
+                    <h3>Compilar la aplicación</h3>
+                    <pre class="sc-code"><code>cd Compilador
+.\Build-Release.ps1</code></pre>
+                    <p>El ejecutable se generará en <code>Compilador/Versiones/</code></p>
+                </div>
             </div>
-
-            <h3>Las gráficas no se muestran</h3>
-            <p>✅ <strong>Solucionado en Beta 1.0:</strong> Las gráficas ahora se muestran correctamente desde el primer uso con renderizado mejorado.</p>
-
-            <h3>Error al exportar a Excel</h3>
-            <p>✅ <strong>Solucionado en Beta 1.0:</strong> Sistema de exportación completamente funcional para todos los sensores con gráficas embebidas.</p>
-            
-            <h3>Compilar la aplicación</h3>
-            <div class="highlight-box">
-                <code>
-                    cd Compilador<br>
-                    .\Build-Release.ps1
-                </code>
-            </div>
-            <p>El ejecutable se generará en <code>Compilador/Versiones/</code></p>
         </section>
-    </div>
+
+        <!-- Información del sitio SensoraCore (antes en el footer propio del sitio) -->
+        <section id="informacion" class="sc-section sc-site-info">
+            <div class="project-sidebar p-4 rounded shadow-sm text-center">
+                <p class="mb-2"><strong>SensoraCore</strong> - Sistema de Monitoreo de Sensores WiFi ESP32</p>
+                <p class="mb-2 small">
+                    <span class="badge bg-primary">Versión Beta 2.0 (EOL)</span>
+                    <span class="badge bg-secondary">Creado el 25 de Mayo de 2024</span>
+                    <span class="badge bg-secondary">Última actualización: 23 de Noviembre de 2024</span>
+                </p>
+                <p class="mb-2">Desarrollado con <i class="bi bi-heart-fill text-danger" aria-label="amor"></i> para la comunidad maker y educativa</p>
+                <p class="mb-2">
+                    <a href="https://github.com/YamithR/SensoraCore"><i class="bi bi-github"></i> GitHub Repository</a> |
+                    <a href="https://github.com/YamithR">@YamithR</a>
+                </p>
+                <p class="mb-0 small text-muted">&copy; 2024 SensoraCore Project - Módulos Didácticos para Caracterización y Calibración de Sensores</p>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
-        <p><strong>SensoraCore</strong> - Sistema de Monitoreo de Sensores WiFi ESP32</p>
-        <p>Versión Beta 1.0 | Creado el 25 de Mayo de 2024 | Última actualización: 23 de Noviembre de 2024</p>
-        <p>Desarrollado con 💜 para la comunidad maker y educativa</p>
-        <p><a href="https://github.com/YamithR/SensoraCore">GitHub Repository</a> | <a href="https://github.com/YamithR">@YamithR</a></p>
-        <p>&copy; 2024 SensoraCore Project - Módulos Didácticos para Caracterización y Calibración de Sensores</p>
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
+        </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/theme.js"></script>
     <script>
-        // Smooth scroll para navegación
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+        (function () {
+            'use strict';
+
+            // Altura real de la navbar para la navegación por secciones fija y los anclajes
+            const navbar = document.getElementById('mainNavbar');
+            function updateNavHeight() {
+                if (navbar) {
+                    document.documentElement.style.setProperty('--sc-nav-h', navbar.offsetHeight + 'px');
+                }
+            }
+            updateNavHeight();
+            window.addEventListener('resize', updateNavHeight);
+
+            // Smooth scroll para la navegación interna
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                const href = anchor.getAttribute('href');
+                if (href.length < 2) return;
+                anchor.addEventListener('click', function (e) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Resaltar la sección activa en la navegación por secciones
+            const sectionLinks = document.querySelectorAll('#sectionNav .nav-link');
+            function highlightActive() {
+                let current = '';
+                document.querySelectorAll('.sc-section').forEach(section => {
+                    if (window.pageYOffset >= (section.offsetTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                sectionLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+                });
+            }
+            window.addEventListener('scroll', highlightActive, { passive: true });
+            highlightActive();
+
+            // Animación de aparición al hacer scroll
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            observer.unobserve(entry.target);
+                        }
                     });
-                }
-            });
-        });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px'
+                });
 
-        // Highlight active nav item on scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('.section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            document.querySelectorAll('nav a').forEach(link => {
-                link.style.background = '';
-                link.style.color = '#667eea';
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.style.background = '#667eea';
-                    link.style.color = 'white';
-                }
-            });
-        });
-
-        // Add fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.section, .feature-card, .manual-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+                document.querySelectorAll('.sc-section, .feature-card, .manual-card').forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease, background-color 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease';
+                    observer.observe(el);
+                });
+            }
+        })();
     </script>
 </body>
 </html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+    =====================================================================
+    PLANTILLA DE PÁGINA DE PROYECTO
+    =====================================================================
+    Este archivo NO está registrado en js/proyectos-data.js, por eso no
+    aparece en el index ni en galeria.html. Cópialo, renómbralo y arma tu
+    página conservando, duplicando o borrando módulos completos.
+    Cada módulo empieza con  ===== MÓDULO: ... =====
+    y termina con           ===== FIN MÓDULO: ... =====
+    =====================================================================
+-->
+<head>
+    <!-- ===== MÓDULO: Head / meta (OBLIGATORIO) ===== -->
+    <!--
+        Propósito: codificación, viewport, título y hojas de estilo.
+        Cambiar: el <title> con el patrón "<Nombre del Proyecto> - Yamith Romero".
+        Dependencias: el orden importa. Bootstrap, iconos, Roboto, luego
+        ../css/styles.css y por último ../css/proyectos.css (sobrescribe).
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BORRAR esta meta "robots" en la copia del proyecto real (solo evita que la plantilla se indexe en buscadores). -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Plantilla de Proyecto - Yamith Romero</title>
+    <!-- Favicon OPCIONAL (solo SensoraCore lo usa). Borra la línea si el proyecto no tiene ícono propio. -->
+    <link rel="icon" href="../assets/img/sensoracore/SensoraCore.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/proyectos.css">
+    <!-- ===== FIN MÓDULO: Head / meta ===== -->
+
+    <!-- ===== MÓDULO: Estilos locales (OPCIONAL) ===== -->
+    <!--
+        Propósito: reglas que NO existen en css/proyectos.css.
+        - .sc-eol: aviso con borde izquierdo de advertencia (copiado de
+          SensoraCore-web/index.html). Respeta modo claro/oscuro porque el
+          texto hereda el color del tema. Borra la regla si no usas el
+          módulo "Aviso".
+        - .tpl-*: estilos SOLO de la tarjeta de instrucciones de esta
+          plantilla. Bórralos junto con esa tarjeta en el proyecto real.
+        Si al final no queda ninguna regla, borra todo el bloque <style>.
+    -->
+    <style>
+        .sc-eol { border-left: 3px solid var(--bs-warning, #f59e0b); padding: .4rem .9rem; margin-bottom: 1.5rem; }
+
+        /* Solo para la tarjeta de instrucciones (borrar en el proyecto real) */
+        .tpl-guide { border-left: 4px solid var(--bs-warning, #f59e0b) !important; }
+        .tpl-guide h4, .tpl-guide h5, .tpl-guide h6 { margin-top: 1.25rem; }
+        .tpl-guide ol li, .tpl-guide ul li { margin-bottom: .35rem; }
+        .tpl-guide pre {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: .375rem;
+            padding: 1rem;
+            font-size: .82rem;
+            max-height: 32rem;
+            overflow: auto;
+        }
+        .tpl-guide pre code, .tpl-guide code { color: var(--text); }
+        .tpl-guide code { background: transparent; }
+        .tpl-tag {
+            display: inline-block;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            padding: .2rem .6rem;
+            border: 1px solid var(--bs-warning, #f59e0b);
+            border-radius: .25rem;
+        }
+    </style>
+    <!-- ===== FIN MÓDULO: Estilos locales ===== -->
+</head>
+<body>
+    <!-- ===== MÓDULO: Navbar con cambio de tema (OBLIGATORIO) ===== -->
+    <!--
+        Propósito: barra superior fija con enlace al CV, botón claro/oscuro
+        y enlaces a las secciones del index. Idéntica en todas las páginas:
+        no hace falta cambiar nada.
+        Dependencias: js/theme.js necesita #theme-toggle con un <i> y un
+        <span> dentro. El menú colapsable necesita bootstrap.bundle.
+    -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#experiencia">Experiencia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ===== FIN MÓDULO: Navbar con cambio de tema ===== -->
+
+    <main class="container py-5">
+
+        <!-- ===== MÓDULO: Instrucciones de la plantilla (BORRAR ESTE BLOQUE EN EL PROYECTO REAL) ===== -->
+        <!--
+            Propósito: guía de uso de la plantilla, visible solo aquí.
+            Borrar: toda la tarjeta hasta su FIN MÓDULO y las reglas .tpl-* del <style>.
+            Dependencias: .project-sidebar (tarjeta temática) y .tpl-guide / .tpl-tag.
+        -->
+        <div class="project-sidebar tpl-guide p-4 rounded shadow mb-5">
+            <span class="tpl-tag text-warning">BORRAR ESTE BLOQUE EN EL PROYECTO REAL</span>
+            <h3 class="mt-3"><i class="bi bi-journal-code"></i> Instrucciones de la plantilla</h3>
+            <p class="mb-2">
+                Esta página reúne todos los módulos que se han usado en las páginas de proyecto del sitio.
+                Debajo de esta tarjeta verás cada módulo funcionando con medios reales del repositorio, para que
+                puedas ver cómo se ve antes de usarlo.
+            </p>
+
+            <h5><i class="bi bi-list-ol"></i> Paso a paso</h5>
+            <ol>
+                <li>
+                    <strong>Copia este archivo</strong> dentro de <code>proyectos/</code> y renómbralo con el nombre del
+                    proyecto, usando guiones bajos en lugar de espacios. Ejemplos existentes:
+                    <code>Puesta_en_Marcha_SCORBOT.html</code>, <code>Mecanismos_de_Encoders_de_M2.50.html</code>,
+                    <code>MOMO-BoatController-RPi4.html</code>. Recomendado: evita tildes y la letra ñ en el nombre del archivo.
+                </li>
+                <li>
+                    <strong>Guarda los medios</strong> en carpetas con el nombre del proyecto:
+                    imágenes en <code>assets/img/&lt;Proyecto&gt;/</code> y videos y GIF en
+                    <code>assets/vid/&lt;Proyecto&gt;/</code>. Desde la página se enlazan con <code>../</code>, por
+                    ejemplo <code>../assets/img/MiProyecto/foto.jpg</code>.
+                </li>
+                <li>
+                    <strong>Arma la página por módulos.</strong> Cada módulo está delimitado por los comentarios
+                    <code>&lt;!-- ===== MÓDULO: ... ===== --&gt;</code> y
+                    <code>&lt;!-- ===== FIN MÓDULO: ... ===== --&gt;</code>. Puedes conservar, duplicar o borrar todo lo
+                    que esté entre ambos comentarios sin romper la página. Dentro de cada módulo hay un comentario corto
+                    con su propósito, qué cambiar y de qué depende.
+                </li>
+                <li>
+                    <strong>Elige la variante del encabezado (hero).</strong> Hay cuatro variantes juntas en el módulo
+                    "Hero": imagen fija (A, activa), GIF animado (B), video en bucle sin sonido (C) y video con controles (D).
+                    Deja solo una sin comentar.
+                </li>
+                <li>
+                    <strong>Reemplaza todo el texto de ejemplo</strong> ("Nombre del Proyecto", "Descripción breve...",
+                    etc.) y las rutas de los medios por las del proyecto.
+                </li>
+                <li>
+                    <strong>Registra el proyecto</strong> en <code>js/proyectos-data.js</code> (ver ejemplo abajo). Mientras
+                    no tenga entrada ahí, la página no aparece en el index ni en la galería.
+                </li>
+                <li>
+                    <strong>Al publicar:</strong> borra la meta <code>robots</code> (noindex) del <code>&lt;head&gt;</code>,
+                    borra esta tarjeta completa y los estilos <code>.tpl-*</code> del bloque <code>&lt;style&gt;</code>.
+                </li>
+            </ol>
+
+            <h5><i class="bi bi-puzzle"></i> Módulos obligatorios y opcionales</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Obligatorios</h6>
+                    <ul>
+                        <li>Head / meta</li>
+                        <li>Navbar con cambio de tema</li>
+                        <li>Fila superior: Hero (una variante) + Sidebar con título y botón "Volver al CV"</li>
+                        <li>Descripción del Proyecto</li>
+                        <li>Modal de imágenes con zoom (aunque no haya galería: <code>js/proyectos.js</code> falla sin él)</li>
+                        <li>Footer e includes de scripts</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Opcionales</h6>
+                    <ul>
+                        <li>Subtítulo, badges, tecnologías y botones extra del sidebar</li>
+                        <li>Objetivos / Resultados o Características / Arquitectura</li>
+                        <li>Reconocimiento (cita)</li>
+                        <li>Características Principales (tarjetas), Módulos, Arquitectura del Sistema, Documentación y
+                            Propiedad Intelectual, Evolución del Proyecto</li>
+                        <li>Aviso (.sc-eol)</li>
+                        <li>Galería: imágenes, video, carpeta animada, dos carpetas lado a lado</li>
+                        <li>Modal de video y su script (van siempre juntos con el botón "Ver Video Demostración")</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h5><i class="bi bi-tags"></i> Convención de colores de los badges</h5>
+            <ul>
+                <li><span class="badge bg-warning text-dark">bg-warning text-dark</span> productor ONIRIS-ID.</li>
+                <li><span class="badge bg-danger">bg-danger</span> productor UAC y herramientas (SolidWorks, Klipper).</li>
+                <li><span class="badge bg-primary">bg-primary</span> cliente Armada, IoT.</li>
+                <li><span class="badge bg-success">bg-success</span> áreas: Programación, Software, Automatización, Prototipado.</li>
+                <li><span class="badge bg-info">bg-info</span> tecnologías: Sensores, 3D Printing, OrcaSlicer, Robótica, Raspberry Pi.</li>
+                <li><span class="badge bg-secondary">bg-secondary</span> disciplina: Mecatrónica, Mecánica, Control.</li>
+            </ul>
+            <p class="small">
+                Los badges del sidebar deben coincidir con el arreglo <code>badges</code> de la entrada del proyecto en
+                <code>js/proyectos-data.js</code> (mismo texto y misma clase).
+            </p>
+
+            <h5><i class="bi bi-database"></i> Registrar el proyecto en js/proyectos-data.js</h5>
+            <p class="mb-2">
+                Agrega un objeto como este dentro del arreglo <code>proyectosData</code>. Las rutas
+                <code>image</code>, <code>video</code> y <code>link</code> son relativas a la raíz del sitio (sin <code>../</code>).
+            </p>
+<pre><code>{
+    id: 'mi-proyecto',                 // identificador único, en minúsculas y con guiones
+                                       // (ya usados: simulador-bote, encoders-m250, granja-3d,
+                                       //  scorbot, sensoracore, momo-boat)
+    title: 'Nombre del Proyecto',      // título de la tarjeta en el index y la galería
+    description: 'Descripción breve del proyecto en una o dos frases.', // texto corto de la tarjeta
+    image: 'assets/img/MiProyecto/principal.jpg',  // imagen de la tarjeta (desde la raíz, sin ../)
+    video: null,                       // null, o un mp4: 'assets/vid/MiProyecto/Video.mp4'
+    link: 'proyectos/Mi_Proyecto.html',// ruta de esta página (desde la raíz)
+    tags: ['uac', 'programación', 'iot', 'mecatrónica', 'mi-proyecto'],
+                                       // minúsculas; los usa el buscador y los chips de filtro
+    badges: [                          // los mismos badges que pongas en el sidebar
+        { text: 'UAC', class: 'bg-danger' },
+        { text: 'Programación', class: 'bg-success' },
+        { text: 'IoT', class: 'bg-primary' },
+        { text: 'Mecatrónica', class: 'bg-secondary' }
+    ],
+    featured: false,                   // true = aparece en "destacados" del index (si visible es true)
+    visible: true                      // false = oculto en el index y en la galería
+},</code></pre>
+            <p class="mb-2">
+                <strong>Tags y chips de filtro:</strong> los chips de <code>galeria.html</code> se definen en
+                <code>filterGroups</code>, en el mismo archivo. Un chip solo encuentra proyectos si su <code>tag</code>
+                coincide con un valor de <code>tags</code> (sin importar mayúsculas). Dentro de un grupo los chips se
+                combinan con O; entre grupos, con Y. Si el proyecto introduce una tecnología nueva, agrega el tag al
+                proyecto y, si quieres un chip para ella, agrégalo al grupo correspondiente:
+            </p>
+<pre><code>const filterGroups = [
+    {
+        title: 'Productores',
+        chips: [
+            { label: 'Armada', tag: 'armada' },
+            { label: 'ONIRIS-ID', tag: 'oniris-id' },
+            { label: 'UAC', tag: 'uac' }
+        ]
+    },
+    {
+        title: 'Tecnologías',
+        chips: [
+            { label: 'IoT', tag: 'iot' },
+            { label: '3D Printing', tag: '3d printing' },
+            { label: 'Nueva Tecnología', tag: 'nueva tecnología' }  // nuevo chip de ejemplo
+        ]
+    },
+    {
+        title: 'Area',
+        chips: [
+            { label: 'Programación', tag: 'programación' }
+        ]
+    }
+];</code></pre>
+
+            <p class="mb-2">
+                <strong>Colecciones:</strong> las carpetas de <code>galeria.html</code> se definen en el arreglo
+                <code>colecciones</code>, en el mismo archivo. Agrega el <code>id</code> del nuevo proyecto a la lista
+                <code>projects</code> de cada colección a la que pertenezca (por ejemplo
+                <code>projects: ['simulador-bote', 'mi-proyecto']</code>). Los ids que no existan se ignoran y las imágenes
+                de la carpeta salen solas del campo <code>image</code>.
+            </p>
+
+            <h5><i class="bi bi-exclamation-diamond"></i> Errores que no se deben copiar</h5>
+            <ul>
+                <li>Cierra cada <code>&lt;div class="row g-3"&gt;</code> de la galería; al comentar un video no comentes también el <code>&lt;/div&gt;</code> de la fila.</li>
+                <li>No dejes etiquetas sueltas (<code>&lt;/style&gt;</code>, <code>&lt;/script&gt;</code>, <code>&lt;/main&gt;</code> duplicado) al final de <code>&lt;main&gt;</code>.</li>
+                <li>Llena siempre el <code>alt</code> de las imágenes de galería: es el texto que aparece debajo en el visor.</li>
+                <li>Usa <code>bi-bullseye</code> para "Objetivos": el ícono <code>bi-target</code> no existe en bootstrap-icons 1.11.3.</li>
+                <li>Cada carpeta animada necesita su propio <code>id</code> de collapse; los <code>id</code> nunca se repiten.</li>
+                <li>En el Reconocimiento usa <code>&lt;div class="blockquote-footer"&gt;</code> y no <code>&lt;footer&gt;</code>: la regla global <code>footer</code> le pone el fondo del pie de página.</li>
+                <li>No escribas dos guiones seguidos dentro de un comentario HTML (rompe el comentario en algunos validadores).</li>
+            </ul>
+
+            <h5><i class="bi bi-palette"></i> Clases útiles de css/proyectos.css</h5>
+            <ul class="mb-0 small">
+                <li><code>.project-hero</code>, <code>.project-sidebar</code>: tarjetas con fondo y borde según el tema (claro/oscuro).</li>
+                <li><code>.project-title</code>, <code>.project-meta</code>, <code>.project-tech</code>: título, fila de badges y lista de tecnologías.</li>
+                <li><code>.gallery-img</code>: miniatura con cursor de zoom; además es la clase que <code>js/proyectos.js</code> usa para abrir el visor.</li>
+                <li><code>blockquote.blockquote</code> y <code>.blockquote-footer</code>: tarjeta de cita con borde de color y comillas.</li>
+                <li><code>.ai-folder</code>, <code>.ai-folder-back</code>, <code>.ai-folder-sheet</code> (<code>.ai-sheet-1/2/3</code>), <code>.ai-folder-front</code>, <code>.ai-folder-content</code>: carpeta animada.</li>
+                <li><code>.image-container</code>, <code>#modalImage</code>, <code>.zoom-controls</code>: visor de imágenes.</li>
+                <li>Variables del tema: <code>--text</code>, <code>--bg</code>, <code>--card-bg</code>, <code>--border</code>, <code>--bs-primary</code>... Usa estas en lugar de colores fijos o de <code>alert-*</code> / <code>bg-light</code> para que el modo oscuro funcione.</li>
+                <li><code>.gallery-item</code> y <code>.video-container</code> existen pero ninguna página las usa; usa <code>.ratio</code> de Bootstrap.</li>
+                <li><code>.sc-eol</code> NO está en proyectos.css: va en el <code>&lt;style&gt;</code> de esta página.</li>
+            </ul>
+        </div>
+        <!-- ===== FIN MÓDULO: Instrucciones de la plantilla ===== -->
+
+        <!-- ===== MÓDULO: Fila superior (Hero + Sidebar) (OBLIGATORIO) ===== -->
+        <!--
+            Propósito: divide la parte superior en el medio principal (col-lg-8)
+            y la tarjeta de detalles (col-lg-4). En móvil se apilan.
+        -->
+        <div class="row">
+            <!-- Imagen Principal -->
+            <div class="col-lg-8 mb-4">
+
+                <!-- ===== MÓDULO: Hero (OBLIGATORIO, elige UNA variante) ===== -->
+                <!--
+                    Propósito: medio principal del proyecto.
+                    Cambiar: la ruta del archivo y el alt.
+                    Dependencias: .project-hero (fondo y borde según el tema);
+                    .img-fluid.rounded y video.rounded añaden un borde temático.
+                    Deja activa una sola variante y comenta o borra las otras.
+                -->
+
+                <!-- Variante A (ACTIVA): imagen fija -->
+                <div class="project-hero">
+                    <img src="../assets/img/scor/consepto.jpg" alt="Nombre del Proyecto - imagen principal" class="img-fluid rounded shadow">
+                </div>
+
+                <!-- Variante B: GIF animado (los GIF se guardan en assets/vid/<Proyecto>/)
+                <div class="project-hero">
+                    <img src="../assets/vid/GranjaImpresoras3D/Imprimiendo.gif" alt="Animación del proyecto" class="img-fluid rounded shadow w-100">
+                </div>
+                -->
+
+                <!-- Variante C: video en bucle, sin sonido y con controles.
+                     autoplay solo funciona con muted; playsinline es necesario en iOS.
+                     Quita "controls" para un bucle puro. Puedes añadir poster="ruta.jpg".
+                <div class="project-hero">
+                    <video controls autoplay muted loop playsinline preload="metadata" class="img-fluid rounded shadow w-100">
+                        <source src="../assets/vid/MecanismosEncoders/VersionFinal_ZoomIn.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+                -->
+
+                <!-- Variante D: video con controles (el visitante pulsa reproducir)
+                <div class="project-hero">
+                    <video controls playsinline preload="metadata" class="img-fluid rounded shadow w-100">
+                        <source src="../assets/vid/MecanismosEncoders/Experiencia_De_Uso.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+                -->
+                <!-- ===== FIN MÓDULO: Hero ===== -->
+
+            </div>
+            <!-- Detalles del Proyecto -->
+            <div class="col-lg-4">
+                <div class="project-sidebar p-4 rounded shadow h-100">
+
+                    <!-- ===== MÓDULO: Sidebar - Título y subtítulo (OBLIGATORIO el título, OPCIONAL el subtítulo) ===== -->
+                    <!--
+                        Título obligatorio. El subtítulo <p class="mb-2"> es opcional
+                        (solo SensoraCore lo usa): bórralo si no lo necesitas.
+                    -->
+                    <h3 class="project-title">Nombre del Proyecto</h3>
+                    <p class="mb-2">Subtítulo opcional de una línea</p>
+                    <!-- ===== FIN MÓDULO: Sidebar - Título y subtítulo ===== -->
+
+                    <!-- ===== MÓDULO: Sidebar - Badges (OPCIONAL) ===== -->
+                    <!--
+                        Propósito: productor, cliente, área y tecnologías.
+                        Cambiar: textos y colores según la convención de la tarjeta de
+                        instrucciones. Deben coincidir con "badges" en js/proyectos-data.js.
+                    -->
+                    <div class="project-meta mb-3">
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-danger">UAC</span>
+                        <span class="badge bg-primary">Armada</span>
+                        <span class="badge bg-success">Programación</span>
+                        <span class="badge bg-info">3D Printing</span>
+                        <span class="badge bg-secondary">Mecatrónica</span>
+                    </div>
+                    <!-- ===== FIN MÓDULO: Sidebar - Badges ===== -->
+
+                    <!-- ===== MÓDULO: Sidebar - Tecnologías (OPCIONAL) ===== -->
+                    <!-- Lista de tecnologías usadas. Duplica o borra los <li> que necesites. -->
+                    <div class="project-tech">
+                        <h6><i class="bi bi-chevron-right"></i> Tecnologías:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> Tecnología 1</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Tecnología 2</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Tecnología 3</li>
+                        </ul>
+                    </div>
+                    <!-- ===== FIN MÓDULO: Sidebar - Tecnologías ===== -->
+
+                    <!-- ===== MÓDULO: Sidebar - Botones (OBLIGATORIO "Volver al CV", el resto OPCIONAL) ===== -->
+                    <!--
+                        Cada botón es independiente: conserva solo los que apliquen.
+                        "Volver al CV" es obligatorio. El ÚLTIMO botón de la lista va
+                        sin la clase mb-2 (para no dejar margen sobrante abajo).
+                    -->
+
+                    <!-- Botón: Descargar Certificado (OPCIONAL, comentado en todas las páginas).
+                         Requiere el PDF en ../certificados/. Quita el comentario para usarlo.
+                    <a href="../certificados/NOMBRE_DEL_CERTIFICADO.pdf" download class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-download"></i> Descargar Certificado
+                    </a>
+                    -->
+
+                    <!-- Botón: Repositorio en GitHub (OPCIONAL). Cambia la URL del repositorio. -->
+                    <a href="https://github.com/YamithR" target="_blank" rel="noopener" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-github"></i> Repositorio en GitHub
+                    </a>
+
+                    <!-- Botón: Ver Video Demostración (OPCIONAL).
+                         Abre #videoModal. Si lo usas, conserva también el módulo
+                         "Modal de video" y su script de cierre. -->
+                    <button type="button" class="btn btn-outline-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#videoModal">
+                        <i class="bi bi-play-circle"></i> Ver Video Demostración
+                    </button>
+
+                    <!-- Botón: Volver al CV (OBLIGATORIO) -->
+                    <a href="../index.html" class="btn btn-outline-secondary w-100 mb-2">
+                        <i class="bi bi-arrow-left"></i> Volver al CV
+                    </a>
+
+                    <!-- Botón: Ir a Galería (recomendado). Lleva mb-2 porque le sigue otro botón;
+                         si queda de último, quita mb-2. -->
+                    <a href="galeria.html" class="btn btn-outline-info w-100 mb-2">
+                        <i class="bi bi-images"></i> Ir a Galería
+                    </a>
+
+                    <!-- Botón: Página del Proyecto (OPCIONAL). Enlace a un sitio dedicado
+                         del proyecto (ruta relativa a proyectos/ o URL externa). Es el último: sin mb-2. -->
+                    <a href="SensoraCore-web/index.html" class="btn btn-primary w-100">
+                        <i class="bi bi-box-arrow-up-right"></i> Página del Proyecto
+                    </a>
+                    <!-- ===== FIN MÓDULO: Sidebar - Botones ===== -->
+
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Fila superior (Hero + Sidebar) ===== -->
+
+        <!-- ===== MÓDULO: Descripción del Proyecto (OBLIGATORIO) ===== -->
+        <!--
+            Propósito: descripción completa. Un párrafo .lead y, si quieres,
+            párrafos normales. Los submódulos Objetivos/Resultados,
+            Características/Arquitectura y Reconocimiento van DENTRO de este col-12.
+        -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h4 class="mb-4">Descripción del Proyecto</h4>
+                <p class="lead">
+                    Descripción breve del proyecto: qué es, para quién se hizo y qué problema resuelve.
+                </p>
+                <p>
+                    Párrafo adicional opcional con detalles técnicos o de contexto. Borra este párrafo si no lo necesitas.
+                </p>
+
+                <!-- ===== MÓDULO: Objetivos / Resultados (OPCIONAL) ===== -->
+                <!-- Dos listas lado a lado (se apilan en móvil). -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-bullseye"></i> Objetivos</h5>
+                        <ul>
+                            <li>Objetivo 1 del proyecto.</li>
+                            <li>Objetivo 2 del proyecto.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-graph-up"></i> Resultados</h5>
+                        <ul>
+                            <li>Resultado 1 obtenido.</li>
+                            <li>Resultado 2 obtenido.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- ===== FIN MÓDULO: Objetivos / Resultados ===== -->
+
+                <!-- ===== MÓDULO: Características / Arquitectura (OPCIONAL, alternativa a Objetivos / Resultados) ===== -->
+                <!-- Variante de MOMO: lista de características + lista de arquitectura con etiquetas en negrita. -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-bullseye"></i> Características</h5>
+                        <ul>
+                            <li>Característica 1 del sistema.</li>
+                            <li>Característica 2 del sistema.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-diagram-3"></i> Arquitectura</h5>
+                        <ul>
+                            <li><strong>Componente 1:</strong> qué hace este componente.</li>
+                            <li><strong>Componente 2:</strong> qué hace este componente.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- ===== FIN MÓDULO: Características / Arquitectura ===== -->
+
+                <!-- ===== MÓDULO: Reconocimiento (OPCIONAL) ===== -->
+                <!--
+                    Propósito: cita de un tercero (director, cliente) con su autor.
+                    Dependencias: proyectos.css da a blockquote.blockquote aspecto de
+                    tarjeta con borde izquierdo, comillas decorativas y "— " antes del autor.
+                    Nota: el autor va en un <div class="blockquote-footer">, NO en un
+                    <footer>: las páginas antiguas usan <footer>, pero así recibe la
+                    regla global "footer" del sitio (fondo degradado, franja de color,
+                    relleno grande). No copies esa versión.
+                -->
+                <div class="mt-4">
+                    <h5><i class="bi bi-person-check"></i> Reconocimiento</h5>
+                    <blockquote class="blockquote">
+                        <p>"Texto de la cita o recomendación sobre el trabajo realizado."</p>
+                        <div class="blockquote-footer">Nombre del Autor, Cargo - Organización</div>
+                    </blockquote>
+                </div>
+                <!-- ===== FIN MÓDULO: Reconocimiento ===== -->
+
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Descripción del Proyecto ===== -->
+
+        <!-- ===== MÓDULO: Aviso (.sc-eol) (OPCIONAL) ===== -->
+        <!--
+            Propósito: aviso corto (fin de vida, en desarrollo, etc.) con borde
+            de advertencia. Respeta el tema (no usa alert-*).
+            Dependencias: la regla .sc-eol del bloque <style> del <head>.
+        -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="sc-eol">
+                    <p class="mb-0 small"><i class="bi bi-exclamation-triangle text-warning" aria-hidden="true"></i>
+                        <strong>Aviso:</strong> texto del aviso, por ejemplo "Proyecto en desarrollo" o
+                        "Esta es la última versión y no recibirá más actualizaciones".</p>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Aviso (.sc-eol) ===== -->
+
+        <!-- ===== MÓDULO: Características Principales - tarjetas (OPCIONAL) ===== -->
+        <!--
+            Propósito: cuadrícula de tarjetas con ícono, título y texto corto.
+            Reutiliza .project-sidebar para el aspecto de tarjeta.
+            Cambiar: íconos (ej. bi-wifi, bi-cpu, bi-graph-up-arrow,
+            bi-file-earmark-spreadsheet, bi-window, bi-sliders), títulos y textos.
+        -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-stars"></i> Características Principales</h5>
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-wifi"></i> Característica 1</h6>
+                            <p class="mb-0 small">Descripción breve de la característica.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-cpu"></i> Característica 2</h6>
+                            <p class="mb-0 small">Descripción breve de la característica.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-sliders"></i> Característica 3</h6>
+                            <p class="mb-0 small">Descripción breve de la característica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Características Principales - tarjetas ===== -->
+
+        <!-- ===== MÓDULO: Módulos / Componentes - lista en dos columnas (OPCIONAL) ===== -->
+        <!-- Catálogo de módulos o componentes con formato "<strong>Nombre:</strong> descripción". -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-motherboard"></i> Módulos</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Módulo A:</strong> descripción del módulo.</li>
+                            <li><strong>Módulo B:</strong> descripción del módulo.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Módulo C:</strong> descripción del módulo.</li>
+                            <li><strong>Módulo D:</strong> descripción del módulo.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Módulos / Componentes ===== -->
+
+        <!-- ===== MÓDULO: Arquitectura del Sistema - tres columnas (OPCIONAL) ===== -->
+        <!-- Desglose hardware / firmware / software. Se permite <code> en línea. -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-diagram-3"></i> Arquitectura del Sistema</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Hardware</h6>
+                        <ul>
+                            <li>Elemento de hardware 1.</li>
+                            <li>Elemento de hardware 2.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Firmware</h6>
+                        <ul>
+                            <li>Detalle del firmware.</li>
+                            <li>Formato de datos <code>SENSOR:valor</code>.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Software</h6>
+                        <ul>
+                            <li>Detalle de la aplicación.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Arquitectura del Sistema ===== -->
+
+        <!-- ===== MÓDULO: Documentación + Propiedad Intelectual (OPCIONAL) ===== -->
+        <!-- Dos bloques de media anchura: lista de documentación y párrafo de registro (ej. DNDA). Puedes borrar uno de los dos col-md-6. -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h5 class="mb-3"><i class="bi bi-journal-text"></i> Documentación</h5>
+                <ul>
+                    <li><strong>Manuales de software:</strong> descripción de la documentación técnica.</li>
+                    <li><strong>Manuales de usuario:</strong> descripción de las guías de uso.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h5 class="mb-3"><i class="bi bi-patch-check"></i> Propiedad Intelectual</h5>
+                <p>
+                    Texto sobre el registro del software u obra ante la entidad correspondiente
+                    (por ejemplo, la Dirección Nacional de Derechos de Autor, DNDA).
+                </p>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Documentación + Propiedad Intelectual ===== -->
+
+        <!-- ===== MÓDULO: Evolución del Proyecto - historial de versiones (OPCIONAL) ===== -->
+        <!-- Lista cronológica con formato "<strong>Versión (fecha):</strong> cambios". -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-clock-history"></i> Evolución del Proyecto</h5>
+                <ul>
+                    <li><strong>Versión 0.1 (fecha):</strong> primera versión funcional.</li>
+                    <li><strong>Versión 1.0 (fecha):</strong> cambios principales de esta versión.</li>
+                </ul>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Evolución del Proyecto ===== -->
+
+        <!-- ===== MÓDULO: Galería - encabezado (OPCIONAL, necesario si hay galería) ===== -->
+        <!-- Separador y título de la galería. La línea .text-muted es una leyenda opcional. -->
+        <hr class="my-5">
+
+        <h3>Galería</h3>
+        <p class="text-muted small">Leyenda opcional de la galería.</p>
+        <!-- ===== FIN MÓDULO: Galería - encabezado ===== -->
+
+        <!-- ===== MÓDULO: Galería - imágenes y video (OPCIONAL) ===== -->
+        <!--
+            Propósito: miniaturas que abren el visor #imageModal con zoom.
+            Cambiar: src y alt (el alt es la leyenda del visor, no lo dejes vacío).
+            Dependencias: clase .gallery-img + data-bs-toggle/target (las enlaza
+            js/proyectos.js) y el módulo "Modal de imágenes con zoom".
+            Para una sola imagen usa col-12 col-md-6.
+            El bloque de video usa .ratio-16x9 (o .ratio-1x1); separa videos
+            apilados con mb-3. No olvides cerrar el </div> de la fila.
+        -->
+        <div class="row g-3">
+            <!-- Imágenes -->
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/scor/consepto.jpg" class="img-fluid rounded gallery-img" alt="Descripción de la imagen 1" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/scor/imagenprincipal.png" class="img-fluid rounded gallery-img" alt="Descripción de la imagen 2" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/scor/PresentacionScorbot.png" class="img-fluid rounded gallery-img" alt="Descripción de la imagen 3" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+
+            <!-- Video (uno o varios apilados en la misma columna) -->
+            <div class="col-12 col-md-8">
+                <div class="ratio ratio-16x9 mb-3">
+                    <video controls class="rounded">
+                        <source src="../assets/vid/MecanismosEncoders/Experiencia_De_Uso.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+                <div class="ratio ratio-16x9">
+                    <video controls class="rounded">
+                        <source src="../assets/vid/MecanismosEncoders/Funcionamiento_Programado.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Galería - imágenes y video ===== -->
+
+        <!-- ===== MÓDULO: Carpeta animada - una carpeta (OPCIONAL) ===== -->
+        <!--
+            Propósito: botón con forma de carpeta y tres hojas de vista previa;
+            abre y cierra un collapse con una cuadrícula cuyas piezas aparecen
+            escalonadas.
+            Cambiar: las 3 imágenes de las hojas (decorativas, alt=""), el ícono
+            del frente (bi-stars, bi-folder2-open...), el texto y el contador
+            <small>, y las imágenes del contenido.
+            Reglas:
+            - data-bs-target y aria-controls = id del collapse, único por carpeta.
+            - Cada hijo directo de .ai-folder-content lleva el atributo style
+              con la variable CSS "i" (ver el código de abajo) con valores
+              0, 1, 2... para escalonar la animación 45 ms por pieza.
+              (Aquí no se escribe literal porque dos guiones seguidos no
+              deben aparecer dentro de un comentario HTML.)
+            - Las imágenes internas usan .gallery-img, así que abren el visor.
+            Dependencias: clases .ai-folder* de css/proyectos.css y el collapse
+            de bootstrap.bundle.
+        -->
+        <div class="ai-folder-wrap mt-5 text-center">
+            <button class="ai-folder" type="button" data-bs-toggle="collapse" data-bs-target="#carpetaUnicaGallery" aria-expanded="false" aria-controls="carpetaUnicaGallery" title="Abrir Nombre de la carpeta">
+                <span class="ai-folder-back"></span>
+                <span class="ai-folder-sheet ai-sheet-1"><img src="../assets/img/sensoracore/AIConsepImg/SimpleAngle_IAConceptImg.png" alt=""></span>
+                <span class="ai-folder-sheet ai-sheet-2"><img src="../assets/img/sensoracore/AIConsepImg/Thermoregulation_IAConceptImg.png" alt=""></span>
+                <span class="ai-folder-sheet ai-sheet-3"><img src="../assets/img/sensoracore/AIConsepImg/ColorTCS_IAConceptImg.png" alt=""></span>
+                <span class="ai-folder-front">
+                    <i class="bi bi-stars"></i>
+                    <span>Nombre de la carpeta</span>
+                    <small>4 imágenes</small>
+                </span>
+            </button>
+            <p class="ai-folder-hint small text-muted mt-2 mb-0">Haz clic en la carpeta para abrirla o cerrarla</p>
+        </div>
+
+        <div class="collapse" id="carpetaUnicaGallery">
+            <div class="row g-3 pt-4 ai-folder-content">
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 0">
+                    <img src="../assets/img/sensoracore/AIConsepImg/SimpleAngle_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Descripción de la imagen A" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 1">
+                    <img src="../assets/img/sensoracore/AIConsepImg/AngleArm_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Descripción de la imagen B" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 2">
+                    <img src="../assets/img/sensoracore/AIConsepImg/Thermoregulation_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Descripción de la imagen C" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 3">
+                    <img src="../assets/img/sensoracore/AIConsepImg/ColorTCS_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Descripción de la imagen D" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Carpeta animada - una carpeta ===== -->
+
+        <!-- ===== MÓDULO: Carpetas animadas - dos carpetas centradas lado a lado (OPCIONAL) ===== -->
+        <!--
+            Propósito: dos (o más) carpetas centradas en una fila flex con una
+            sola indicación debajo. Cada carpeta controla su propio collapse,
+            ubicado en un col-12 más abajo. El contenido puede mezclar imágenes
+            y un video en caja .ratio.
+            Reglas: id de collapse único por carpeta; la variable CSS "i" del
+            style reinicia en 0 en cada bloque de contenido. Se pueden abrir ambas a la vez (no tienen
+            data-bs-parent; añadirlo las convierte en acordeón).
+            Para una tercera carpeta: duplica un .ai-folder-wrap y un col-12 de
+            contenido con un id nuevo.
+        -->
+        <div class="row g-3 mt-5">
+            <div class="col-12">
+                <div class="d-flex flex-wrap justify-content-center align-items-start gap-5">
+                    <div class="ai-folder-wrap text-center">
+                        <button class="ai-folder" type="button" data-bs-toggle="collapse" data-bs-target="#carpetaIzquierdaGallery" aria-expanded="false" aria-controls="carpetaIzquierdaGallery" title="Abrir Carpeta 1">
+                            <span class="ai-folder-back"></span>
+                            <span class="ai-folder-sheet ai-sheet-1"><img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" alt=""></span>
+                            <span class="ai-folder-sheet ai-sheet-2"><img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaLateral.jpg" alt=""></span>
+                            <span class="ai-folder-sheet ai-sheet-3"><img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaPosterior.jpg" alt=""></span>
+                            <span class="ai-folder-front">
+                                <i class="bi bi-folder2-open"></i>
+                                <span>Carpeta 1</span>
+                                <small>3 fotografías</small>
+                                <small>1 video</small>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="ai-folder-wrap text-center">
+                        <button class="ai-folder" type="button" data-bs-toggle="collapse" data-bs-target="#carpetaDerechaGallery" aria-expanded="false" aria-controls="carpetaDerechaGallery" title="Abrir Carpeta 2">
+                            <span class="ai-folder-back"></span>
+                            <span class="ai-folder-sheet ai-sheet-1"><img src="../assets/img/SimuladorBote/prototipoV1-Ensamble.jpg" alt=""></span>
+                            <span class="ai-folder-sheet ai-sheet-2"><img src="../assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" alt=""></span>
+                            <span class="ai-folder-sheet ai-sheet-3"><img src="../assets/img/SimuladorBote/Impresion3D.jpg" alt=""></span>
+                            <span class="ai-folder-front">
+                                <i class="bi bi-folder2-open"></i>
+                                <span>Carpeta 2</span>
+                                <small>3 fotografías</small>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <p class="ai-folder-hint small text-muted text-center mt-3 mb-0">Haz clic en una carpeta para abrirla o cerrarla</p>
+            </div>
+
+            <!-- Contenido: carpeta 1 (incluye un video cuadrado centrado) -->
+            <div class="col-12">
+                <div class="collapse" id="carpetaIzquierdaGallery">
+                    <div class="row g-3 pt-4 ai-folder-content">
+                        <div class="col-6 col-md-4 col-lg-3" style="--i: 0">
+                            <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" class="img-fluid rounded gallery-img" alt="Carpeta 1 - Descripción de la imagen 1" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-3" style="--i: 1">
+                            <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Carpeta 1 - Descripción de la imagen 2" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-3" style="--i: 2">
+                            <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Carpeta 1 - Descripción de la imagen 3" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        </div>
+                        <div class="col-12 col-md-6 mx-auto" style="--i: 3">
+                            <div class="ratio ratio-1x1">
+                                <video controls class="rounded">
+                                    <source src="../assets/vid/SimuladorBote/EnsambleProgramado_Test.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido: carpeta 2 -->
+            <div class="col-12">
+                <div class="collapse" id="carpetaDerechaGallery">
+                    <div class="row g-3 pt-4 ai-folder-content">
+                        <div class="col-6 col-md-4 col-lg-3" style="--i: 0">
+                            <img src="../assets/img/SimuladorBote/prototipoV1-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Carpeta 2 - Descripción de la imagen 1" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-3" style="--i: 1">
+                            <img src="../assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Carpeta 2 - Descripción de la imagen 2" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-3" style="--i: 2">
+                            <img src="../assets/img/SimuladorBote/Impresion3D.jpg" class="img-fluid rounded gallery-img" alt="Carpeta 2 - Descripción de la imagen 3" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Carpetas animadas - dos carpetas centradas lado a lado ===== -->
+
+        <!-- ===== MÓDULO: Modal de imágenes con zoom (OBLIGATORIO) ===== -->
+        <!--
+            Propósito: visor de las imágenes .gallery-img con zoom (botones,
+            rueda del ratón), arrastre y leyenda (tomada del alt).
+            OBLIGATORIO siempre que se cargue js/proyectos.js, aunque la página
+            no tenga galería: el script busca #modalImage, #modalCaption,
+            #imageModal, #zoomIn, #zoomOut y #resetZoom sin comprobar que
+            existan y falla si falta alguno. No cambies los id.
+        -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <div class="zoom-controls">
+                            <button class="btn btn-outline-light me-2" id="zoomIn" title="Acercar"><i class="bi bi-zoom-in"></i></button>
+                            <button class="btn btn-outline-light me-2" id="zoomOut" title="Alejar"><i class="bi bi-zoom-out"></i></button>
+                            <button class="btn btn-outline-light" id="resetZoom" title="Restablecer zoom"><i class="bi bi-arrows-angle-contract"></i></button>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="image-container">
+                            <img id="modalImage" src="" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <small id="modalCaption" class="text-white"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ===== FIN MÓDULO: Modal de imágenes con zoom ===== -->
+
+    </main>
+
+    <!-- ===== MÓDULO: Modal de video (OPCIONAL, va con el botón "Ver Video Demostración") ===== -->
+    <!--
+        Propósito: ventana flotante con el video demostración.
+        Ubicación: DESPUÉS de </main> y antes del footer.
+        Cambiar: la ruta del video. El id del <video> (proyectoVideo) debe
+        coincidir con el del script "Detener video al cerrar".
+        Si borras este módulo, borra también el botón y el script.
+    -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel"><i class="bi bi-play-circle"></i> Video Demostración</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <video id="proyectoVideo" controls preload="metadata" class="rounded-bottom">
+                            <source src="../assets/vid/scor/VideoPresentacionScorbot.mp4" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===== FIN MÓDULO: Modal de video ===== -->
+
+    <!-- ===== MÓDULO: Footer (OBLIGATORIO) ===== -->
+    <!-- Pie de página con derechos. Idéntico en todas las páginas. -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
+        </div>
+    </footer>
+    <!-- ===== FIN MÓDULO: Footer ===== -->
+
+    <!-- ===== MÓDULO: Includes de scripts (OBLIGATORIO) ===== -->
+    <!--
+        bootstrap.bundle: modales, collapse y menú. theme.js: modo claro/oscuro.
+        proyectos.js: visor de imágenes con zoom. Las páginas de proyecto NO
+        cargan js/proyectos-data.js (solo lo usan index.html y galeria.html).
+        Los scripts propios de la página van después de estos.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/proyectos.js"></script>
+    <!-- ===== FIN MÓDULO: Includes de scripts ===== -->
+
+    <!-- ===== MÓDULO: Script - detener video al cerrar (OPCIONAL, va con el Modal de video) ===== -->
+    <!-- Pausa y rebobina el video cuando se cierra #videoModal. El id debe coincidir con el <video>. -->
+    <script>
+        // Detiene el video al cerrar la ventana flotante
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
+            var v = document.getElementById('proyectoVideo');
+            v.pause();
+            v.currentTime = 0;
+        });
+    </script>
+    <!-- ===== FIN MÓDULO: Script - detener video al cerrar ===== -->
+</body>
+</html>

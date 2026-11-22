@@ -76,6 +76,9 @@
                     <!-- <a href="../certificados/oniris.pdf" download class="btn btn-primary w-100 mb-2">
                         <i class="bi bi-download"></i> Descargar Certificado
                     </a> -->
+                    <button type="button" class="btn btn-outline-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#videoModal">
+                        <i class="bi bi-play-circle"></i> Ver Video Demostración
+                    </button>
                     <a href="../index.html" class="btn btn-outline-secondary w-100 mb-2">
                         <i class="bi bi-arrow-left"></i> Volver al CV
                     </a>
@@ -130,7 +133,7 @@
             </div>
 
             <!-- Video -->
-            <div class="col-12 col-md-8">
+            <!--<div class="col-12 col-md-8">
                 <div class="ratio ratio-16x9">
                     <video controls class="rounded">
                         <source src="../assets/vid/scor/VideoPresentacionScorbot.mp4" type="video/mp4">
@@ -138,7 +141,7 @@
                     </video>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <!-- Modal para imágenes -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
@@ -165,6 +168,26 @@
         </div>
     </main>
 
+    <!-- Ventana flotante: video demostración -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel"><i class="bi bi-play-circle"></i> Video Demostración</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <video id="scorVideo" controls preload="metadata" class="rounded-bottom">
+                            <source src="../assets/vid/scor/VideoPresentacionScorbot.mp4" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="text-center py-4 mt-5">
         <div class="container">
@@ -174,5 +197,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/theme.js"></script>
     <script src="../js/proyectos.js"></script>
+    <script>
+        // Detiene el video al cerrar la ventana flotante
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
+            var v = document.getElementById('scorVideo');
+            v.pause();
+            v.currentTime = 0;
+        });
+    </script>
 </body>
 </html>

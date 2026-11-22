@@ -52,8 +52,30 @@
             </div>
         </div>
 
-        <!-- Filtros por subconjuntos de etiquetas: se configuran en js/proyectos-data.js (filterGroups) -->
-        <div class="filter-section mb-4" id="filter-section"></div>
+        <!-- Filtros (izquierda) y Colecciones (derecha) -->
+        <div class="gallery-toolbar mb-4" id="gallery-toolbar">
+            <!-- Filtros por subconjuntos de etiquetas: se configuran en js/proyectos-data.js (filterGroups) -->
+            <div class="filter-section" id="filter-section"></div>
+
+            <!-- Colecciones (carpetas animadas): se configuran en js/proyectos-data.js (colecciones) -->
+            <section class="colecciones" id="colecciones" aria-labelledby="colecciones-title">
+                <span class="colecciones-title" id="colecciones-title">
+                    <i class="bi bi-folder2-open" aria-hidden="true"></i> Colecciones
+                </span>
+                <div class="colecciones-slider" id="colecciones-slider">
+                    <button type="button" class="coleccion-nav" id="colecciones-prev" aria-label="Colecciones anteriores" aria-controls="colecciones-track">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="colecciones-track" id="colecciones-track" role="group" aria-label="Colecciones de proyectos"></div>
+                    <button type="button" class="coleccion-nav" id="colecciones-next" aria-label="Colecciones siguientes" aria-controls="colecciones-track">
+                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Indicador de la colección abierta (lo llena el script) -->
+        <div id="coleccion-activa" class="coleccion-activa mb-2 d-none" aria-live="polite"></div>
 
         <div class="gallery-container" id="gallery-container">
             <!-- Los proyectos se cargarán dinámicamente desde proyectos-data.js -->
@@ -79,9 +101,22 @@
             const clearSearch = document.getElementById('clear-search');
             const filterSection = document.getElementById('filter-section');
             const emptyMessage = document.getElementById('gallery-empty');
+            const toolbar = document.getElementById('gallery-toolbar');
+            const coleccionesSection = document.getElementById('colecciones');
+            const coleccionesSlider = document.getElementById('colecciones-slider');
+            const coleccionesTrack = document.getElementById('colecciones-track');
+            const coleccionesPrev = document.getElementById('colecciones-prev');
+            const coleccionesNext = document.getElementById('colecciones-next');
+            const coleccionActivaBox = document.getElementById('coleccion-activa');
 
             // Chips activos por grupo: índice de grupo -> Set de etiquetas activas
             const activeTags = new Map();
+
+            // Colección abierta: { id, title, description, icon, ids: Set } o null
+            let activeCollection = null;
+
+            // Sin animaciones si el usuario lo pidió en su sistema
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             // Renderizar todos los proyectos visibles
             function renderGallery() {
@@ -96,6 +131,8 @@
                     poster.setAttribute('data-tags', proyecto.tags.join(' '));
                     // Lista de etiquetas en minúsculas, usada por los filtros
                     poster.tagList = proyecto.tags.map(t => t.toLowerCase());
+                    // Id del proyecto, usado por las colecciones
+                    poster.projectId = proyecto.id;
 
                     const badgesHTML = proyecto.badges.map(badge =>
                         `<span class="badge ${badge.class}">${badge.text}</span>`
@@ -124,6 +161,8 @@
             renderGallery();
 
             // Construir los chips de filtro a partir de filterGroups (proyectos-data.js)
+            // Cada fila: título + contenedor de chips (una sola línea) + botón de
+            // tres puntos que aparece solo si los chips no caben.
             function renderFilters() {
                 if (!filterSection || typeof filterGroups === 'undefined') return;
                 filterSection.innerHTML = '';
@@ -138,6 +177,10 @@
                     titulo.className = 'filter-group-title';
                     titulo.textContent = grupo.title;
                     fila.appendChild(titulo);
+
+                    const chips = document.createElement('div');
+                    chips.className = 'filter-chips';
+                    chips.id = `filter-chips-${gi}`;
 
                     grupo.chips.forEach(chip => {
                         const btn = document.createElement('button');
@@ -160,8 +203,40 @@
                             applyFilters();
                         });
 
-                        fila.appendChild(btn);
+                        chips.appendChild(btn);
                     });
+
+                    // Si con el teclado se llega a un chip oculto, se despliega la fila
+                    chips.addEventListener('focusin', (e) => {
+                        if (!fila.classList.contains('has-overflow') || fila.classList.contains('expanded')) return;
+                        const chip = e.target;
+                        // El foco puede desplazar la fila: se vuelve al inicio antes de medir
+                        chips.scrollLeft = 0;
+                        // Se mide respecto a la caja de chips; el último tramo (~18%)
+                        // queda difuminado por la máscara, así que también cuenta como oculto
+                        const r = chip.getBoundingClientRect();
+                        const c = chips.getBoundingClientRect();
+                        if (r.right > c.left + c.width * 0.82) {
+                            setFilaExpandida(fila, true);
+                        }
+                    });
+
+                    fila.appendChild(chips);
+
+                    // Botón de tres puntos: despliega / recoge la fila
+                    const mas = document.createElement('button');
+                    mas.type = 'button';
+                    mas.className = 'filter-more';
+                    mas.hidden = true;
+                    mas.setAttribute('aria-controls', chips.id);
+                    mas.setAttribute('aria-expanded', 'false');
+                    mas.setAttribute('aria-label', `Mostrar todos los filtros de ${grupo.title}`);
+                    mas.title = 'Mostrar más';
+                    mas.innerHTML = '<i class="bi bi-three-dots" aria-hidden="true"></i>';
+                    mas.addEventListener('click', () => {
+                        setFilaExpandida(fila, !fila.classList.contains('expanded'));
+                    });
+                    fila.appendChild(mas);
 
                     filterSection.appendChild(fila);
                 });
@@ -185,8 +260,269 @@
                 filterSection.appendChild(limpiar);
             }
 
-            // Aplica búsqueda de texto + chips activos
+            // Despliega (true) o recoge (false) una fila de chips
+            function setFilaExpandida(fila, expandir) {
+                const mas = fila.querySelector('.filter-more');
+                const titulo = fila.querySelector('.filter-group-title').textContent;
+                fila.classList.toggle('expanded', expandir);
+                if (!mas) return;
+                mas.setAttribute('aria-expanded', String(expandir));
+                mas.setAttribute('aria-label', expandir
+                    ? `Mostrar menos filtros de ${titulo}`
+                    : `Mostrar todos los filtros de ${titulo}`);
+                mas.title = expandir ? 'Mostrar menos' : 'Mostrar más';
+            }
+
+            // Muestra el botón de tres puntos solo en las filas que no caben
+            function actualizarDesbordeFiltros() {
+                if (!filterSection) return;
+                filterSection.querySelectorAll('.filter-group').forEach(fila => {
+                    const chips = fila.querySelector('.filter-chips');
+                    const mas = fila.querySelector('.filter-more');
+                    if (!chips || !mas) return;
+
+                    // Se mide siempre recogida (una sola línea) y SIN el botón de
+                    // tres puntos, para saber si los chips caben por sí solos
+                    const estabaExpandida = fila.classList.contains('expanded');
+                    fila.classList.remove('expanded', 'has-overflow');
+                    mas.hidden = true;
+                    const desborda = chips.scrollWidth > chips.clientWidth + 1;
+
+                    fila.classList.toggle('has-overflow', desborda);
+                    mas.hidden = !desborda;
+                    if (desborda) {
+                        fila.classList.toggle('expanded', estabaExpandida);
+                    } else if (estabaExpandida) {
+                        setFilaExpandida(fila, false);
+                    }
+                });
+            }
+
+            // ------------------------------------------------------------
+            // COLECCIONES: carpetas animadas en un slider horizontal
+            // ------------------------------------------------------------
+
+            // Prepara las colecciones: solo ids existentes y visibles; se
+            // descartan las colecciones que se quedan sin proyectos.
+            function prepararColecciones() {
+                if (typeof colecciones === 'undefined' || !Array.isArray(colecciones)) return [];
+                const visibles = new Map(getAllProyectos().map(p => [p.id, p]));
+                const idsUsados = new Set();
+
+                return colecciones.map((col, indice) => {
+                    const proyectos = (col.projects || [])
+                        .filter((id, i, arr) => arr.indexOf(id) === i) // sin repetidos
+                        .map(id => visibles.get(id))
+                        .filter(Boolean);
+                    // Id único aunque falte o se repita en los datos
+                    let id = col.id ? String(col.id) : `coleccion-${indice + 1}`;
+                    while (idsUsados.has(id)) id = `${id}-${indice + 1}`;
+                    idsUsados.add(id);
+                    return {
+                        id: id,
+                        title: col.title || 'Colección',
+                        description: col.description || '',
+                        icon: String(col.icon || 'folder2-open').replace(/^bi-/, ''),
+                        proyectos: proyectos,
+                        ids: new Set(proyectos.map(p => p.id))
+                    };
+                }).filter(col => col.proyectos.length > 0);
+            }
+
+            // Crea un botón-carpeta para una colección
+            function crearCarpeta(col) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'ai-folder coleccion-folder';
+                btn.dataset.coleccion = col.id;
+                btn.setAttribute('aria-pressed', 'false');
+                btn.setAttribute('aria-controls', 'gallery-container');
+                const n = col.proyectos.length;
+                const conteo = `${n} ${n === 1 ? 'proyecto' : 'proyectos'}`;
+                btn.setAttribute('aria-label', `Colección ${col.title}, ${conteo}`);
+                btn.title = col.description || col.title;
+
+                const back = document.createElement('span');
+                back.className = 'ai-folder-back';
+                btn.appendChild(back);
+
+                // Hojas con las imágenes de los primeros proyectos (máx. 3)
+                const hojas = n === 1 ? ['ai-sheet-2']
+                    : n === 2 ? ['ai-sheet-1', 'ai-sheet-3']
+                    : ['ai-sheet-1', 'ai-sheet-2', 'ai-sheet-3'];
+                hojas.forEach((clase, i) => {
+                    const hoja = document.createElement('span');
+                    hoja.className = `ai-folder-sheet ${clase}`;
+                    const img = document.createElement('img');
+                    img.src = `../${col.proyectos[i].image}`;
+                    img.alt = '';
+                    hoja.appendChild(img);
+                    btn.appendChild(hoja);
+                });
+
+                const front = document.createElement('span');
+                front.className = 'ai-folder-front';
+                const icono = document.createElement('i');
+                icono.className = `bi bi-${col.icon}`;
+                icono.setAttribute('aria-hidden', 'true');
+                const titulo = document.createElement('span');
+                titulo.textContent = col.title;
+                const small = document.createElement('small');
+                small.textContent = conteo;
+                front.append(icono, titulo, small);
+                btn.appendChild(front);
+
+                const check = document.createElement('span');
+                check.className = 'coleccion-check';
+                check.setAttribute('aria-hidden', 'true');
+                check.innerHTML = '<i class="bi bi-check-circle-fill"></i>';
+                btn.appendChild(check);
+
+                // Abrir / cerrar la colección (pulsar otra vez la cierra)
+                col.boton = btn;
+                btn.addEventListener('click', () => {
+                    if (activeCollection === col) {
+                        setColeccion(null);
+                    } else {
+                        setColeccion(col);
+                        // Si la carpeta quedó cortada en el borde del slider, traerla a la vista
+                        btn.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'nearest' });
+                    }
+                });
+
+                return btn;
+            }
+
+            function renderColecciones() {
+                if (!coleccionesSection || !coleccionesTrack) return;
+                const lista = prepararColecciones();
+                coleccionesTrack.innerHTML = '';
+
+                if (lista.length === 0) {
+                    coleccionesSection.hidden = true;
+                    if (toolbar) toolbar.classList.add('sin-colecciones');
+                    return;
+                }
+
+                lista.forEach(col => coleccionesTrack.appendChild(crearCarpeta(col)));
+                actualizarNavColecciones();
+            }
+
+            // Abre una colección (o cierra la actual con null)
+            function setColeccion(col) {
+                activeCollection = col;
+
+                coleccionesTrack.querySelectorAll('.coleccion-folder').forEach(btn => {
+                    btn.setAttribute('aria-pressed', String(!!col && btn === col.boton));
+                });
+
+                // Indicador mínimo sobre la galería
+                if (coleccionActivaBox) {
+                    coleccionActivaBox.innerHTML = '';
+                    if (col) {
+                        const icono = document.createElement('i');
+                        icono.className = `bi bi-${col.icon}`;
+                        icono.setAttribute('aria-hidden', 'true');
+                        const texto = document.createElement('div');
+                        texto.className = 'coleccion-activa-texto';
+                        const titulo = document.createElement('strong');
+                        titulo.textContent = `Colección: ${col.title}`;
+                        texto.appendChild(titulo);
+                        if (col.description) {
+                            const desc = document.createElement('span');
+                            desc.textContent = col.description;
+                            texto.appendChild(desc);
+                        }
+                        const cerrar = document.createElement('button');
+                        cerrar.type = 'button';
+                        cerrar.className = 'coleccion-cerrar';
+                        cerrar.setAttribute('aria-label', `Cerrar la colección ${col.title}`);
+                        cerrar.title = 'Cerrar colección';
+                        cerrar.innerHTML = '<i class="bi bi-x-lg" aria-hidden="true"></i>';
+                        cerrar.addEventListener('click', () => {
+                            const carpeta = col.boton;
+                            setColeccion(null);
+                            if (carpeta) carpeta.focus();
+                        });
+                        coleccionActivaBox.append(icono, texto, cerrar);
+                    }
+                    coleccionActivaBox.classList.toggle('d-none', !col);
+                }
+
+                applyFilters();
+                animarPosters();
+            }
+
+            // Los proyectos visibles aparecen uno tras otro al cambiar de colección
+            function animarPosters() {
+                if (reduceMotion || !galleryContainer) return;
+                let i = 0;
+                galleryContainer.querySelectorAll('.gallery-poster').forEach(poster => {
+                    poster.classList.remove('coleccion-pop');
+                    if (poster.style.display === 'none') return;
+                    poster.style.setProperty('--i', i++);
+                    void poster.offsetWidth; // reinicia la animación
+                    poster.classList.add('coleccion-pop');
+                });
+            }
+
+            if (galleryContainer) {
+                galleryContainer.addEventListener('animationend', (e) => {
+                    if (e.target.classList && e.target.classList.contains('gallery-poster')) {
+                        e.target.classList.remove('coleccion-pop');
+                    }
+                });
+            }
+
+            // Flechas del slider: se ocultan si todo cabe, se desactivan en los extremos
+            // remedir = false (al hacer scroll) solo actualiza el estado de las flechas
+            function actualizarNavColecciones(remedir) {
+                if (!coleccionesTrack || !coleccionesSlider) return;
+                if (remedir !== false) {
+                    // Se mide SIN flechas, para saber si las carpetas caben por sí solas
+                    coleccionesSlider.classList.add('sin-desborde');
+                    const desborde = coleccionesTrack.scrollWidth - coleccionesTrack.clientWidth;
+                    coleccionesSlider.classList.toggle('sin-desborde', desborde <= 1);
+                }
+                const max = coleccionesTrack.scrollWidth - coleccionesTrack.clientWidth;
+                if (coleccionesPrev) coleccionesPrev.disabled = coleccionesTrack.scrollLeft <= 1;
+                if (coleccionesNext) coleccionesNext.disabled = coleccionesTrack.scrollLeft >= max - 1;
+            }
+
+            // Desplaza el slider una carpeta hacia la izquierda (-1) o la derecha (1)
+            function moverColecciones(direccion) {
+                const carpeta = coleccionesTrack.querySelector('.coleccion-folder');
+                if (!carpeta) return;
+                const gap = parseFloat(getComputedStyle(coleccionesTrack).columnGap) || 0;
+                coleccionesTrack.scrollBy({
+                    left: direccion * (carpeta.offsetWidth + gap),
+                    behavior: reduceMotion ? 'auto' : 'smooth'
+                });
+            }
+
+            if (coleccionesPrev) coleccionesPrev.addEventListener('click', () => moverColecciones(-1));
+            if (coleccionesNext) coleccionesNext.addEventListener('click', () => moverColecciones(1));
+            if (coleccionesTrack) {
+                coleccionesTrack.addEventListener('scroll', () => actualizarNavColecciones(false), { passive: true });
+
+                // Flechas del teclado para pasar de una carpeta a otra
+                coleccionesTrack.addEventListener('keydown', (e) => {
+                    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                    const carpetas = [...coleccionesTrack.querySelectorAll('.coleccion-folder')];
+                    const i = carpetas.indexOf(document.activeElement);
+                    if (i === -1) return;
+                    const siguiente = carpetas[i + (e.key === 'ArrowRight' ? 1 : -1)];
+                    if (siguiente) {
+                        e.preventDefault();
+                        siguiente.focus();
+                        siguiente.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'nearest' });
+                    }
+                });
+            }
+
+            // Aplica búsqueda de texto + chips activos + colección abierta
             // Dentro de un grupo: O (basta una etiqueta). Entre grupos: Y.
+            // La colección se combina con Y.
             function applyFilters() {
                 const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
                 const galleryPosters = document.querySelectorAll('.gallery-poster');
@@ -203,7 +539,9 @@
                         set.size === 0 || poster.tagList.some(t => set.has(t))
                     );
 
-                    const mostrar = coincideBusqueda && coincideChips;
+                    const coincideColeccion = !activeCollection || activeCollection.ids.has(poster.projectId);
+
+                    const mostrar = coincideBusqueda && coincideChips && coincideColeccion;
                     poster.style.display = mostrar ? 'block' : 'none';
                     if (mostrar) visibles++;
                 });
@@ -214,6 +552,32 @@
             }
 
             renderFilters();
+            renderColecciones();
+
+            // Recalcular filas desbordadas y flechas al cambiar el ancho
+            // Primero las flechas de colecciones (cambian el ancho que les queda
+            // a los filtros) y después las filas de filtros.
+            let anchoAnterior = -1;
+            function alCambiarTamano() {
+                const ancho = toolbar ? toolbar.clientWidth : window.innerWidth;
+                if (ancho === anchoAnterior) return;
+                anchoAnterior = ancho;
+                actualizarNavColecciones();
+                actualizarDesbordeFiltros();
+            }
+            alCambiarTamano();
+            if ('ResizeObserver' in window && toolbar) {
+                new ResizeObserver(alCambiarTamano).observe(toolbar);
+            } else {
+                window.addEventListener('resize', alCambiarTamano);
+            }
+            // Las fuentes web cambian el ancho de los chips: medir otra vez al cargarlas
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    anchoAnterior = -1;
+                    alCambiarTamano();
+                });
+            }
 
             if (searchInput) {
                 searchInput.addEventListener('input', applyFilters);

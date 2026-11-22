@@ -540,3 +540,393 @@ blockquote.blockquote .blockquote-footer::before {
         animation: none;
     }
 }
+
+/* ============================================================
+   GALERÍA: barra de filtros + COLECCIONES (carpetas animadas)
+   ------------------------------------------------------------
+   - .gallery-toolbar: fila bajo el buscador; filtros a la izquierda
+     y colecciones a la derecha (se apilan en pantallas angostas).
+   - .filter-chips / .filter-more: cada fila de chips no se parte en
+     varias líneas; si no cabe, aparece el botón de tres puntos que
+     la despliega hacia abajo.
+   - .colecciones*: slider de carpetas. Reutiliza .ai-folder (arriba)
+     con un tamaño menor (.coleccion-folder).
+   Las colecciones se configuran en js/proyectos-data.js (colecciones).
+   ============================================================ */
+.gallery-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Lado a lado solo desde 1200px: por debajo los filtros quedarían
+   demasiado angostos. La columna de colecciones mide lo que ocupan
+   sus carpetas (máx. 40rem); si no caben, aparecen las flechas. */
+@media (min-width: 1200px) {
+    .gallery-toolbar {
+        grid-template-columns: minmax(22rem, 1fr) auto;
+        gap: 2rem;
+    }
+    .gallery-toolbar .colecciones {
+        max-width: 40rem;
+        min-width: 0;
+    }
+    .gallery-toolbar.sin-colecciones {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Fila de chips: una sola línea, con botón de tres puntos si no cabe */
+.filter-chips {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow: hidden;
+    /* espacio para que el contorno de foco no se corte */
+    padding: 3px;
+    margin: -3px;
+}
+
+.filter-chips .filter-chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.filter-group.has-overflow:not(.expanded) .filter-chips {
+    -webkit-mask-image: linear-gradient(to right, #000 82%, transparent);
+    mask-image: linear-gradient(to right, #000 82%, transparent);
+}
+
+.filter-group.expanded {
+    align-items: flex-start;
+}
+
+.filter-group.expanded .filter-group-title {
+    padding-top: 0.3rem;
+}
+
+.filter-group.expanded .filter-chips {
+    flex-wrap: wrap;
+    overflow: visible;
+}
+
+.filter-group.expanded .filter-chips .filter-chip {
+    max-width: 100%;
+    white-space: normal;
+}
+
+.filter-more {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.3s ease;
+}
+
+.filter-more[hidden] {
+    display: none;
+}
+
+.filter-more:hover,
+.filter-more[aria-expanded="true"] {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+}
+
+.filter-more[aria-expanded="true"] {
+    transform: rotate(90deg);
+}
+
+.filter-more:focus-visible {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+/* Encabezado de colecciones */
+.colecciones-title {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.colecciones-title i {
+    color: var(--bs-primary);
+}
+
+/* Slider de carpetas: flechas a los lados, pista con scroll y snap */
+.colecciones-slider {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.colecciones-track {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* espacio arriba para que las hojas salgan de la carpeta sin cortarse */
+    padding: 2rem 1rem 0.6rem;
+    scroll-padding: 0 1rem;
+}
+
+.colecciones-track::-webkit-scrollbar {
+    display: none;
+}
+
+.coleccion-nav {
+    flex: 0 0 auto;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+.coleccion-nav:hover:not(:disabled) {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.coleccion-nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+    box-shadow: none;
+}
+
+.coleccion-nav:focus-visible {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+/* Sin desbordamiento no hacen falta las flechas (y no ocupan espacio,
+   así las carpetas quedan alineadas con el título) */
+.colecciones-slider.sin-desborde .coleccion-nav {
+    display: none;
+}
+
+.colecciones-slider.sin-desborde .colecciones-track {
+    margin-left: -1rem;
+}
+
+/* Carpeta de colección: versión compacta de .ai-folder */
+.ai-folder.coleccion-folder {
+    flex: 0 0 auto;
+    width: 160px;
+    height: 120px;
+    scroll-snap-align: start;
+    font: inherit;
+}
+
+.coleccion-folder .ai-folder-back {
+    inset: 18px 0 0 0;
+}
+
+.coleccion-folder .ai-folder-back::before {
+    top: -12px;
+    width: 62px;
+    height: 22px;
+}
+
+.coleccion-folder .ai-folder-sheet {
+    border-width: 2px;
+}
+
+.coleccion-folder:hover .ai-sheet-1,
+.coleccion-folder:focus-visible .ai-sheet-1,
+.coleccion-folder[aria-pressed="true"] .ai-sheet-1 {
+    transform: translate(-30px, -24px) rotate(-14deg);
+}
+
+.coleccion-folder:hover .ai-sheet-2,
+.coleccion-folder:focus-visible .ai-sheet-2,
+.coleccion-folder[aria-pressed="true"] .ai-sheet-2 {
+    transform: translateY(-34px);
+}
+
+.coleccion-folder:hover .ai-sheet-3,
+.coleccion-folder:focus-visible .ai-sheet-3,
+.coleccion-folder[aria-pressed="true"] .ai-sheet-3 {
+    transform: translate(30px, -24px) rotate(14deg);
+}
+
+.coleccion-folder .ai-folder-front {
+    height: 64%;
+    padding: 0 0.5rem;
+    line-height: 1.15;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.coleccion-folder:hover .ai-folder-front,
+.coleccion-folder:focus-visible .ai-folder-front {
+    transform: rotateX(-20deg);
+}
+
+/* Estado abierto (colección activa): inclinación leve para que el texto
+   siga legible; el anillo y la marca indican que está seleccionada */
+.coleccion-folder[aria-pressed="true"] .ai-folder-front {
+    transform: rotateX(-16deg);
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--bs-primary), 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.coleccion-folder .ai-folder-front i {
+    font-size: 1.05rem;
+}
+
+.coleccion-folder .ai-folder-front small {
+    font-size: 0.78rem;
+}
+
+/* Modo oscuro: el cian claro con texto blanco tiene poco contraste;
+   se usa un tono más oscuro en el frente de la carpeta */
+[data-theme="dark"] .coleccion-folder .ai-folder-front {
+    background: #0e7490;
+}
+
+.coleccion-check {
+    position: absolute;
+    top: -0.55rem;
+    right: -0.55rem;
+    width: 1.35rem;
+    height: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--bs-primary);
+    font-size: 1rem;
+    z-index: 3;
+    text-shadow: none;
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.coleccion-folder[aria-pressed="true"] .coleccion-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.coleccion-folder:focus-visible {
+    outline-offset: 3px;
+}
+
+/* Indicador de la colección activa, sobre la galería */
+.coleccion-activa {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--bs-primary);
+    border-radius: 0.75rem;
+    background: var(--card-bg);
+    color: var(--text);
+}
+
+.coleccion-activa > i {
+    color: var(--bs-primary);
+    font-size: 1.2rem;
+    line-height: 1.3;
+}
+
+.coleccion-activa-texto {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.coleccion-activa-texto strong {
+    display: block;
+}
+
+.coleccion-activa-texto span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.coleccion-cerrar {
+    flex: 0 0 auto;
+    border: none;
+    background: none;
+    padding: 0 0.25rem;
+    color: var(--text);
+    opacity: 0.7;
+    font-size: 1rem;
+}
+
+.coleccion-cerrar:hover {
+    opacity: 1;
+    color: var(--bs-primary);
+}
+
+.coleccion-cerrar:focus-visible {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Los proyectos de la colección aparecen uno tras otro */
+.gallery-poster.coleccion-pop {
+    animation: aiFolderPop 0.45s ease backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@media (max-width: 576px) {
+    .ai-folder.coleccion-folder {
+        width: 140px;
+        height: 108px;
+    }
+    .coleccion-nav {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .colecciones-track {
+        scroll-behavior: auto;
+    }
+    .coleccion-check,
+    .coleccion-nav,
+    .filter-more {
+        transition: none;
+    }
+    .gallery-poster.coleccion-pop {
+        animation: none;
+    }
+}

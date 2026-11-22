@@ -116,7 +116,7 @@
                     <h5><i class="bi bi-person-check"></i> Reconocimiento</h5>
                     <blockquote class="blockquote">
                         <p>"Durante el proyecto trabajó con competencia técnica y liderazgo en el equipo."</p>
-                        <footer class="blockquote-footer">Carlos Mario Soto Montaño, Ingeniero Mecánico, M.Sc. Materiales Avanzados - Director ONIRIS-ID</footer>
+                        <div class="blockquote-footer">Carlos Mario Soto Montaño, Ingeniero Mecánico, M.Sc. Materiales Avanzados - Director ONIRIS-ID</div>
                     </blockquote>
                 </div>
             </div>
@@ -126,59 +126,102 @@
 
         <h3>Galería</h3>
         <div class="row g-3">
-            <!-- Imágenes -->
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/BaseYEnsapsulado-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Base y Encapsulado - Vista Lateral" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/BaseYEnsapsulado-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Base y Encapsulado - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/DibujoPlataforma.png" class="img-fluid rounded gallery-img" alt="Dibujo de la Plataforma" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/DisbujoPlataforma-ZoomArticulaciones.jpg" class="img-fluid rounded gallery-img" alt="Dibujo Plataforma - Zoom Articulaciones" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/EjeV1-Explosionado.jpg" class="img-fluid rounded gallery-img" alt="Eje V1 - Vista Explosionada" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/EnsamblePremilinar3D.jpg" class="img-fluid rounded gallery-img" alt="Ensamble Preliminar 3D" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/Impresion3D.jpg" class="img-fluid rounded gallery-img" alt="Impresión 3D" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Frontal" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Lateral" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/prototipoV1-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Prototipo V1 - Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Prototipo V2 - Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/Soporte-EjeV1_Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Soporte - Eje V1 Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/Electronica-VistaInferior.jpg" class="img-fluid rounded gallery-img" alt="Electrónica - Vista Inferior" data-bs-toggle="modal" data-bs-target="#imageModal">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src="../assets/img/SimuladorBote/EnsambleEnPresentacion.jpg" class="img-fluid rounded gallery-img" alt="Ensamble en Presentación" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <!-- Carpetas animadas: maqueta original y prototipo V2 (centradas, lado a lado) -->
+            <div class="col-12">
+                <div class="d-flex flex-wrap justify-content-center align-items-start gap-5">
+                <div class="ai-folder-wrap text-center">
+                    <button class="ai-folder" type="button" data-bs-toggle="collapse" data-bs-target="#maquetaOriginalGallery" aria-expanded="false" aria-controls="maquetaOriginalGallery" title="Abrir Maqueta original">
+                    <span class="ai-folder-back"></span>
+                    <span class="ai-folder-sheet ai-sheet-1"><img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" alt=""></span>
+                    <span class="ai-folder-sheet ai-sheet-2"><img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaLateral.jpg" alt=""></span>
+                    <span class="ai-folder-sheet ai-sheet-3"><img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaPosterior.jpg" alt=""></span>
+                    <span class="ai-folder-front">
+                    <i class="bi bi-folder2-open"></i>
+                    <span>Maqueta original</span>
+                    <small>7 fotografías</small>
+                    <small>1 video</small>
+                    </span>
+                    </button>
+                </div>
+                <div class="ai-folder-wrap text-center">
+                    <button class="ai-folder" type="button" data-bs-toggle="collapse" data-bs-target="#prototipoV2Gallery" aria-expanded="false" aria-controls="prototipoV2Gallery" title="Abrir Prototipo V2">
+                    <span class="ai-folder-back"></span>
+                    <span class="ai-folder-sheet ai-sheet-1"><img src="../assets/img/SimuladorBote/EnsambleEnPresentacion.jpg" alt=""></span>
+                    <span class="ai-folder-sheet ai-sheet-2"><img src="../assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" alt=""></span>
+                    <span class="ai-folder-sheet ai-sheet-3"><img src="../assets/img/SimuladorBote/Electronica-VistaInferior.jpg" alt=""></span>
+                    <span class="ai-folder-front">
+                    <i class="bi bi-folder2-open"></i>
+                    <span>Prototipo V2</span>
+                    <small>7 fotografías</small>
+                    </span>
+                    </button>
+                </div>
+                </div>
+                <p class="ai-folder-hint small text-muted text-center mt-3 mb-0">Haz clic en una carpeta para abrirla o cerrarla</p>
             </div>
 
-            <!-- Video -->
-            <div class="col-12 col-md-8">
-                <div class="ratio ratio-1x1">
-                    <video controls class="rounded">
-                        <source src="../assets/vid/SimuladorBote/EnsambleProgramado_Test.mp4" type="video/mp4">
-                    </video>
+            <!-- Contenido: maqueta original (incluye el video de ensamble) -->
+            <div class="col-12">
+                <div class="collapse" id="maquetaOriginalGallery">
+                    <div class="row g-3 pt-4 ai-folder-content">
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 0">
+                        <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Frontal" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 1">
+                        <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Lateral" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 2">
+                        <img src="../assets/img/SimuladorBote/MaquetaOriginal-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Maqueta Original - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 3">
+                        <img src="../assets/img/SimuladorBote/EjeV1-Explosionado.jpg" class="img-fluid rounded gallery-img" alt="Eje V1 - Vista Explosionada" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 4">
+                        <img src="../assets/img/SimuladorBote/Impresion3D.jpg" class="img-fluid rounded gallery-img" alt="Impresión 3D" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 5">
+                        <img src="../assets/img/SimuladorBote/prototipoV1-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Prototipo V1 - Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 6">
+                        <img src="../assets/img/SimuladorBote/Soporte-EjeV1_Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Soporte - Eje V1 Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-12 col-md-6 mx-auto" style="--i: 7">
+                        <div class="ratio ratio-1x1">
+                            <video controls class="rounded">
+                                <source src="../assets/vid/SimuladorBote/EnsambleProgramado_Test.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido: prototipo V2 -->
+            <div class="col-12">
+                <div class="collapse" id="prototipoV2Gallery">
+                    <div class="row g-3 pt-4 ai-folder-content">
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 0">
+                        <img src="../assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" class="img-fluid rounded gallery-img" alt="Prototipo V2 - Ensamble" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 1">
+                        <img src="../assets/img/SimuladorBote/Electronica-VistaInferior.jpg" class="img-fluid rounded gallery-img" alt="Dibujo Plataforma - Zoom Articulaciones" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 2">
+                        <img src="../assets/img/SimuladorBote/EnsambleEnPresentacion.jpg" class="img-fluid rounded gallery-img" alt="Ensamble en Presentación" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 3">
+                        <img src="../assets/img/SimuladorBote/BaseYEnsapsulado-VistaLateral.jpg" class="img-fluid rounded gallery-img" alt="Base y Encapsulado - Vista Lateral" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 4">
+                        <img src="../assets/img/SimuladorBote/BaseYEnsapsulado-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Base y Encapsulado - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 5">
+                        <img src="../assets/img/SimuladorBote/DibujoPlataforma.png" class="img-fluid rounded gallery-img" alt="Dibujo de la Plataforma" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="--i: 6">
+                        <img src="../assets/img/SimuladorBote/EnsamblePremilinar3D.jpg" class="img-fluid rounded gallery-img" alt="Ensamble Preliminar 3D" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

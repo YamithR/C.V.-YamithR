@@ -3,452 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SensoraCore - Sistema de Monitoreo de Sensores WiFi</title>
+    <title>Maquetación SensoraCore - Yamith Romero</title>
+    <link rel="icon" href="../../../assets/img/sensoracore/SensoraCore.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/proyectos.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Menú desplegable SensoraCore de la navbar (colores del tema) */
+        .navbar .dropdown-menu {
+            background-color: var(--card-bg);
+            border-color: var(--border);
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #d8d8d8;
-            padding: 20px;
-            min-height: 100vh;
+        .navbar .dropdown-item {
+            color: var(--text);
         }
 
-        .container {
-            max-width: 1236px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 10px;
-            display: flex;
-            min-height: 758px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .navbar .dropdown-item:hover,
+        .navbar .dropdown-item:focus {
+            background-color: var(--border);
+            color: var(--text);
         }
 
-        /* Panel Lateral */
-        .lateral-panel {
-            width: 350px;
-            min-width: 350px;
-            padding: 20px;
+        .navbar .dropdown-item.active,
+        .navbar .dropdown-item:active {
+            background-color: var(--bs-primary);
+            color: #fff;
+        }
+
+        .navbar .dropdown-divider {
+            border-color: var(--border);
+        }
+
+        /* Ventana de la maquetación */
+        .mockup {
+            overflow: hidden;
+        }
+
+        .mock-lateral {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 1rem;
         }
 
-        .title-section {
-            text-align: center;
-        }
-
-        .title-section h1 {
-            font-size: 24pt;
-            font-weight: 700;
-            color: #007bff;
-            margin-bottom: 5px;
-        }
-
-        .title-section p {
-            font-size: 12pt;
-            color: #969696;
-        }
-
-        /* Configuración */
-        .config-section {
-            border: 2px solid #b1b1b1;
-            border-radius: 5px;
-            padding: 10px;
-            position: relative;
-            margin-top: 15px;
-        }
-
-        .config-section::before {
-            content: 'Configuración de Conexión';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background-color: #ffffff;
-            padding: 0 5px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #666666;
-        }
-
-        .ip-section {
-            border: 2px solid #b1b1b1;
-            border-radius: 5px;
-            padding: 10px;
-            position: relative;
-            margin: 20px 0 15px;
-        }
-
-        .ip-section::before {
-            content: 'IP del ESP32:';
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            background-color: #ffffff;
-            padding: 2px 5px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #666666;
-        }
-
-        .ip-input-container {
-            display: flex;
-            gap: 5px;
-        }
-
-        .ip-input {
-            flex: 1;
-            height: 40px;
-            padding: 0 10px;
-            border: 1px solid #b1b1b1;
-            border-radius: 4px;
-            font-size: 18px;
-            color: #b1b1b1;
-        }
-
-        .terminal-btn {
-            width: 40px;
-            height: 40px;
-            background-color: #000000;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .terminal-btn:hover {
-            background-color: #007bff;
-        }
-
-        .connect-btn {
-            width: 100%;
-            height: 50px;
-            background-color: rgba(0, 255, 0, 0.2);
-            border: 2px solid #b1b1b1;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #000000;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .connect-btn:hover {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        .connect-btn:active {
-            background-color: #00ff7f;
-        }
-
-        .status-container {
+        .mock-main {
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-top: 10px;
+            justify-content: center;
+            border-top: 1px solid var(--border);
+            min-height: 420px;
         }
 
+        @media (min-width: 992px) {
+            .mockup {
+                min-height: 640px;
+            }
+
+            .mock-main {
+                border-top: 0;
+                border-left: 1px solid var(--border);
+            }
+        }
+
+        /* Grupos con leyenda (equivalentes a los QGroupBox de la app) */
+        .mock-group {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.75rem 0.75rem;
+        }
+
+        .mock-group legend {
+            float: none;
+            width: auto;
+            padding: 0 0.4rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .mock-group .mock-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .mockup .form-control {
+            background-color: var(--bg);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .mockup .form-control::placeholder {
+            color: var(--bs-secondary);
+        }
+
+        .mockup .form-control:focus {
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
+        }
+
+        /* Estado de la conexión */
         .status {
             flex: 1;
-            padding: 12px;
-            background-color: #ffd2d3;
-            color: #860f11;
-            border-radius: 4px;
+            padding: 0.6rem 0.75rem;
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            background-color: rgba(239, 68, 68, 0.1);
+            border-radius: 0.375rem;
             text-align: center;
-            font-size: 14pt;
-            font-weight: bold;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .status .bi {
+            color: var(--bs-danger);
+        }
+
+        .status.connecting {
+            border-color: rgba(6, 182, 212, 0.5);
+            background-color: rgba(6, 182, 212, 0.1);
+        }
+
+        .status.connecting .spinner-border {
+            color: var(--bs-info);
         }
 
         .status.connected {
-            background-color: #d4edda;
-            color: #155724;
+            border-color: rgba(16, 185, 129, 0.5);
+            background-color: rgba(16, 185, 129, 0.1);
         }
 
-        .reset-btn {
-            width: 55px;
-            height: 55px;
-            background-color: transparent;
-            border: none;
-            font-size: 40px;
-            cursor: pointer;
+        .status.connected .bi {
+            color: var(--bs-success);
         }
 
-        /* Lista de Sensores */
-        .sensor-list {
-            border: 2px solid #b1b1b1;
-            border-radius: 5px;
-            padding: 10px;
-            position: relative;
-            margin-top: 15px;
+        /* Lista de sensores */
+        .mock-sensors {
             flex: 1;
-            overflow-y: auto;
-        }
-
-        .sensor-list::before {
-            content: 'Sensores Disponibles';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background-color: #ffffff;
-            padding: 0 5px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #666666;
         }
 
         .sensor-scroll {
             max-height: 400px;
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--bs-primary) var(--card-bg);
         }
 
         .sensor-item {
-            padding: 10px;
-            border-top: 1px solid #dedede;
-            border-bottom: 1px solid #dedede;
+            padding: 0.6rem 0.5rem;
+            border-bottom: 1px solid var(--border);
             cursor: pointer;
-            transition: background-color 0.2s;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease;
         }
 
-        .sensor-item:hover {
-            background-color: rgba(0, 123, 255, 0.2);
+        .sensor-item:last-child {
+            border-bottom: 0;
+        }
+
+        .sensor-item:hover,
+        .sensor-item:focus-visible,
+        .sensor-item.active {
+            background-color: rgba(6, 182, 212, 0.15);
+            outline: none;
         }
 
         .sensor-item h3 {
-            font-size: 14px;
-            margin-bottom: 5px;
-            color: #000000;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+            color: var(--text);
         }
 
         .sensor-item p {
-            font-size: 12px;
-            color: #666666;
+            font-size: 0.8rem;
+            margin-bottom: 0;
         }
 
-        /* Separador */
-        .separator {
-            width: 2px;
-            background-color: #b1b1b1;
-        }
-
-        /* Panel Principal */
-        .main-panel {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Pantalla de Bienvenida */
+        /* Panel principal */
         .welcome-screen {
             text-align: center;
             max-width: 600px;
         }
 
         .welcome-icon {
-            font-size: 72pt;
-            margin-bottom: 20px;
+            font-size: 4.5rem;
+            line-height: 1;
+            color: var(--bs-primary);
         }
 
-        .welcome-text {
-            font-size: 11pt;
-            color: #b1b1b1;
-            margin-bottom: 30px;
-            line-height: 1.5;
+        .welcome-info,
+        .sensor-placeholder {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: var(--text);
         }
 
         .welcome-info {
-            background-color: rgba(0, 123, 255, 0.2);
-            border: 1px solid rgba(0, 170, 255, 0.5);
-            border-radius: 5px;
-            padding: 15px;
-            font-size: 11pt;
-            color: #666666;
-            line-height: 1.5;
+            border: 1px solid rgba(6, 182, 212, 0.5);
+            background-color: rgba(6, 182, 212, 0.1);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .lateral-panel {
-                width: 100%;
-            }
-
-            .separator {
-                display: none;
-            }
+        .sensor-placeholder {
+            border: 2px dashed var(--border);
+            padding: 2rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Panel Lateral -->
-        <div class="lateral-panel">
-            <!-- Título -->
-            <div class="title-section">
-                <h1>SensoraCore</h1>
-                <p>Sistema de Monitoreo de Sensores WiFi</p>
-            </div>
 
-            <!-- Configuración -->
-            <div class="config-section">
-                <!-- IP del ESP32 -->
-                <div class="ip-section">
-                    <div class="ip-input-container">
-                        <input type="text" class="ip-input" placeholder="Ejemplo: 192.168.1.100">
-                        <button class="terminal-btn">_</button>
-                    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Mostrar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">SensoraCore</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="../../SensoraCore.html"><i class="bi bi-person-badge"></i> Ficha en el CV</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="../index.html"><i class="bi bi-house"></i> Inicio del sitio</a></li>
+                            <li><a class="dropdown-item" href="documentacion_codigo.html"><i class="bi bi-code-slash"></i> Documentación de código</a></li>
+                            <li><a class="dropdown-item active" href="MaquetacionSensoraCore.html" aria-current="page"><i class="bi bi-window"></i> Maquetación</a></li>
+                            <li><a class="dropdown-item" href="sensora_core_timeline_horizontal.html"><i class="bi bi-clock-history"></i> Timeline</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html#proyectos">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html#experiencia">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <h2 class="section-title"><i class="bi bi-window"></i> Maquetación de la interfaz</h2>
+        <p class="text-muted mb-4">Maquetación de la aplicación de escritorio SensoraCore. Los controles son demostrativos.</p>
+
+        <div class="mockup project-sidebar rounded shadow row g-0">
+            <!-- Panel Lateral -->
+            <div class="col-lg-4 p-4 mock-lateral">
+                <!-- Título -->
+                <div class="text-center">
+                    <div class="h3 project-title fw-bold mb-1">SensoraCore</div>
+                    <p class="text-muted mb-0">Sistema de Monitoreo de Sensores WiFi</p>
                 </div>
 
-                <!-- Botón Conectar -->
-                <button class="connect-btn">🔌 Conectar a ESP32</button>
+                <!-- Configuración -->
+                <fieldset class="mock-group">
+                    <legend>Configuración de Conexión</legend>
 
-                <!-- Status y Reset -->
-                <div class="status-container">
-                    <div class="status">
-                        🔴 Desconectado
+                    <!-- IP del ESP32 -->
+                    <fieldset class="mock-group">
+                        <legend>IP del ESP32:</legend>
+                        <div class="input-group">
+                            <input type="text" class="form-control ip-input" placeholder="Ejemplo: 192.168.1.100" aria-label="IP del ESP32">
+                            <button class="btn btn-outline-secondary terminal-btn" type="button" title="Terminal de depuración" aria-label="Terminal de depuración"><i class="bi bi-terminal"></i></button>
+                        </div>
+                    </fieldset>
+
+                    <!-- Botón Conectar -->
+                    <button class="btn btn-primary w-100 connect-btn" type="button"><i class="bi bi-plug"></i> Conectar a ESP32</button>
+
+                    <!-- Status y Reset -->
+                    <div class="d-flex align-items-center gap-2 mt-2">
+                        <div class="status" role="status">
+                            <i class="bi bi-circle-fill"></i> Desconectado
+                        </div>
+                        <button class="btn btn-outline-secondary reset-btn" type="button" title="Reiniciar conexión" aria-label="Reiniciar conexión"><i class="bi bi-arrow-counterclockwise"></i></button>
                     </div>
-                    <button class="reset-btn">🔻</button>
-                </div>
+                </fieldset>
+
+                <!-- Lista de Sensores -->
+                <fieldset class="mock-group mock-sensors">
+                    <legend>Sensores Disponibles</legend>
+                    <div class="sensor-scroll">
+                        <div class="sensor-item">
+                            <h3>SIMPLE ANGLE</h3>
+                            <p class="text-muted">Potenciometro como sensor de angulo</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>ANGLE ARM</h3>
+                            <p class="text-muted">Potenciometros como simulacion de Brazo</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>INFRARED</h3>
+                            <p class="text-muted">Sensor de proximidad con Infrarojos</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>CAPASITIVE</h3>
+                            <p class="text-muted">Sensor de proximidad con sensor Capasitivo</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>ULTRASONIC</h3>
+                            <p class="text-muted">Sensor de distancia con Ultrasonidos</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>OPTICAL SPEED</h3>
+                            <p class="text-muted">Control y monitoreo de Velocidad</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>IR STEERING</h3>
+                            <p class="text-muted">Direccion según infrarojos</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>THERMOREGULATION</h3>
+                            <p class="text-muted">Control y monitoreo de temperatura</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>GAS REGULATION</h3>
+                            <p class="text-muted">Control de flujo de aire y densidad de gases</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>BRIGHTNESS</h3>
+                            <p class="text-muted">Sensor de brillo</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>COLOR CNY</h3>
+                            <p class="text-muted">Color según infrarojos</p>
+                        </div>
+                        <div class="sensor-item">
+                            <h3>COLOR TCS</h3>
+                            <p class="text-muted">Color según TCS3200</p>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
 
-            <!-- Lista de Sensores -->
-            <div class="sensor-list">
-                <div class="sensor-scroll">
-                    <div class="sensor-item">
-                        <h3>SIMPLE ANGLE</h3>
-                        <p>Potenciometro como sensor de angulo</p>
+            <!-- Panel Principal -->
+            <div class="col-lg-8 p-4 mock-main main-panel">
+                <!-- Pantalla de Bienvenida -->
+                <div class="welcome-screen">
+                    <div class="welcome-icon mb-3"><i class="bi bi-wrench-adjustable"></i></div>
+                    <div class="text-muted mb-4">
+                        <p class="mb-0">Conecta tu ESP32 y selecciona un sensor</p>
+                        <p class="mb-0">para comenzar a monitorear datos</p>
                     </div>
-                    <div class="sensor-item">
-                        <h3>ANGLE ARM</h3>
-                        <p>Potenciometros como simulacion de Brazo</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>INFRARED</h3>
-                        <p>Sensor de proximidad con Infrarojos</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>CAPASITIVE</h3>
-                        <p>Sensor de proximidad con sensor Capasitivo</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>ULTRASONIC</h3>
-                        <p>Sensor de distancia con Ultrasonidos</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>OPTICAL SPEED</h3>
-                        <p>Control y monitoreo de Velocidad</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>IR STEERING</h3>
-                        <p>Direccion según infrarojos</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>THERMOREGULATION</h3>
-                        <p>Control y monitoreo de temperatura</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>GAS REGULATION</h3>
-                        <p>Control de flujo de aire y densidad de gases</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>BRIGHTNESS</h3>
-                        <p>Sensor de brillo</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>COLOR CNY</h3>
-                        <p>Color según infrarojos</p>
-                    </div>
-                    <div class="sensor-item">
-                        <h3>COLOR TCS</h3>
-                        <p>Color según TCS3200</p>
+                    <div class="welcome-info">
+                        <i class="bi bi-journal-text"></i> Una vez conectado encontrarás el diagrama de conecxiones ESP32 en cada sensor y los controles de monitoreo
                     </div>
                 </div>
             </div>
         </div>
+    </main>
 
-        <!-- Separador -->
-        <div class="separator"></div>
-
-        <!-- Panel Principal -->
-        <div class="main-panel">
-            <!-- Pantalla de Bienvenida -->
-            <div class="welcome-screen">
-                <div class="welcome-icon">🔧</div>
-                <div class="welcome-text">
-                    <p>Conecta tu ESP32 y selecciona un sensor</p>
-                    <p>para comenzar a monitorear datos</p>
-                </div>
-                <div class="welcome-info">
-                    🗒️ Una vez conectado encontrarás el diagrama de conecxiones ESP32 en cada sensor y los controles de monitoreo
-                </div>
-            </div>
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
         </div>
-    </div>
-
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/theme.js"></script>
     <script>
         // Funcionalidad básica de interacción
+        const statusDiv = document.querySelector('.status');
+        const ipInput = document.querySelector('.ip-input');
+
+        function setStatus(state) {
+            statusDiv.classList.remove('connecting', 'connected');
+            if (state === 'connecting') {
+                statusDiv.classList.add('connecting');
+                statusDiv.innerHTML = '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Conectando...';
+            } else if (state === 'connected') {
+                statusDiv.classList.add('connected');
+                statusDiv.innerHTML = '<i class="bi bi-check-circle-fill"></i> Conectado al ESP32';
+            } else {
+                statusDiv.innerHTML = '<i class="bi bi-circle-fill"></i> Desconectado';
+            }
+        }
+
         document.querySelector('.connect-btn').addEventListener('click', function() {
-            const statusDiv = document.querySelector('.status');
-            const ipInput = document.querySelector('.ip-input');
-            
             if (ipInput.value.trim() === '') {
                 alert('Por favor ingrese la IP del ESP32.');
                 return;
             }
 
             // Simulación de conexión
-            statusDiv.textContent = '🔄 Conectando...';
-            statusDiv.style.backgroundColor = '#cce5ff';
-            statusDiv.style.color = '#004085';
+            setStatus('connecting');
 
             setTimeout(() => {
-                statusDiv.textContent = '✅ Conectado al ESP32';
-                statusDiv.classList.add('connected');
+                setStatus('connected');
             }, 2000);
         });
 
         // Reset
         document.querySelector('.reset-btn').addEventListener('click', function() {
-            const statusDiv = document.querySelector('.status');
-            const ipInput = document.querySelector('.ip-input');
-            
-            statusDiv.textContent = '🔴 Desconectado';
-            statusDiv.classList.remove('connected');
-            statusDiv.style.backgroundColor = '#ffd2d3';
-            statusDiv.style.color = '#860f11';
+            setStatus('disconnected');
             ipInput.value = '';
         });
 
         // Click en sensores
         document.querySelectorAll('.sensor-item').forEach(item => {
+            item.setAttribute('role', 'button');
+            item.setAttribute('tabindex', '0');
+
             item.addEventListener('click', function() {
                 const sensorName = this.querySelector('h3').textContent;
                 const mainPanel = document.querySelector('.main-panel');
-                
+
+                document.querySelectorAll('.sensor-item.active').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+
                 mainPanel.innerHTML = `
-                    <div style="text-align: center; padding: 40px;">
-                        <h2 style="color: #007bff; margin-bottom: 20px;">${sensorName}</h2>
-                        <p style="color: #666666; font-size: 16px;">
+                    <div class="text-center w-100 p-md-4">
+                        <h2 class="project-title mb-3">${sensorName}</h2>
+                        <p class="text-muted fs-5">
                             ${this.querySelector('p').textContent}
                         </p>
-                        <div style="margin-top: 40px; padding: 30px; border: 2px dashed #b1b1b1; border-radius: 10px;">
-                            <p style="color: #999999;">Panel de control del sensor</p>
-                            <p style="color: #999999; margin-top: 10px; font-size: 14px;">
+                        <div class="sensor-placeholder mt-4">
+                            <p class="text-muted mb-0">Panel de control del sensor</p>
+                            <p class="text-muted small mt-2 mb-0">
                                 Aquí se mostrarían los controles y visualización de datos del sensor
                             </p>
                         </div>
                     </div>
                 `;
+            });
+
+            item.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    this.click();
+                }
             });
         });
 
