@@ -1,6 +1,8 @@
 // Configuración centralizada de proyectos
 // Para mostrar un proyecto en la página principal (destacados), pon featured: true
 // Para ocultarlo completamente de ambas páginas, pon visible: false
+// Opcionales por proyecto: imageFit / imageBg (cómo se ajusta la imagen de la tarjeta)
+// y cardTheme (colores propios de la tarjeta en la galería). Ver el ejemplo de 'sispi-guajira'.
 
 const proyectosData = [
     {
@@ -139,6 +141,32 @@ const proyectosData = [
         ],
         featured: false,  // ← Cambiar a true para agregar a destacados
         visible: true
+    },
+    {
+        id: 'sispi-guajira',
+        title: 'Control de Indicadores SISPI - La Guajira',
+        description: 'Aplicación de escritorio en Rust, Tauri y React para el seguimiento de los indicadores del SISPI en La Guajira, con cálculo de cumplimiento, tableros y reportes. En desarrollo: primera versión de prototipo.',
+        image: 'assets/img/SISPI/Banner.jpg',
+        imageFit: 'contain',   // opcional: imagen completa de lado a lado, centrada verticalmente
+        imageBg: '#0f4e45',    // opcional: color de relleno arriba y abajo (verde del banner)
+        // opcional: colores propios de la tarjeta en la galería (modo claro, oscuro y etiquetas)
+        cardTheme: {
+            light: { bg: '#f4f7f2', text: '#14261d', title: '#1f6f4a' },
+            dark: { bg: '#14241c', text: '#e3efe7', title: '#3fb27f' },
+            badges: { primary: '#1f6f4a', success: '#2e8b5f', info: '#e08a1e', warning: '#f2b01e' }
+        },
+        video: null,
+        link: 'proyectos/Control_Indicadores_SISPI.html',
+        tags: ['investigación', 'programación', 'software', 'datos', 'rust', 'typescript', 'sqlite', 'sispi', 'en desarrollo'],
+        badges: [
+            { text: 'Investigación', class: 'bg-warning text-dark' },
+            { text: 'Programación', class: 'bg-primary' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Datos', class: 'bg-info' },
+            { text: 'En desarrollo', class: 'bg-secondary' }
+        ],
+        featured: false,  // ← Cambiar a true para agregar a destacados
+        visible: true
     }
 ];
 
@@ -190,7 +218,8 @@ const filterGroups = [
     {
         title: 'Area',
         chips: [
-            {label: 'Programación', tag: 'programación'}
+            {label: 'Programación', tag: 'programación'},
+            { label: 'Datos', tag: 'datos' }
         ]
     }
 ];
@@ -232,13 +261,13 @@ const colecciones = [
         title: 'Investigación',
         description: 'Proyectos de investigación aplicada en robótica, sensores y simulación.',
         icon: 'lightbulb',
-        projects: ['scorbot', 'sensoracore', 'simulador-bote', 'protocalib']
+        projects: ['scorbot', 'sensoracore', 'simulador-bote', 'protocalib', 'sispi-guajira']
     },
     {
         id: 'personales',
         title: 'Proyectos personales',
         description: 'Proyectos propios de automatización, software y robótica.',
         icon: 'person-workspace',
-        projects: ['sensoracore', 'granja-3d', 'scorbot', 'protocalib']
+        projects: ['sensoracore', 'granja-3d', 'scorbot', 'protocalib', 'sispi-guajira']
     }
 ];

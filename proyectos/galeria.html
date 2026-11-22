@@ -141,8 +141,27 @@
                     // Ajustar el link: remover 'proyectos/' ya que estamos dentro de esa carpeta
                     const linkAjustado = proyecto.link.replace('proyectos/', '');
 
+                    // Ajuste opcional de la imagen de la tarjeta (proyectos-data.js):
+                    // imageFit: 'contain' muestra la imagen completa de lado a lado, centrada
+                    // de arriba a abajo; imageBg rellena el espacio sobrante.
+                    let estiloImagen = '';
+                    if (proyecto.imageFit) estiloImagen += `object-fit: ${proyecto.imageFit}; object-position: center;`;
+                    if (proyecto.imageBg) estiloImagen += `background-color: ${proyecto.imageBg};`;
+
+                    // Colores propios de la tarjeta (opcional, cardTheme en proyectos-data.js)
+                    if (proyecto.cardTheme) {
+                        const t = proyecto.cardTheme;
+                        const vars = {
+                            'bg-l': t.light && t.light.bg, 'text-l': t.light && t.light.text, 'title-l': t.light && t.light.title,
+                            'bg-d': t.dark && t.dark.bg, 'text-d': t.dark && t.dark.text, 'title-d': t.dark && t.dark.title
+                        };
+                        Object.entries(t.badges || {}).forEach(([k, v]) => { vars['b-' + k] = v; });
+                        Object.entries(vars).forEach(([k, v]) => { if (v) poster.style.setProperty('--ct-' + k, v); });
+                        poster.classList.add('card-tema');
+                    }
+
                     poster.innerHTML = `
-                        <img src="../${proyecto.image}" alt="${proyecto.title}" class="gallery-image">
+                        <img src="../${proyecto.image}" alt="${proyecto.title}" class="gallery-image"${estiloImagen ? ` style="${estiloImagen}"` : ''}>
                         <div class="gallery-content">
                             <h5>${proyecto.title}</h5>
                             <p class="project-description">${proyecto.description}</p>

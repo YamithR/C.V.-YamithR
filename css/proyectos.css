@@ -930,3 +930,34 @@ blockquote.blockquote .blockquote-footer::before {
         animation: none;
     }
 }
+
+/* ============================================================
+   TARJETA DE GALERÍA CON COLORES PROPIOS (cardTheme en proyectos-data.js)
+   ============================================================
+   galeria.html añade la clase .card-tema y las variables --ct-* cuando un
+   proyecto define cardTheme. Si falta alguna variable se usan los colores del sitio. */
+.gallery-poster.card-tema {
+    background: var(--ct-bg-l, var(--card-bg));
+}
+.gallery-poster.card-tema .gallery-content,
+.gallery-poster.card-tema .gallery-content p {
+    color: var(--ct-text-l, var(--text));
+}
+.gallery-poster.card-tema .gallery-content h5 {
+    color: var(--ct-title-l, var(--bs-primary));
+}
+[data-theme="dark"] .gallery-poster.card-tema {
+    background: var(--ct-bg-d, var(--card-bg));
+}
+[data-theme="dark"] .gallery-poster.card-tema .gallery-content,
+[data-theme="dark"] .gallery-poster.card-tema .gallery-content p {
+    color: var(--ct-text-d, var(--text));
+}
+[data-theme="dark"] .gallery-poster.card-tema .gallery-content h5 {
+    color: var(--ct-title-d, var(--bs-primary));
+}
+.gallery-poster.card-tema .badge.bg-primary { background-color: var(--ct-b-primary, rgba(var(--bs-primary-rgb), 1)) !important; }
+.gallery-poster.card-tema .badge.bg-success { background-color: var(--ct-b-success, rgba(var(--bs-success-rgb), 1)) !important; }
+.gallery-poster.card-tema .badge.bg-info { background-color: var(--ct-b-info, rgba(var(--bs-info-rgb), 1)) !important; }
+.gallery-poster.card-tema .badge.bg-warning { background-color: var(--ct-b-warning, rgba(var(--bs-warning-rgb), 1)) !important; }
+.gallery-poster.card-tema .badge.bg-secondary { background-color: var(--ct-b-secondary, rgba(var(--bs-secondary-rgb), 1)) !important; }

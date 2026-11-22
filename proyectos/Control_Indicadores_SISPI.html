@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Indicadores SISPI - Yamith Romero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/proyectos.css">
+    <!-- Tema propio de esta página: colores de la aplicación SD-SISPI (src/index.css del proyecto).
+         Solo aplica a esta página gracias a la clase "tema-sispi" del body. -->
+    <style>
+        body.tema-sispi {
+            --bs-primary: #1f6f4a;
+            --bs-info: #e08a1e;
+            --bs-success: #3fb27f;
+            --text: #14261d;
+            --bg: #f4f7f2;
+            --card-bg: #ffffff;
+            --border: #d9e3db;
+            --sispi-muted: #5d6f64;
+            --sispi-primary-hover: #185a3c;
+            --sispi-on-primary: #ffffff;
+            --sispi-banner: #0f4a40;
+            --sispi-oro: #f2b01e;
+        }
+        body.tema-sispi[data-theme="dark"] {
+            --bs-primary: #3fb27f;
+            --bs-info: #f0a43a;
+            --bs-success: #3fb27f;
+            --text: #e3efe7;
+            --bg: #0d1914;
+            --card-bg: #14241c;
+            --border: #25402f;
+            --sispi-muted: #9bb1a4;
+            --sispi-primary-hover: #56c391;
+            --sispi-on-primary: #0d1914;
+            --sispi-banner: #0f3a32;
+        }
+        body.tema-sispi .navbar-dark {
+            background: linear-gradient(135deg, var(--sispi-banner), #1f6f4a) !important;
+        }
+        body.tema-sispi[data-theme="dark"] .navbar-dark {
+            background: linear-gradient(135deg, #0d1914, var(--sispi-banner)) !important;
+        }
+        body.tema-sispi footer,
+        body.tema-sispi[data-theme="dark"] footer {
+            background: linear-gradient(135deg, var(--sispi-banner), #14241c);
+            color: #e3efe7;
+        }
+        body.tema-sispi footer::before {
+            background: linear-gradient(to right, #1f6f4a, var(--bs-info), var(--sispi-oro));
+        }
+        body.tema-sispi .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: var(--sispi-on-primary);
+        }
+        body.tema-sispi .btn-primary:hover,
+        body.tema-sispi .btn-primary:focus-visible {
+            background-color: var(--sispi-primary-hover);
+            border-color: var(--sispi-primary-hover);
+            color: var(--sispi-on-primary);
+        }
+        body.tema-sispi .btn-outline-info:hover,
+        body.tema-sispi[data-theme="dark"] .btn-outline-info:hover {
+            color: var(--sispi-on-primary);
+        }
+        body.tema-sispi .project-tech .text-success {
+            color: var(--bs-primary) !important;
+        }
+        body.tema-sispi .text-muted,
+        body.tema-sispi[data-theme="dark"] .text-muted {
+            color: var(--sispi-muted) !important;
+        }
+        /* Etiquetas con la paleta de la aplicación */
+        body.tema-sispi .project-meta .badge.bg-primary { background-color: #1f6f4a !important; color: #ffffff; }
+        body.tema-sispi .project-meta .badge.bg-success { background-color: #3fb27f !important; color: #0d1914; }
+        body.tema-sispi .project-meta .badge.bg-info { background-color: #e08a1e !important; color: #ffffff; }
+        body.tema-sispi .project-meta .badge.bg-warning { background-color: #f2b01e !important; }
+        body.tema-sispi hr {
+            border-color: var(--border);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="tema-sispi">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#proyectos">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#experiencia">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row">
+            <!-- Imagen Principal -->
+            <div class="col-lg-8 mb-4">
+                <div class="project-hero h-100 rounded d-flex align-items-center justify-content-center p-4">
+                    <img src="../assets/img/SISPI/Logo.png" alt="Logo de SD-SISPI" class="img-fluid" style="height: 300px; object-fit: contain;">
+                </div>
+            </div>
+
+
+            <!-- Detalles del Proyecto -->
+            <div class="col-lg-4">
+                <div class="project-sidebar p-4 rounded shadow h-100">
+                    <h3 class="project-title">Control de Indicadores SISPI - La Guajira</h3>
+                    <div class="project-meta mb-3">
+                        <span class="badge bg-warning text-dark">Investigación</span>
+                        <span class="badge bg-primary">Programación</span>
+                        <span class="badge bg-success">Software</span>
+                        <span class="badge bg-info">Datos</span>
+                        <span class="badge bg-secondary">En desarrollo</span>
+                    </div>
+                    <div class="project-tech">
+                        <h6><i class="bi bi-chevron-right"></i> Tecnologías:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> Rust</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Tauri + React + TypeScript</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Base de datos SQLite</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Exportación a Excel y PDF</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Aplicación de escritorio 100 % local</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#manualModal">
+                        <i class="bi bi-file-earmark-pdf"></i> Ver Manual de Usuario
+                    </button>
+                    <a href="../index.html" class="btn btn-outline-secondary w-100 mb-2">
+                        <i class="bi bi-arrow-left"></i> Volver al CV
+                    </a>
+                    <a href="galeria.html" class="btn btn-outline-info w-100">
+                        <i class="bi bi-images"></i> Ir a Galería
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Descripción Detallada -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h4 class="mb-4">Descripción del Proyecto</h4>
+                <p class="lead">
+                    Aplicación de escritorio para el seguimiento de los indicadores del Sistema Indígena de Salud Propia e Intercultural (SISPI) en La Guajira. Reemplaza el libro de Excel del tablero de control y su manual operativo con captura guiada de datos, cálculo automático de cumplimiento y semáforo, tableros con gráficos, comparación entre entidades y periodos, y exportación de reportes. Funciona 100 % local, sin Internet ni inicio de sesión. Proyecto en desarrollo: actualmente cuenta con una primera versión de prototipo.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-target"></i> Objetivos</h5>
+                        <ul>
+                            <li>Reemplazar el libro de Excel del tablero de control por una aplicación dedicada</li>
+                            <li>Validar la captura de datos según las reglas del manual operativo</li>
+                            <li>Calcular cumplimiento, cobertura y semáforo de cada indicador</li>
+                            <li>Facilitar el seguimiento por entidad, periodo y protocolo</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-graph-up"></i> Resultados</h5>
+                        <ul>
+                            <li>Primera versión de prototipo funcional</li>
+                            <li>Captura por pasos con autoguardado y validación</li>
+                            <li>Tablero de inicio con gráficos de cumplimiento, cobertura y alertas</li>
+                            <li>Comparación entre entidades, periodos y años</li>
+                            <li>Exportación a Excel y PDF, y respaldos automáticos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <h3>Galería</h3>
+        <div class="row g-3">
+            <!-- Imágenes -->
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/Banner.jpg" class="img-fluid rounded gallery-img" alt="Banner institucional de la aplicación" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/VentanaPrincipal.jpg" class="img-fluid rounded gallery-img" alt="Ventana principal" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/TemaOscuro.jpg" class="img-fluid rounded gallery-img" alt="Tablero de inicio en tema oscuro" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/Captura-Registro.jpg" class="img-fluid rounded gallery-img" alt="Captura de un registro por pasos" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/Comparacion-Entidades.jpg" class="img-fluid rounded gallery-img" alt="Comparación de entidades en un corte" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/Evolucion-Cumplimiento.jpg" class="img-fluid rounded gallery-img" alt="Evolución del cumplimiento global por periodo" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/SISPI/Catalogo-Indicadores.jpg" class="img-fluid rounded gallery-img" alt="Catálogo de indicadores" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+        </div>
+
+        <!-- Modal para imágenes -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <div class="zoom-controls">
+                            <button class="btn btn-outline-light me-2" id="zoomIn" title="Acercar"><i class="bi bi-zoom-in"></i></button>
+                            <button class="btn btn-outline-light me-2" id="zoomOut" title="Alejar"><i class="bi bi-zoom-out"></i></button>
+                            <button class="btn btn-outline-light" id="resetZoom" title="Restablecer zoom"><i class="bi bi-arrows-angle-contract"></i></button>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="image-container">
+                            <img id="modalImage" src="" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <small id="modalCaption" class="text-white"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Ventana flotante: manual de usuario (PDF) -->
+    <div class="modal fade" id="manualModal" tabindex="-1" aria-labelledby="manualModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manualModalLabel"><i class="bi bi-file-earmark-pdf"></i> Manual de Usuario SD-SISPI</h5>
+                    <a href="../assets/docs/SISPI/Manual_de_Usuario_SD-SISPI.pdf" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm ms-auto me-2">
+                        <i class="bi bi-box-arrow-up-right"></i> Abrir en otra pestaña
+                    </a>
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe id="manualFrame" title="Manual de Usuario SD-SISPI" data-src="../assets/docs/SISPI/Manual_de_Usuario_SD-SISPI.pdf" style="width: 100%; height: 80vh; border: 0;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/proyectos.js"></script>
+    <script>
+        // El PDF (unos 10 MB) solo se carga cuando se abre la ventana flotante
+        document.getElementById('manualModal').addEventListener('show.bs.modal', function () {
+            var frame = document.getElementById('manualFrame');
+            if (!frame.getAttribute('src')) frame.setAttribute('src', frame.dataset.src);
+        });
+    </script>
+</body>
+</html>
