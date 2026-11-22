@@ -1,0 +1,8 @@
+# requirements.txt para SensoraCoreApp
+PySide6
+matplotlib
+openpyxl
+numpy
+scikit-learn
+pandas
+pillow

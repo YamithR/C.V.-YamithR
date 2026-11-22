@@ -131,3 +131,46 @@ function getProyectosDestacados() {
 function getAllProyectos() {
     return proyectosData.filter(p => p.visible);
 }
+
+// ============================================================
+// FILTROS DE LA GALERÍA (subconjuntos de etiquetas)
+// ============================================================
+// Cada grupo aparece como una fila de chips debajo de la barra de búsqueda.
+//   - title: nombre del grupo que se muestra (ej. 'Productores').
+//   - chips: botones del grupo. label = texto visible, tag = etiqueta que
+//            debe tener el proyecto (en 'tags' de proyectosData, sin
+//            distinguir mayúsculas).
+//
+// Reglas de filtrado:
+//   - Dentro de un grupo: se combinan con O (Armada O ONIRIS-ID).
+//   - Entre grupos: se combinan con Y (Productores Y Tecnologías).
+//
+// Para AÑADIR un chip:  agrega { label: 'Robótica', tag: 'robótica' } al grupo.
+// Para QUITAR un chip:  borra su línea.
+// Para AÑADIR un grupo: copia un bloque { title, chips: [...] } y pégalo aquí.
+// Para BORRAR un grupo: borra su bloque completo.
+// Recuerda que el 'tag' debe existir en los 'tags' de algún proyecto,
+// si no, el chip no mostrará resultados.
+const filterGroups = [
+    {
+        title: 'Productores',
+        chips: [
+            { label: 'Armada', tag: 'armada' },
+            { label: 'ONIRIS-ID', tag: 'oniris-id' },
+            { label: 'UAC', tag: 'uac' }
+        ]
+    },
+    {
+        title: 'Tecnologías',
+        chips: [
+            { label: 'IoT', tag: 'iot' },
+            { label: '3D Printing', tag: '3d printing' }
+        ]
+    },
+    {
+        title: 'Area',
+        chips: [
+            {label: 'Programación', tag: 'programación'}
+        ]
+    }
+];

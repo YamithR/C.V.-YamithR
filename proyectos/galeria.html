@@ -41,7 +41,7 @@
 
     <main class="container py-5">
         <h2 class="section-title text-center mb-4">Galería de Proyectos</h2>
-        
+
         <!-- Search Section -->
         <div class="search-section mb-4">
             <div class="input-group">
@@ -52,9 +52,13 @@
             </div>
         </div>
 
+        <!-- Filtros por subconjuntos de etiquetas: se configuran en js/proyectos-data.js (filterGroups) -->
+        <div class="filter-section mb-4" id="filter-section"></div>
+
         <div class="gallery-container" id="gallery-container">
             <!-- Los proyectos se cargarán dinámicamente desde proyectos-data.js -->
         </div>
+        <p id="gallery-empty" class="text-center text-muted d-none">No hay proyectos que coincidan con la búsqueda o los filtros.</p>
     </main>
 
     <!-- Footer -->
@@ -73,26 +77,33 @@
             const galleryContainer = document.getElementById('gallery-container');
             const searchInput = document.getElementById('project-search');
             const clearSearch = document.getElementById('clear-search');
-            
+            const filterSection = document.getElementById('filter-section');
+            const emptyMessage = document.getElementById('gallery-empty');
+
+            // Chips activos por grupo: índice de grupo -> Set de etiquetas activas
+            const activeTags = new Map();
+
             // Renderizar todos los proyectos visibles
             function renderGallery() {
                 if (!galleryContainer) return;
-                
+
                 const proyectos = getAllProyectos();
                 galleryContainer.innerHTML = '';
-                
+
                 proyectos.forEach(proyecto => {
                     const poster = document.createElement('div');
                     poster.className = 'gallery-poster';
                     poster.setAttribute('data-tags', proyecto.tags.join(' '));
-                    
-                    const badgesHTML = proyecto.badges.map(badge => 
+                    // Lista de etiquetas en minúsculas, usada por los filtros
+                    poster.tagList = proyecto.tags.map(t => t.toLowerCase());
+
+                    const badgesHTML = proyecto.badges.map(badge =>
                         `<span class="badge ${badge.class}">${badge.text}</span>`
                     ).join('\n                        ');
-                    
+
                     // Ajustar el link: remover 'proyectos/' ya que estamos dentro de esa carpeta
                     const linkAjustado = proyecto.link.replace('proyectos/', '');
-                    
+
                     poster.innerHTML = `
                         <img src="../${proyecto.image}" alt="${proyecto.title}" class="gallery-image">
                         <div class="gallery-content">
@@ -104,42 +115,115 @@
                         </div>
                         <a href="${linkAjustado}" class="gallery-link"></a>
                     `;
-                    
+
                     galleryContainer.appendChild(poster);
                 });
             }
-            
+
             // Renderizar galería al cargar
             renderGallery();
-            
-            // Search functionality
-            function filterProjects() {
-                const query = searchInput.value.toLowerCase().trim();
+
+            // Construir los chips de filtro a partir de filterGroups (proyectos-data.js)
+            function renderFilters() {
+                if (!filterSection || typeof filterGroups === 'undefined') return;
+                filterSection.innerHTML = '';
+
+                filterGroups.forEach((grupo, gi) => {
+                    activeTags.set(gi, new Set());
+
+                    const fila = document.createElement('div');
+                    fila.className = 'filter-group';
+
+                    const titulo = document.createElement('span');
+                    titulo.className = 'filter-group-title';
+                    titulo.textContent = grupo.title;
+                    fila.appendChild(titulo);
+
+                    grupo.chips.forEach(chip => {
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'filter-chip';
+                        btn.textContent = chip.label;
+                        const tag = chip.tag.toLowerCase();
+                        btn.setAttribute('aria-pressed', 'false');
+
+                        btn.addEventListener('click', () => {
+                            const set = activeTags.get(gi);
+                            if (set.has(tag)) {
+                                set.delete(tag);
+                            } else {
+                                set.add(tag);
+                            }
+                            const activo = set.has(tag);
+                            btn.classList.toggle('active', activo);
+                            btn.setAttribute('aria-pressed', String(activo));
+                            applyFilters();
+                        });
+
+                        fila.appendChild(btn);
+                    });
+
+                    filterSection.appendChild(fila);
+                });
+
+                // Botón para quitar todos los filtros de chips
+                const limpiar = document.createElement('div');
+                limpiar.className = 'filter-actions';
+                const btnLimpiar = document.createElement('button');
+                btnLimpiar.type = 'button';
+                btnLimpiar.className = 'filter-clear';
+                btnLimpiar.textContent = 'Quitar filtros';
+                btnLimpiar.addEventListener('click', () => {
+                    activeTags.forEach(set => set.clear());
+                    filterSection.querySelectorAll('.filter-chip.active').forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    applyFilters();
+                });
+                limpiar.appendChild(btnLimpiar);
+                filterSection.appendChild(limpiar);
+            }
+
+            // Aplica búsqueda de texto + chips activos
+            // Dentro de un grupo: O (basta una etiqueta). Entre grupos: Y.
+            function applyFilters() {
+                const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
                 const galleryPosters = document.querySelectorAll('.gallery-poster');
-                
+                let visibles = 0;
+
                 galleryPosters.forEach(poster => {
                     const title = poster.querySelector('h5').textContent.toLowerCase();
                     const description = poster.querySelector('.project-description').textContent.toLowerCase();
-                    const tags = poster.getAttribute('data-tags') ? poster.getAttribute('data-tags').toLowerCase() : '';
-                    
-                    if (query === '' || title.includes(query) || description.includes(query) || tags.includes(query)) {
-                        poster.style.display = 'block';
-                    } else {
-                        poster.style.display = 'none';
-                    }
+                    const tags = poster.tagList ? poster.tagList.join(' ') : '';
+
+                    const coincideBusqueda = query === '' || title.includes(query) || description.includes(query) || tags.includes(query);
+
+                    const coincideChips = [...activeTags.values()].every(set =>
+                        set.size === 0 || poster.tagList.some(t => set.has(t))
+                    );
+
+                    const mostrar = coincideBusqueda && coincideChips;
+                    poster.style.display = mostrar ? 'block' : 'none';
+                    if (mostrar) visibles++;
                 });
+
+                if (emptyMessage) {
+                    emptyMessage.classList.toggle('d-none', visibles > 0);
+                }
             }
 
+            renderFilters();
+
             if (searchInput) {
-                searchInput.addEventListener('input', filterProjects);
+                searchInput.addEventListener('input', applyFilters);
             }
 
             // Clear search
             if (clearSearch) {
                 clearSearch.addEventListener('click', () => {
                     searchInput.value = '';
-                    const galleryPosters = document.querySelectorAll('.gallery-poster');
-                    galleryPosters.forEach(poster => poster.style.display = 'block');
+                    applyFilters();
                     searchInput.focus();
                 });
             }

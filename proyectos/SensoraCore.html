@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mecanismos de Encoders M2.50 - Yamith Romero</title>
+    <title>SensoraCore - Yamith Romero</title>
+    <link rel="icon" href="../assets/img/sensoracore/SensoraCore.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -11,7 +12,7 @@
     <link rel="stylesheet" href="../css/proyectos.css">
 </head>
 <body>
-    
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
@@ -45,38 +46,43 @@
             <!-- Imagen Principal -->
             <div class="col-lg-8 mb-4">
                 <div class="project-hero">
-                    <img src="../assets/img/MecanismoEncoders/M2-VistaIsometrica.png" alt="Mecanismos de Encoders M2.50" class="img-fluid rounded shadow">
+                    <img src="../assets/img/sensoracore/SensoraCore.png" alt="SensoraCore - Sistema de Monitoreo de Sensores WiFi ESP32" class="img-fluid rounded shadow">
                 </div>
             </div>
-            
-            
+
+
             <!-- Detalles del Proyecto -->
             <div class="col-lg-4">
                 <div class="project-sidebar p-4 rounded shadow h-100">
-                    <h3 class="project-title">Mecanismos de Encoders M2.50</h3>
+                    <h3 class="project-title">SensoraCore</h3>
+                    <p class="mb-2">Sistema de monitoreo de sensores WiFi con ESP32</p>
                     <div class="project-meta mb-3">
-                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
-                        <span class="badge bg-primary">Armada</span>
-                        <span class="badge bg-info">3D Printing</span>
-                        <span class="badge bg-danger">SolidWorks</span>
-                        <span class="badge bg-secondary">Mecánica</span>
+                        <span class="badge bg-danger">UAC</span>
+                        <span class="badge bg-primary">IoT</span>
+                        <span class="badge bg-success">Programación</span>
+                        <span class="badge bg-success">Software</span>
+                        <span class="badge bg-info">Sensores</span>
+                        <span class="badge bg-secondary">Mecatrónica</span>
                     </div>
                     <div class="project-tech">
                         <h6><i class="bi bi-chevron-right"></i> Tecnologías:</h6>
                         <ul class="list-unstyled">
-                            <li><i class="bi bi-check-circle text-success"></i> Simulación Mecánica</li>
-                            <li><i class="bi bi-check-circle text-success"></i> Solidworks CAD</li>
-                            <li><i class="bi bi-check-circle text-success"></i> Impresión 3D</li>
+                            <li><i class="bi bi-check-circle text-success"></i> ESP32 + MicroPython</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Python + PySide6 (Qt)</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Comunicación TCP/IP sobre WiFi</li>
+                            <li><i class="bi bi-check-circle text-success"></i> matplotlib (gráficas en tiempo real)</li>
+                            <li><i class="bi bi-check-circle text-success"></i> openpyxl (exportación a Excel)</li>
+                            <li><i class="bi bi-check-circle text-success"></i> PyInstaller (compilación del ejecutable)</li>
                         </ul>
                     </div>
-                    <!-- <a href="../certificados/oniris.pdf" download class="btn btn-primary w-100 mb-2">
-                        <i class="bi bi-download"></i> Descargar Certificado
-                    </a> -->
                     <a href="../index.html" class="btn btn-outline-secondary w-100 mb-2">
                         <i class="bi bi-arrow-left"></i> Volver al CV
                     </a>
-                    <a href="galeria.html" class="btn btn-outline-info w-100">
+                    <a href="galeria.html" class="btn btn-outline-info w-100 mb-2">
                         <i class="bi bi-images"></i> Ir a Galería
+                    </a>
+                    <a href="SensoraCore-web/index.html" class="btn btn-primary w-100">
+                        <i class="bi bi-box-arrow-up-right"></i> Página del Proyecto
                     </a>
                 </div>
             </div>
@@ -87,97 +93,266 @@
             <div class="col-12">
                 <h4 class="mb-4">Descripción del Proyecto</h4>
                 <p class="lead">
-                    Diseño, fabricación e implementación de mecanismos de encoders para los ejes X e Y del Simulador de Ametralladora M2.50, desarrollado para la Armada Nacional de Colombia. El proyecto fue ejecutado bajo la empresa ONIRIS-ID, subcontratada por la Armada, en la cual fui responsable directo del diseño y validación técnica. Se integraron herramientas como SolidWorks para modelado CAD, simulación mecánica y fabricación mediante impresión 3D, con énfasis en funcionalidad y estética.
+                    SensoraCore es un sistema completo de monitoreo de sensores que combina hardware ESP32 con una aplicación de escritorio desarrollada en Python con PySide6. Está diseñado para aplicaciones educativas y de prototipado, y permite la lectura, visualización y análisis de múltiples tipos de sensores digitales y analógicos a través de conexión WiFi.
                 </p>
-                
+                <p>
+                    El ESP32 ejecuta un firmware en MicroPython que actúa como servidor TCP y envía las lecturas a la aplicación, donde se grafican en tiempo real, se calibran y se exportan a Excel con gráficas y estadísticas. El proyecto está pensado para estudiantes, educadores, makers, ingenieros y desarrolladores interesados en IoT, robótica y sistemas embebidos, e incluye manuales técnicos, manuales de usuario y prácticas de laboratorio para cada sensor.
+                </p>
+
                 <div class="row">
                     <div class="col-md-6">
                         <h5><i class="bi bi-target"></i> Objetivos</h5>
                         <ul>
-                            <li>Replicar mecanismos originales para su posterior modificación.</li>
-                            <li>Desarrollar un prototipo funcional adaptado a los requerimientos del simulador.</li>
-                            <li>Realizar análisis comparativo de materiales para impresión 3D, evaluando resistencia y precisión.</li>
-                            <li>Validar el comportamiento mecánico mediante simulaciones y pruebas empíricas.</li>
-                            
+                            <li>Desarrollar módulos didácticos para la caracterización y calibración de sensores industriales.</li>
+                            <li>Ofrecer una plataforma accesible y robusta para el aprendizaje y el desarrollo de proyectos IoT.</li>
+                            <li>Integrar sensores digitales y analógicos con análisis de datos en tiempo real.</li>
+                            <li>Permitir la calibración persistente de cada sensor y la exportación de datos para análisis científico.</li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <h5><i class="bi bi-graph-up"></i> Resultados</h5>
                         <ul>
-                            <li>Prototipo validado con éxito en condiciones operativas.</li>
-                            <li>Mejoras estéticas y ergonómicas en el diseño final.</li>
-                            <li>Integración efectiva de componentes electrónicos y mecánicos.</li>
+                            <li>12 módulos de sensores funcionales, más los módulos base de conexión WiFi (Connect) y lectura del ESP32 (ESP Reading).</li>
+                            <li>Calibración lineal con parámetros guardados por sensor en JSON y flujos guiados paso a paso para los módulos de brillo y gas.</li>
+                            <li>14 módulos de software registrados ante la Dirección Nacional de Derechos de Autor (DNDA).</li>
+                            <li>Documentación completa: 14 manuales técnicos de software, 12 manuales de usuario, 12 prácticas de laboratorio, documentación de código.</li>
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- <div class="mt-4">
-                    <h5><i class="bi bi-person-check"></i> Reconocimiento</h5>
-                    <blockquote class="blockquote">
-                        <p>"Durante el proyecto trabajó con competencia técnica y liderazgo en el equipo."</p>
-                        <footer class="blockquote-footer">Carlos Mario Soto Montaño, Ingeniero Mecánico, M.Sc. Materiales Avanzados - Director ONIRIS-ID</footer>
-                    </blockquote>
-                </div> -->
+        <!-- Características -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-stars"></i> Características Principales</h5>
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-wifi"></i> Conectividad WiFi</h6>
+                            <p class="mb-0 small">Comunicación inalámbrica TCP/IP entre el ESP32 y la aplicación de escritorio, con reconexión automática.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-cpu"></i> 12+ sensores soportados</h6>
+                            <p class="mb-0 small">Potenciómetros, infrarrojos, capacitivos, ultrasónicos, temperatura, gases, luz y color.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-graph-up-arrow"></i> Visualización en tiempo real</h6>
+                            <p class="mb-0 small">Gráficas dinámicas con matplotlib y actualización instantánea de los datos.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-file-earmark-spreadsheet"></i> Exportación a Excel</h6>
+                            <p class="mb-0 small">Mediciones guardadas con gráficos embebidos y estadísticas automáticas.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-window"></i> Interfaz intuitiva</h6>
+                            <p class="mb-0 small">Interfaz moderna desarrollada con PySide6, fácil de usar.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-sidebar p-3 rounded shadow-sm h-100">
+                            <h6><i class="bi bi-sliders"></i> Calibración integrada</h6>
+                            <p class="mb-0 small">Calibración lineal y guardado de parámetros por sensor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sensores -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-motherboard"></i> Módulos de Sensores</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Simple Angle:</strong> potenciómetro como sensor de ángulo (0-270°).</li>
+                            <li><strong>Angle Arm:</strong> varios potenciómetros que simulan un brazo robótico.</li>
+                            <li><strong>Infrared:</strong> sensor de proximidad IR (Sharp GP2Y0A21YK).</li>
+                            <li><strong>Capacitive:</strong> sensor capacitivo digital para detección de proximidad.</li>
+                            <li><strong>Ultrasonic:</strong> sensor de distancia HC-SR04 (2-400 cm).</li>
+                            <li><strong>Optical Speed:</strong> control y monitoreo de velocidad con sensor óptico.</li>
+                            <li><strong>IR Steering:</strong> sistema de dirección basado en infrarrojos.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Thermoregulation:</strong> sensores LM35, DS18B20 y MAX6675 (termopar tipo K).</li>
+                            <li><strong>Gas Regulation:</strong> sensores MQ2/MQ3 con cálculo real de PPM.</li>
+                            <li><strong>Brightness:</strong> sensor LDR para medición de luminosidad.</li>
+                            <li><strong>Color CNY:</strong> detección de color con sensores CNY70.</li>
+                            <li><strong>Color TCS:</strong> sensor de color TCS3200 con filtros RGB.</li>
+                            <li><strong>Connect y ESP Reading:</strong> módulos base de conexión WiFi y lectura del ESP32.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arquitectura -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-diagram-3"></i> Arquitectura del Sistema</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Hardware</h6>
+                        <ul>
+                            <li>Microcontrolador ESP32 con WiFi integrado.</li>
+                            <li>Sensores digitales y analógicos de diversos tipos.</li>
+                            <li>Comunicación TCP/IP sobre WiFi.</li>
+                            <li>Pantalla OLED I2C opcional para el estado local.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Firmware ESP32</h6>
+                        <ul>
+                            <li>Lenguaje MicroPython.</li>
+                            <li>Servidor TCP en el puerto 8080.</li>
+                            <li>Datos en texto plano con formato <code>SENSOR:valor</code>.</li>
+                            <li>Módulos principales <code>red.py</code> y <code>main.py</code>.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Aplicación de escritorio</h6>
+                        <ul>
+                            <li>PySide6 (Qt for Python).</li>
+                            <li>matplotlib para las gráficas.</li>
+                            <li>openpyxl para la exportación a Excel.</li>
+                            <li>Un módulo por sensor, con ejecución en hilos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentación y registro -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h5 class="mb-3"><i class="bi bi-journal-text"></i> Documentación</h5>
+                <ul>
+                    <li><strong>Manuales de software (14):</strong> documentación técnica del código, arquitectura de módulos, protocolos de comunicación y guías de desarrollo.</li>
+                    <li><strong>Manuales de usuario, serie A (12):</strong> operación, conexiones de hardware, configuración y uso básico de cada sensor.</li>
+                    <li><strong>Prácticas de laboratorio, serie B (12):</strong> ejercicios prácticos, experimentos guiados y actividades didácticas.</li>
+                    <li>Documentación de código, maquetación de la interfaz, guía de inicio rápido y lista de sensores.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h5 class="mb-3"><i class="bi bi-patch-check"></i> Propiedad Intelectual</h5>
+                <p>
+                    Los 14 módulos de software de SensoraCore (los 12 sensores, Connect y ESP Reading) están registrados ante la Dirección Nacional de Derechos de Autor (DNDA) de Colombia. Los certificados validan la autoría y la fecha de creación de cada componente.
+                </p>
+            </div>
+        </div>
+
+        <!-- Evolución -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="mb-3"><i class="bi bi-clock-history"></i> Evolución del Proyecto</h5>
+                <ul>
+                    <li><strong>Alpha 0.1 (25 de mayo de 2025):</strong> primera versión funcional con conexión WiFi, sensor de ángulo, interfaz de dos paneles y exportación a Excel.</li>
+                    <li><strong>Alpha 0.2.0 - 0.2.2 (mayo de 2025):</strong> sistema híbrido digital/analógico; se suman el sensor ultrasónico, el brazo robótico, los sensores IR y capacitivos, y correcciones de interfaz y del graficador.</li>
+                    <li><strong>Alpha 0.2.3 (29 de mayo de 2025):</strong> primera versión estable, completamente funcional con 5 sensores y lista para uso educativo.</li>
+                    <li><strong>Alpha 0.2.4 (23 de junio de 2025):</strong> versión intermedia de preparación para la refactorización hacia la Beta.</li>
+                    <li><strong>Beta 1.0 (25 de agosto de 2025):</strong> sistema completo tras tres meses de refinamiento: compilador terminado, todos los módulos finalizados, calibración persistente, pantalla OLED, firmware optimizado y exportación a Excel mejorada.</li>
+                    <li><strong>Beta 2.0 (23 de noviembre de 2025):</strong> versión actual, con mejoras sobre la 1.0 y pruebas extensivas. Incluye la IP en la pantalla OLED durante el modo de espera, un script de compilación optimizado y protocolos de comunicación actualizados entre firmware y aplicación.</li>
+                </ul>
             </div>
         </div>
         <hr class="my-5">
 
         <h3>Galería</h3>
+        <p class="text-muted small">Capturas de la interfaz de la aplicación de escritorio.</p>
         <div class="row g-3">
-            <!-- Imágenes -->
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/CoseptoMecanismoEncoder.jpg" class="img-fluid rounded gallery-img" alt="Concepto Mecanismo Encoder" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/Inicio.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Pantalla de inicio" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/CoseptoMecanismoEncoder-ZoomIn.jpg" class="img-fluid rounded gallery-img" alt="Concepto Mecanismo Encoder - Detalle" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/Conectado.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Conexión establecida con el ESP32" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/EjeX-VistaPosterior.jpg" class="img-fluid rounded gallery-img" alt="Eje X - Vista Posterior" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/AnguloUI.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Módulo de ángulo" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/EjeY-VistaFrontal.jpg" class="img-fluid rounded gallery-img" alt="Eje Y - Vista Frontal" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/IR_UI.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Módulo infrarrojo" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/M2-VistaIsometrica.png" class="img-fluid rounded gallery-img" alt="Mecanismo M2 - Vista Isométrica" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/UltrasonidoUI.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Módulo ultrasónico" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/Presentacion_De_Propuesta_De_Diseño.jpg" class="img-fluid rounded gallery-img" alt="Presentación de Propuesta de Diseño" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/VelocidadDireccionUI.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Módulo de velocidad y dirección" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
             <div class="col-6 col-md-4">
-            <img src="../assets/img/MecanismoEncoders/Simulador_a_modificar.jpg" class="img-fluid rounded gallery-img" alt="Simulador Original a Modificar" data-bs-toggle="modal" data-bs-target="#imageModal">
+            <img src="../assets/img/sensoracore/UI/TempUI.png" class="img-fluid rounded gallery-img" alt="Interfaz SensoraCore - Módulo de temperatura" data-bs-toggle="modal" data-bs-target="#imageModal">
             </div>
+        </div>
 
-            <!-- Video -->
-            <div class="col-12 col-md-8">
-                <div class="ratio ratio-16x9">
-                    <video controls class="rounded">
-                        <source src="../assets/vid/MecanismosEncoders/Experiencia_De_Uso.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+        <!-- Carpeta animada con las imágenes conceptuales (IA) de cada módulo -->
+        <div class="ai-folder-wrap mt-5 text-center">
+            <button class="ai-folder" type="button" data-bs-toggle="collapse" data-bs-target="#aiConceptGallery" aria-expanded="false" aria-controls="aiConceptGallery" title="Abrir conceptos de los módulos">
+                <span class="ai-folder-back"></span>
+                <span class="ai-folder-sheet ai-sheet-1"><img src="../assets/img/sensoracore/AIConsepImg/SimpleAngle_IAConceptImg.png" alt=""></span>
+                <span class="ai-folder-sheet ai-sheet-2"><img src="../assets/img/sensoracore/AIConsepImg/Thermoregulation_IAConceptImg.png" alt=""></span>
+                <span class="ai-folder-sheet ai-sheet-3"><img src="../assets/img/sensoracore/AIConsepImg/ColorTCS_IAConceptImg.png" alt=""></span>
+                <span class="ai-folder-front">
+                    <i class="bi bi-stars"></i>
+                    <span>Conceptos de los módulos</span>
+                    <small>14 imágenes generadas con IA</small>
+                </span>
+            </button>
+            <p class="ai-folder-hint small text-muted mt-2 mb-0">Haz clic en la carpeta para abrirla o cerrarla</p>
+        </div>
+
+        <div class="collapse" id="aiConceptGallery">
+            <div class="row g-3 pt-4 ai-folder-content">
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 0">
+                <img src="../assets/img/sensoracore/AIConsepImg/SimpleAngle_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Simple Angle - Sensor de ángulo con potenciómetro" data-bs-toggle="modal" data-bs-target="#imageModal">
                 </div>
-                <div class="ratio ratio-16x9">
-                    <video controls class="rounded">
-                        <source src="../assets/vid/MecanismosEncoders/Funcionamiento_Programado.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 1">
+                <img src="../assets/img/sensoracore/AIConsepImg/AngleArm_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Angle Arm - Brazo robótico con potenciómetros" data-bs-toggle="modal" data-bs-target="#imageModal">
                 </div>
-                <div class="ratio ratio-16x9">
-                    <video controls class="rounded">
-                        <source src="../assets/vid/MecanismosEncoders/Uso_Inmersivo.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 2">
+                <img src="../assets/img/sensoracore/AIConsepImg/Infrared_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Infrared - Sensor de proximidad infrarrojo" data-bs-toggle="modal" data-bs-target="#imageModal">
                 </div>
-                <div class="ratio ratio-16x9">
-                    <video controls class="rounded">
-                        <source src="../assets/vid/MecanismosEncoders/Version_Preliminar_Implementada.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 3">
+                <img src="../assets/img/sensoracore/AIConsepImg/Capasitive_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Capacitive - Sensor capacitivo de proximidad" data-bs-toggle="modal" data-bs-target="#imageModal">
                 </div>
-                <div class="ratio ratio-16x9">
-                    <video controls class="rounded">
-                        <source src="../assets/vid/MecanismosEncoders/VersionFinal_ZoomIn.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 4">
+                <img src="../assets/img/sensoracore/AIConsepImg/Ultrasonic_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Ultrasonic - Sensor de distancia HC-SR04" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 5">
+                <img src="../assets/img/sensoracore/AIConsepImg/OpticalSpeed_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Optical Speed - Velocidad con sensor óptico" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 6">
+                <img src="../assets/img/sensoracore/AIConsepImg/IrSteering_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: IR Steering - Dirección por infrarrojos" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 7">
+                <img src="../assets/img/sensoracore/AIConsepImg/Thermoregulation_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Thermoregulation - Sensores de temperatura" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 8">
+                <img src="../assets/img/sensoracore/AIConsepImg/GasRegulation_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Gas Regulation - Sensores de gas MQ2/MQ3" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 9">
+                <img src="../assets/img/sensoracore/AIConsepImg/Brightness_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Brightness - Sensor de luminosidad LDR" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 10">
+                <img src="../assets/img/sensoracore/AIConsepImg/ColorCNY_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Color CNY - Detección de color con CNY70" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 11">
+                <img src="../assets/img/sensoracore/AIConsepImg/ColorTCS_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Color TCS - Sensor de color TCS3200" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 12">
+                <img src="../assets/img/sensoracore/AIConsepImg/Connect_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: Connect - Conexión WiFi" data-bs-toggle="modal" data-bs-target="#imageModal">
+                </div>
+                <div class="col-6 col-md-4 col-lg-3" style="--i: 13">
+                <img src="../assets/img/sensoracore/AIConsepImg/EspReading_IAConceptImg.png" class="img-fluid rounded gallery-img" alt="Concepto IA: ESP Reading - Lectura del ESP32" data-bs-toggle="modal" data-bs-target="#imageModal">
                 </div>
             </div>
         </div>
@@ -205,13 +380,6 @@
                 </div>
             </div>
         </div>
-
-
-        </style>
-
-
-        </script>
-    </main>
     </main>
 
     <!-- Footer -->
