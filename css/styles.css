@@ -1247,46 +1247,6 @@ footer::before {
     right: 0.25rem;
 }
 
-/* Visor general de documentos flotante (PDFs) */
-#docModal.fade .modal-dialog {
-    transform: none !important;
-    transition: opacity 0.15s linear !important;
-}
-
-#docModal .modal-content {
-    background: var(--card-bg);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-}
-
-#docModal .modal-header {
-    border-bottom: 1px solid var(--border);
-    background: var(--card-bg);
-    padding: 0.85rem 1.25rem;
-}
-
-#docModal .modal-title {
-    font-size: 1.05rem;
-    font-weight: 600;
-}
-
-#docModal iframe {
-    background: #525659;
-}
-
-[data-theme="dark"] #docModal .btn-close {
-    filter: invert(1) grayscale(100%) brightness(200%);
-}
-
-@media (max-width: 767.98px) {
-    #docModal iframe {
-        height: 72vh !important;
-    }
-}
-
 /* Reglas responsivas para móvil */
 @media (max-width: 767.98px) {
     .tl,

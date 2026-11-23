@@ -44,47 +44,9 @@
                 <!-- <a href="tel:+573013224775" class="text-white contact-icon"><i class="bi bi-telephone-fill"></i> +57 301 322 4775</a> -->
                 <!-- <a href="mailto:yamithromero@hotmail.com" class="text-white contact-icon"><i class="bi bi-envelope-fill"></i> yamithromero@hotmail.com</a> -->
                 <a href="https://www.linkedin.com/in/yamith-romero" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none disabled" aria-disabled="true" tabindex="-1" style="pointer-events: none; opacity: 0.5; filter: grayscale(100%);"><i class="bi bi-linkedin"></i> LinkedIn</a>
-
                 <a href="https://github.com/YamithR" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-github"></i> GitHub</a>
-                
                 <a href="https://orcid.org/0000-0001-9002-533X" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-person-badge"></i> ORCID</a>
-
-                <button type="button" class="badge bg-dark text-white contact-icon text-decoration-none border-0" data-bs-toggle="modal" data-bs-target="#cvAtsModal"><i class="bi bi-file-earmark-pdf"></i> C.V. ATS Format</button>
-
-<!--  INSERTAR PDF PARA PREVISUALIZAR
-----------------
-Opción A: Añadiendo la clase doc-modal-trigger (La más recomendada para enlaces <a>)
-
-Solo añade la clase doc-modal-trigger a tu enlace y opcionalmente data-doc-title:
-
-<a href="ruta/a/tu/documento.pdf" 
-   class="doc-modal-trigger" 
-   data-doc-title="Nombre que aparecerá en el encabezado">
-   <i class="bi bi-file-earmark-pdf"></i> Ver Certificado
-</a>
-----------------
-Opción B: Usando el atributo data-doc-modal (Ideal para botones <button>)
-
-Puedes convertir cualquier <button> en un disparador del visor especificando la ruta con data-doc-url:
-
-<button type="button" 
-        class="btn btn-outline-primary" 
-        data-doc-modal 
-        data-doc-url="certificados/mi-diploma.pdf" 
-        data-doc-title="Diploma de Grado">
-    <i class="bi bi-award"></i> Ver Diploma
-</button>
-
-----------------
-Opción C: Desde JavaScript con window.abrirDocModal()
-
-Si alguna vez necesitas abrir un documento mediante un evento o script personalizado:
-
-abrirDocModal('assets/docs/mi-archivo.pdf', 'Título del Documento');
-
--->
-
-
+                <a href="assets\docs\CV ATS\CV-YamithJRA2026.pdf" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-file-earmark-pdf"></i> C.V. ATS</a>
 
             </div>
             <div class="mt-4">
@@ -175,7 +137,7 @@ abrirDocModal('assets/docs/mi-archivo.pdf', 'Título del Documento');
                         </ul>
                         <div class="tl-chips">
                             <a href="proyectos/ProtoCalib.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> ProtoCalib</a>
-                            <a href="certificados/GraduadoIngMecatronico/Tesis Meritoria Ing.Mecatronico.pdf" target="_blank" rel="noopener" class="tl-chip tl-chip-doc doc-modal-trigger" data-doc-title="Reconocimiento Tesis Meritoria"><i class="bi bi-award"></i> Reconocimiento tesis meritoria</a>
+                            <a href="certificados/GraduadoIngMecatronico/Tesis Meritoria Ing.Mecatronico.pdf" target="_blank" rel="noopener" class="tl-chip tl-chip-doc"><i class="bi bi-award"></i> Reconocimiento tesis meritoria</a>
                         </div>
                         <details class="tl-carpeta">
                             <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
@@ -547,45 +509,6 @@ abrirDocModal('assets/docs/mi-archivo.pdf', 'Título del Documento');
         </div>
     </div>
 
-    <!-- Ventana flotante: Visor general de documentos (PDFs) -->
-    <div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="docModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="docModalLabel">
-                        <i class="bi bi-file-earmark-pdf text-danger me-2"></i>
-                        <span id="docModalTitle">Documento</span>
-                    </h5>
-                    <a href="#" id="docModalOpenTab" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm ms-auto me-2">
-                        <i class="bi bi-box-arrow-up-right"></i> Abrir en otra pestaña
-                    </a>
-                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body p-0" id="docModalBody" style="min-height: 80vh; background: #525659;">
-                    <!-- El iframe o visor se inyecta dinámicamente al desplegar el modal para evitar fallas de renderizado del plugin PDF en Chromium -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ventana flotante: C.V. ATS (PDF) — mismo patrón que el manual SISPI -->
-    <div class="modal fade" id="cvAtsModal" tabindex="-1" aria-labelledby="cvAtsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cvAtsModalLabel"><i class="bi bi-file-earmark-pdf text-danger me-2"></i> C.V. ATS - Yamith Romero</h5>
-                    <a href="assets/docs/CV_ATS/CV-YamithJRA2026.pdf" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm ms-auto me-2">
-                        <i class="bi bi-box-arrow-up-right"></i> Abrir en otra pestaña
-                    </a>
-                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <iframe id="cvAtsFrame" title="C.V. ATS - Yamith Romero" data-src="assets/docs/CV_ATS/CV-YamithJRA2026.pdf" style="width: 100%; height: 80vh; border: 0;"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer class="text-center">
         <div class="container">
@@ -603,13 +526,6 @@ abrirDocModal('assets/docs/mi-archivo.pdf', 'Título del Documento');
     <script src="js/proyectos-data.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        // El PDF del C.V. ATS solo se carga cuando se abre la ventana flotante
-        document.getElementById('cvAtsModal').addEventListener('show.bs.modal', function () {
-            var frame = document.getElementById('cvAtsFrame');
-            if (!frame.getAttribute('src')) frame.setAttribute('src', frame.dataset.src);
-        });
-    </script>
     
 
 
