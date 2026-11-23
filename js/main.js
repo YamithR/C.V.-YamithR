@@ -56,22 +56,53 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     // Habilidades técnicas
+    // Para añadir o quitar una competencia, edita esta lista
     const skills = [
-        'Python', 'C++', 'Ladder (PLC)', 'Arduino',
-        'SolidWorks', 'AutoCAD', 'Impresión 3D',
-        'Klipper / OrcaSlicer', 'Raspberry Pi', 'ESP32',
-        'MATLAB/Simulink', 'Linux', 'HTML/CSS', 'Tinkercad', 'Git/GitHub',
-        'Microsoft Office', 'Inkscape', 'Fritzing', 'OrcaSlicer', 'Onshape', 'Proteus'
+        'Python', 'MicroPython', 'C++', 'Rust', 'JavaScript', 'TypeScript',
+        'React', 'Tauri', 'Electron', 'PySide6 / Qt', 'SQLite', 'HTML/CSS',
+        'ESP32 / ESP32-S3', 'Arduino', 'Raspberry Pi', 'Ladder (PLC)',
+        'SolidWorks', 'Onshape', 'AutoCAD', 'Impresión 3D', 'Klipper / OrcaSlicer',
+        'MATLAB/Simulink', 'Proteus', 'Fritzing', 'Tinkercad', 'Linux',
+        'Git/GitHub', 'Inkscape', 'Microsoft Office'
     ];
 
+    // Competencias en un solo renglón: si no caben, se deslizan en bucle continuo
     const container = document.querySelector('.skills-container');
     if (container) {
-        skills.forEach(skill => {
-            const badge = document.createElement('span');
-            badge.className = 'skill-badge';
-            badge.textContent = skill;
-            container.appendChild(badge);
-        });
+        container.classList.add('skills-marquee');
+        const track = document.createElement('div');
+        track.className = 'skills-track';
+        const crearGrupo = (oculto) => {
+            const grupo = document.createElement('div');
+            grupo.className = 'skills-group';
+            if (oculto) grupo.setAttribute('aria-hidden', 'true');
+            skills.forEach(skill => {
+                const badge = document.createElement('span');
+                badge.className = 'skill-badge';
+                badge.textContent = skill;
+                grupo.appendChild(badge);
+            });
+            return grupo;
+        };
+        const grupoPrincipal = crearGrupo(false);
+        track.appendChild(grupoPrincipal);
+        container.appendChild(track);
+
+        const actualizarMarquesina = () => {
+            const copia = track.querySelector('.skills-group[aria-hidden]');
+            const desborda = grupoPrincipal.scrollWidth > container.clientWidth;
+            if (desborda && !copia) {
+                track.appendChild(crearGrupo(true));
+            } else if (!desborda && copia) {
+                copia.remove();
+            }
+            container.classList.toggle('is-scrolling', desborda);
+            // Velocidad constante (~40 px/s) sin importar cuántas competencias haya
+            track.style.setProperty('--skills-duration', (grupoPrincipal.scrollWidth / 40) + 's');
+        };
+        actualizarMarquesina();
+        window.addEventListener('resize', actualizarMarquesina);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(actualizarMarquesina);
     }
 
     // SLIDER DE PROYECTOS
@@ -262,9 +293,331 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ===== Línea de tiempo: duración, estado "Actual", barra de avance y carpetas de imágenes =====
+    (function iniciarLineaDeTiempo() {
+        const hoy = new Date();
+        const mesActual = hoy.getFullYear() * 12 + hoy.getMonth(); // meses absolutos (0 = enero)
 
+        const aMeses = (valor) => {
+            const m = /^(\d{4})-(\d{2})$/.exec(valor || '');
+            return m ? Number(m[1]) * 12 + Number(m[2]) - 1 : null;
+        };
 
+        const nombreMeses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const formatearMes = (m) => nombreMeses[m % 12] + ' ' + Math.floor(m / 12);
 
+        const textoDuracion = (meses) => {
+            const anios = Math.floor(meses / 12);
+            const resto = meses % 12;
+            const partes = [];
+            if (anios) partes.push(anios + (anios === 1 ? ' año' : ' años'));
+            if (resto) partes.push(resto + (resto === 1 ? ' mes' : ' meses'));
+            return partes.join(' ');
+        };
 
+        document.querySelectorAll('.tl-item').forEach((item) => {
+            const inicio = aMeses(item.dataset.inicio);
+            const finTexto = item.dataset.fin;
+            const sinFin = finTexto === 'actual';
+            const fin = sinFin ? mesActual : aMeses(finTexto);
+            if (inicio === null || fin === null) return;
+
+            const enCurso = inicio <= mesActual && (sinFin || fin >= mesActual);
+            const periodo = item.querySelector('.tl-periodo');
+            const fechasElem = item.querySelector('.tl-fechas');
+
+            // Si tenía puesto "Actual" en el texto pero tiene fecha de fin fija que ya pasó, actualiza las fechas
+            if (fechasElem && !sinFin && fin < mesActual && fechasElem.textContent.includes('Actual')) {
+                fechasElem.textContent = `${formatearMes(inicio)} - ${formatearMes(fin)}`;
+            }
+
+            // Duración (incluye el mes de inicio y el de fin)
+            const total = fin - inicio + 1;
+            const duracion = item.querySelector('.tl-duracion');
+            if (duracion && total > 1) {
+                const transcurrido = Math.min(mesActual, fin) - inicio + 1;
+                duracion.textContent = enCurso && !sinFin
+                    ? 'Mes ' + transcurrido + ' de ' + total
+                    : textoDuracion(sinFin ? transcurrido : total);
+            }
+
+            // Barra de avance: completa si terminó; parcial si sigue en curso
+            if (periodo && total > 1) {
+                const barra = document.createElement('div');
+                barra.className = 'tl-barra';
+                barra.setAttribute('aria-hidden', 'true');
+                const relleno = document.createElement('span');
+                const avance = sinFin ? 100 : Math.max(0, Math.min(100, ((mesActual - inicio + 1) / total) * 100));
+                relleno.style.setProperty('--tl-avance', avance.toFixed(0) + '%');
+                barra.appendChild(relleno);
+                periodo.appendChild(barra);
+            }
+
+            // Estado "Actual": solo si está en curso actualmente
+            if ((enCurso || sinFin) && periodo) {
+                item.classList.add('is-actual');
+                if (!periodo.querySelector('.tl-estado')) {
+                    const estado = document.createElement('span');
+                    estado.className = 'tl-estado tl-estado-actual';
+                    estado.textContent = 'Actual';
+                    periodo.appendChild(estado);
+                }
+            } else {
+                item.classList.remove('is-actual');
+                const estadoActual = periodo ? periodo.querySelector('.tl-estado-actual') : null;
+                if (estadoActual) estadoActual.remove();
+            }
+        });
+
+        // Contador de imágenes en cada carpeta
+        document.querySelectorAll('.tl-carpeta').forEach((carpeta) => {
+            const cuenta = carpeta.querySelector('.tl-cuenta');
+            if (cuenta) cuenta.textContent = carpeta.querySelectorAll('.tl-galeria > *').length;
+        });
+
+        // Resumen de periodos (Estilo C)
+        document.querySelectorAll('.tl-resumen').forEach((res) => {
+            const contenedor = res.closest('.estilo-c, section') || res.parentElement;
+            const items = Array.from(contenedor.querySelectorAll('.tl-item')).map((it) => {
+                const ini = aMeses(it.dataset.inicio);
+                const sinFin = it.dataset.fin === 'actual';
+                const fin = sinFin ? mesActual : aMeses(it.dataset.fin);
+                const cargo = it.querySelector('.tl-cargo')?.textContent?.trim() || '';
+                const org = it.querySelector('.tl-org')?.textContent?.trim().split('·')[0].trim() || '';
+                const nombre = [cargo, org].filter(Boolean).join(' · ');
+                return {
+                    nombre,
+                    ini,
+                    fin,
+                    act: it.classList.contains('is-actual') || sinFin,
+                    elemento: it
+                };
+            }).filter((x) => x.ini !== null && x.fin !== null);
+
+            if (!items.length) return;
+
+            const a0 = Math.floor(Math.min(...items.map((x) => x.ini)) / 12) * 12;
+            const a1 = (Math.floor(Math.max(mesActual, ...items.map((x) => x.fin)) / 12) + 1) * 12;
+            const span = a1 - a0;
+            if (span <= 0) return;
+
+            const pct = (m) => (((m - a0) / span) * 100).toFixed(2) + '%';
+
+            // Configurar como botón accesible
+            res.setAttribute('role', 'button');
+            res.setAttribute('tabindex', '0');
+            const estaColapsadoInicial = contenedor.classList.contains('is-collapsed');
+            res.setAttribute('aria-expanded', estaColapsadoInicial ? 'false' : 'true');
+            res.setAttribute('aria-label', estaColapsadoInicial ? 'Desplegar línea de tiempo vertical' : 'Plegar línea de tiempo vertical');
+
+            res.innerHTML = '';
+
+            // Header interactivo con título y botón de estado
+            const header = document.createElement('div');
+            header.className = 'tl-resumen-header';
+            header.innerHTML = `
+                <div class="tl-resumen-titulo">
+                    <i class="bi bi-bar-chart-steps"></i>
+                    <span>Cronograma general</span>
+                </div>
+                <div class="tl-resumen-toggle-hint">
+                    <span class="tl-toggle-text">${estaColapsadoInicial ? 'Desplegar detalle' : 'Plegar detalle'}</span>
+                    <i class="bi bi-chevron-down tl-toggle-icon"></i>
+                </div>
+            `;
+            res.appendChild(header);
+
+            const toggleColapso = (forzarColapso) => {
+                const colapsar = typeof forzarColapso === 'boolean' ? forzarColapso : !contenedor.classList.contains('is-collapsed');
+                if (colapsar) {
+                    contenedor.classList.add('is-collapsed');
+                    res.setAttribute('aria-expanded', 'false');
+                    res.setAttribute('aria-label', 'Desplegar línea de tiempo vertical');
+                    const txt = res.querySelector('.tl-toggle-text');
+                    if (txt) txt.textContent = 'Desplegar detalle';
+                } else {
+                    contenedor.classList.remove('is-collapsed');
+                    res.setAttribute('aria-expanded', 'true');
+                    res.setAttribute('aria-label', 'Plegar línea de tiempo vertical');
+                    const txt = res.querySelector('.tl-toggle-text');
+                    if (txt) txt.textContent = 'Plegar detalle';
+                }
+            };
+
+            items.forEach((x) => {
+                const fila = document.createElement('div');
+                fila.className = 'tl-resumen-fila';
+                fila.title = `Clic para ver ${x.nombre} en detalle`;
+                const duracionPct = Math.max(0.6, ((x.fin - x.ini + 1) / span) * 100);
+                fila.innerHTML = `
+                    <div class="tl-resumen-nombre" title="${x.nombre}">${x.nombre}</div>
+                    <div class="tl-resumen-pista">
+                        <div class="tl-resumen-barra${x.act ? ' is-actual' : ''}" style="left:${pct(x.ini)};width:calc(${duracionPct.toFixed(2)}% - 2px)"></div>
+                        <div class="tl-resumen-hoy" style="left:${pct(mesActual + 0.5)}"></div>
+                    </div>
+                `;
+
+                // Clic en una fila individual: despliega y hace scroll a esa tarjeta
+                fila.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleColapso(false); // asegura que esté desplegado
+                    if (x.elemento) {
+                        setTimeout(() => {
+                            x.elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            x.elemento.classList.add('tl-destacado');
+                            setTimeout(() => {
+                                x.elemento.classList.remove('tl-destacado');
+                            }, 1800);
+                        }, 120);
+                    }
+                });
+
+                res.appendChild(fila);
+            });
+
+            const eje = document.createElement('div');
+            eje.className = 'tl-resumen-eje';
+            let aniosHtml = '<div></div><div class="tl-resumen-anios">';
+            for (let y = a0; y <= a1; y += 12) {
+                aniosHtml += `<span style="left:${pct(y)}">${y / 12}</span>`;
+            }
+            aniosHtml += '</div>';
+            eje.innerHTML = aniosHtml;
+            res.appendChild(eje);
+
+            // Clic general en la gráfica horizontal para alternar despliegue
+            res.addEventListener('click', () => {
+                toggleColapso();
+            });
+
+            // Soporte teclado: Enter o Espacio
+            res.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleColapso();
+                }
+            });
+        });
+
+        // Visor: al hacer clic en una imagen se abre en grande, con flechas para recorrer su carpeta
+        const visor = document.getElementById('tlVisor');
+        if (!visor || typeof bootstrap === 'undefined') return;
+        const modal = bootstrap.Modal.getOrCreateInstance(visor);
+        const imgVisor = visor.querySelector('#tlVisorImg');
+        const vidVisor = visor.querySelector('#tlVisorVid');
+        const titulo = visor.querySelector('#tlVisorTitulo');
+        let grupo = [];
+        let indice = 0;
+
+        const detenerVideo = () => {
+            vidVisor.pause();
+            vidVisor.removeAttribute('src');
+            vidVisor.load();
+        };
+
+        const mostrar = (i) => {
+            indice = (i + grupo.length) % grupo.length;
+            const actual = grupo[indice];
+            const etiqueta = actual.alt || actual.dataset.titulo || 'Recuerdo';
+            if (actual.tagName === 'VIDEO') {
+                imgVisor.classList.add('d-none');
+                imgVisor.removeAttribute('src');
+                vidVisor.classList.remove('d-none');
+                vidVisor.src = actual.currentSrc || actual.src;
+                vidVisor.play().catch(() => {});
+            } else {
+                detenerVideo();
+                vidVisor.classList.add('d-none');
+                imgVisor.classList.remove('d-none');
+                imgVisor.src = actual.src;
+                imgVisor.alt = etiqueta;
+            }
+            titulo.textContent = etiqueta + ' (' + (indice + 1) + '/' + grupo.length + ')';
+            visor.querySelectorAll('.tl-visor-nav').forEach((b) => { b.hidden = grupo.length < 2; });
+        };
+
+        visor.addEventListener('hidden.bs.modal', detenerVideo);
+
+        document.querySelectorAll('.tl-galeria').forEach((galeria) => {
+            const imagenes = Array.from(galeria.querySelectorAll('img, video'));
+            imagenes.forEach((img, i) => {
+                img.tabIndex = 0;
+                img.setAttribute('role', 'button');
+                const abrir = () => { grupo = imagenes; mostrar(i); modal.show(); };
+                img.addEventListener('click', abrir);
+                img.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(); }
+                });
+            });
+        });
+
+        visor.querySelector('.tl-visor-prev').addEventListener('click', () => mostrar(indice - 1));
+        visor.querySelector('.tl-visor-next').addEventListener('click', () => mostrar(indice + 1));
+        visor.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') mostrar(indice - 1);
+            if (e.key === 'ArrowRight') mostrar(indice + 1);
+        });
+
+        // Visor general de documentos flotante (PDFs)
+        const docModalEl = document.getElementById('docModal');
+        if (docModalEl && typeof bootstrap !== 'undefined') {
+            const docModal = bootstrap.Modal.getOrCreateInstance(docModalEl);
+            const docModalTitle = document.getElementById('docModalTitle');
+            const docModalBody = document.getElementById('docModalBody') || docModalEl.querySelector('.modal-body');
+            const docModalOpenTab = document.getElementById('docModalOpenTab');
+            let docActualUrl = '';
+            let docActualTitulo = '';
+
+            const cargarDoc = () => {
+                if (!docActualUrl || !docModalBody) return;
+                // Usar <iframe> directamente (más robusto que <object> para PDFs en modales)
+                docModalBody.innerHTML = `
+                    <iframe src="${docActualUrl}#toolbar=1&navpanes=0&view=FitH" 
+                            title="${docActualTitulo || 'Documento'}" 
+                            style="width: 100%; height: 80vh; border: 0; display: block;" 
+                            allowfullscreen>
+                        <div class="p-4 text-center text-white">
+                            <p>Este navegador no permite previsualizar PDFs incrustados.</p>
+                            <a href="${docActualUrl}" target="_blank" class="btn btn-primary">
+                                <i class="bi bi-box-arrow-up-right"></i> Abrir documento
+                            </a>
+                        </div>
+                    </iframe>`;
+            };
+
+            window.abrirDocModal = function (url, titulo) {
+                if (!url) return;
+                docActualUrl = url;
+                docActualTitulo = titulo || 'Documento';
+                if (docModalTitle) docModalTitle.textContent = docActualTitulo;
+                if (docModalOpenTab) docModalOpenTab.href = url;
+
+                if (docModalEl.classList.contains('show')) {
+                    cargarDoc();
+                } else {
+                    docModal.show();
+                }
+            };
+
+            // Inyectar el visor al mostrar el modal (evento show.bs.modal)
+            docModalEl.addEventListener('show.bs.modal', cargarDoc);
+
+            // Liberar memoria al cerrar
+            docModalEl.addEventListener('hidden.bs.modal', function () {
+                if (docModalBody) docModalBody.innerHTML = '';
+                docActualUrl = '';
+                docActualTitulo = '';
+            });
+
+            // Delegación de eventos para cualquier botón o enlace con .doc-modal-trigger o data-doc-modal
+            document.addEventListener('click', function (e) {
+                const trigger = e.target.closest('.doc-modal-trigger, [data-doc-modal]');
+                if (!trigger) return;
+                e.preventDefault();
+                const url = trigger.getAttribute('data-doc-url') || trigger.getAttribute('href');
+                const titulo = trigger.getAttribute('data-doc-title') || trigger.getAttribute('title') || trigger.textContent.trim() || 'Documento';
+                window.abrirDocModal(url, titulo);
+            });
+        }
+    })();
 });
-        

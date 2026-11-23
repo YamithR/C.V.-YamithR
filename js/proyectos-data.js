@@ -132,7 +132,6 @@ const proyectosData = [
         tags: ['uac', 'investigación', 'iot', 'educación', 'sensores', 'prototipado', 'mecatrónica', '3d printing', 'esp32', 'micropython', 'protocalib'],
         badges: [
             { text: 'UAC', class: 'bg-danger' },
-            { text: 'Investigación', class: 'bg-warning text-dark' },
             { text: 'IoT', class: 'bg-primary' },
             { text: 'Educación', class: 'bg-success' },
             { text: 'Sensores', class: 'bg-info' },
@@ -158,7 +157,6 @@ const proyectosData = [
         link: 'proyectos/Control_Indicadores_SISPI.html',
         tags: ['investigación', 'programación','ad hoc', 'software', 'datos', 'rust', 'typescript', 'sqlite', 'sispi', 'en desarrollo'],
         badges: [
-            { text: 'Investigación', class: 'bg-warning text-dark' },
             { text: 'Programación', class: 'bg-primary' },
             { text: 'Software', class: 'bg-success' },
             { text: 'Datos', class: 'bg-info' },
@@ -175,9 +173,8 @@ const proyectosData = [
         image: 'assets/img/M250-DAQ-UI/Dashboard.jpg',
         video: null,
         link: 'proyectos/M2.50_DAQ-UI.html',
-        tags: ['armada', 'oniris-id', 'tecnalia', 'programación', 'software', 'electrónica', 'm2.50', 'esp32', 'micropython', 'daq', 'websocket', 'dashboard', 'usb hid'],
+        tags: ['armada', 'tecnalia', 'programación', 'software', 'electrónica', 'm2.50', 'esp32', 'micropython', 'daq', 'websocket', 'dashboard', 'usb hid'],
         badges: [
-            { text: 'ONIRIS-ID', class: 'bg-warning text-dark' },
             { text: 'Armada', class: 'bg-primary' },
             { text: 'TECNALIA', class: 'bg-danger' },
             { text: 'Programación', class: 'bg-success' },
@@ -194,9 +191,8 @@ const proyectosData = [
         image: 'assets/img/M250-Instrumentacion/App-Dashboard.jpg',
         video: null,
         link: 'proyectos/M2.50_Instrumentacion_Optimizada.html',
-        tags: ['armada', 'oniris-id', 'tecnalia', 'programación', 'software', 'electrónica', 'esp32', 'micropython', 'pyside6', 'espnow', 'usb hid', 'instrumentación', 'm2.50'],
+        tags: ['armada', 'tecnalia', 'programación', 'software', 'electrónica', 'esp32', 'micropython', 'pyside6', 'espnow', 'usb hid', 'instrumentación', 'm2.50'],
         badges: [
-            { text: 'ONIRIS-ID', class: 'bg-warning text-dark' },
             { text: 'Armada', class: 'bg-primary' },
             { text: 'TECNALIA', class: 'bg-danger' },
             { text: 'Programación', class: 'bg-success' },
@@ -293,8 +289,32 @@ const proyectosData = [
         ],
         featured: false,  // ← Cambiar a true para agregar a destacados
         visible: true
+    },
+    {
+        id: 'monitoreo-apicola',
+        title: 'Sistema Inteligente de Monitoreo Apícola',
+        description: 'Sistema inteligente para el monitoreo, análisis y optimización de la producción de miel en los Montes de María, con ONIRIS-ID y COOAPOMIEL (SENAINNOVA 2024). Nodos IoT con alimentación solar miden temperatura, humedad, vibración, CO₂ y peso de las colmenas; los datos se analizan con IA y se muestran en una plataforma web.',
+        image: 'assets/img/Cooapomiel/Equipo-Prototipos-Cooapomiel.jpg',
+        cardTheme: {
+            light: { bg: '#faf6fb', text: '#241726', title: '#7a2e7e' },
+            dark: { bg: '#241a29', text: '#efe6f1', title: '#c58bd0' },
+            badges: { primary: '#7a2e7e', success: '#b03a8e', info: '#9d5aa6', warning: '#f5c400' }
+        },
+        video: null,
+        link: 'proyectos/Monitoreo_Apicola_Montes_de_Maria.html',
+        tags: ['oniris-id', 'cooapomiel', 'investigación', 'programación', 'datos', 'iot', 'apicultura', 'miel', 'colmenas', 'esp32', 'sensores', 'inteligencia artificial', 'senainnova'],
+        badges: [
+            { text: 'ONIRIS-ID', class: 'bg-warning text-dark' },
+            { text: 'COOAPOMIEL', class: 'bg-warning text-dark' },
+            { text: 'IoT', class: 'bg-primary' },
+            { text: 'Programación', class: 'bg-success' },
+            { text: 'Datos', class: 'bg-info' }
+        ],
+        featured: true,  // ← Cambiar a true para agregar a destacados
+        visible: true
     }
 ];
+
 
 // Función para obtener proyectos destacados
 function getProyectosDestacados() {
@@ -332,7 +352,8 @@ const filterGroups = [
             { label: 'Armada', tag: 'armada' },
             { label: 'ONIRIS-ID', tag: 'oniris-id' },
             { label: 'UAC', tag: 'uac' },
-            { label: 'TECNALIA', tag: 'tecnalia' }
+            { label: 'TECNALIA', tag: 'tecnalia' },
+            { label: 'COOAPOMIEL', tag: 'cooapomiel' }
         ]
     },
     {
@@ -392,7 +413,7 @@ const colecciones = [
         title: 'Investigación',
         description: 'Proyectos de investigación aplicada.',
         icon: 'lightbulb',
-        projects: ['scorbot', 'sensoracore', 'simulador-bote', 'protocalib', 'sispi-guajira']
+        projects: ['monitoreo-apicola', 'scorbot', 'sensoracore', 'simulador-bote', 'protocalib', 'sispi-guajira']
     },
     {
         id: 'personales',
