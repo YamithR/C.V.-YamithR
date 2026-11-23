@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETC Calculator - Yamith Romero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/proyectos.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#proyectos">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#experiencia">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row">
+            <!-- Imagen Principal -->
+            <div class="col-lg-8 mb-4">
+                <div class="project-hero h-100 rounded d-flex align-items-center justify-content-center p-3">
+                    <img src="../assets/img/ETC_Calculator/ETC_Calculadora_Resultados.png" alt="ETC Calculator - Parámetros de carga y resultados calculados en tiempo real" class="img-fluid rounded shadow" style="max-height: 460px; object-fit: contain;">
+                </div>
+            </div>
+
+
+            <!-- Detalles del Proyecto -->
+            <div class="col-lg-4">
+                <div class="project-sidebar p-4 rounded shadow h-100">
+                    <h3 class="project-title">ETC Calculator</h3>
+                    <div class="project-meta mb-3">
+                        <span class="badge bg-primary">Programación</span>
+                        <span class="badge bg-success">Software</span>
+                        <span class="badge bg-info">Herramienta</span>
+                        <span class="badge bg-warning"> Ad hoc</span>
+                    </div>
+                    <div class="project-tech">
+                        <h6><i class="bi bi-chevron-right"></i> Tecnologías:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> HTML, CSS y JavaScript</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Electron (Windows y Linux)</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Capacitor (Android)</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Extensión GNOME Shell (GJS)</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/YamithR/ETC_Calculator" target="_blank" rel="noopener" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-github"></i> Ver Repositorio
+                    </a>
+                    <a href="../index.html" class="btn btn-outline-secondary w-100 mb-2">
+                        <i class="bi bi-arrow-left"></i> Volver al CV
+                    </a>
+                    <a href="galeria.html" class="btn btn-outline-info w-100">
+                        <i class="bi bi-images"></i> Ir a Galería
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Descripción Detallada -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h4 class="mb-4">Descripción del Proyecto</h4>
+                <p class="lead">
+                    Calculadora de tiempo estimado de finalización de carga marítima (Estimated Cargo Completion Time). A partir de la carga total, la carga ya embarcada, la carga de trimado, la rata de carga y los pasos restantes, calcula el tiempo de carga, los tiempos muertos y la hora estimada del intermedio, del desatraque, de la inspección subacuática y del ETC final. Nació como un script de terminal y se convirtió en una interfaz web que se distribuye como aplicación de escritorio, app Android y extensión del panel de GNOME.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-target"></i> Objetivos</h5>
+                        <ul>
+                            <li>Agilizar el cálculo del ETC durante operaciones de carga</li>
+                            <li>Estimar las horas de intermedio, desatraque e inspección subacuática</li>
+                            <li>Admitir expresiones matemáticas en los campos de entrada</li>
+                            <li>Usar la misma herramienta en escritorio, móvil y panel de GNOME</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-graph-up"></i> Resultados</h5>
+                        <ul>
+                            <li>Resultados actualizados en tiempo real al escribir</li>
+                            <li>Validaciones de datos y aviso cuando el intermedio ya se superó</li>
+                            <li>Instaladores para Windows (.exe) y Linux (.deb), y app Android</li>
+                            <li>Atajo de teclado global y tema oscuro en la versión de escritorio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <h3>Galería</h3>
+        <div class="row g-3">
+            <!-- Imágenes -->
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/ETC_Calculator/ETC_Calculadora_Resultados.png" class="img-fluid rounded gallery-img" alt="Parámetros de entrada y resultados del cálculo de ETC" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/ETC_Calculator/ETC_Version_Movil.png" class="img-fluid rounded gallery-img" alt="Interfaz adaptada a pantalla móvil" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/ETC_Calculator/ETC_Validacion_Intermedio.png" class="img-fluid rounded gallery-img" alt="Aviso de validación cuando el punto intermedio ya se superó" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/ETC_Calculator/ETC_Acerca_De.png" class="img-fluid rounded gallery-img" alt="Ventana Acerca de en la versión de escritorio" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+        </div>
+
+        <!-- Modal para imágenes -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <div class="zoom-controls">
+                            <button class="btn btn-outline-light me-2" id="zoomIn" title="Acercar"><i class="bi bi-zoom-in"></i></button>
+                            <button class="btn btn-outline-light me-2" id="zoomOut" title="Alejar"><i class="bi bi-zoom-out"></i></button>
+                            <button class="btn btn-outline-light" id="resetZoom" title="Restablecer zoom"><i class="bi bi-arrows-angle-contract"></i></button>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="image-container">
+                            <img id="modalImage" src="" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <small id="modalCaption" class="text-white"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/proyectos.js"></script>
+</body>
+</html>

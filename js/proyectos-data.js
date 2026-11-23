@@ -29,7 +29,7 @@ const proyectosData = [
         title: 'Mecanismos de Encoders de M2.50',
         description: 'Diseño, impresión e implementación de mecanismos de encoders para ejes X Y de Simulador de Ametralladora M2.50.',
         image: 'assets/img/MecanismoEncoders/M2-VistaIsometrica.png',
-        video: 'assets/vid/MecanismosEncoders/video.mp4',
+        video: 'assets/vid/MecanismosEncoders/VersionFinal_ZoomIn.mp4',
         link: 'proyectos/Mecanismos_de_Encoders_de_M2.50.html',
         tags: ['oniris-id', 'armada', '3d printing', 'solidworks', 'mecánica', 'encoders', 'm2.50', 'mecanismos'],
         badges: [
@@ -39,7 +39,7 @@ const proyectosData = [
             { text: 'SolidWorks', class: 'bg-danger' },
             { text: 'Mecánica', class: 'bg-secondary' }
         ],
-        featured: true,  // ← Cambiar a false para quitar de destacados
+        featured: false,  // ← Cambiar a false para quitar de destacados
         visible: true
     },
     {
@@ -59,7 +59,7 @@ const proyectosData = [
             { text: 'Mecatronica', class: 'bg-secondary' },
             { text: 'IoT', class: 'bg-primary' }
         ],
-        featured: true,  // ← Cambiar a false para quitar de destacados
+        featured: false,  // ← Cambiar a false para quitar de destacados
         visible: true
     },
     {
@@ -80,7 +80,7 @@ const proyectosData = [
             { text: 'Mecatrónica', class: 'bg-secondary' },
             { text: 'Control', class: 'bg-secondary' }
         ],
-        featured: true,  // ← Cambiar a false para quitar de destacados
+        featured: false,  // ← Cambiar a false para quitar de destacados
         visible: true
     },
     {
@@ -119,7 +119,7 @@ const proyectosData = [
             { text: 'Programación', class: 'bg-success' },
             { text: 'Mecatrónica', class: 'bg-secondary' }
         ],
-        featured: true,  // ← Cambiar a false para quitar de destacados
+        featured: false,  // ← Cambiar a false para quitar de destacados
         visible: true
     },
     {
@@ -129,7 +129,7 @@ const proyectosData = [
         image: 'assets/img/ProtoCalib/Figura2-ModulosSensores.png',
         video: null,
         link: 'proyectos/ProtoCalib.html',
-        tags: ['uac', 'investigación', 'iot', 'educación', 'sensores', 'prototipado', 'programación', 'mecatrónica', '3d printing', 'esp32', 'micropython', 'protocalib'],
+        tags: ['uac', 'investigación', 'iot', 'educación', 'sensores', 'prototipado', 'mecatrónica', '3d printing', 'esp32', 'micropython', 'protocalib'],
         badges: [
             { text: 'UAC', class: 'bg-danger' },
             { text: 'Investigación', class: 'bg-warning text-dark' },
@@ -137,7 +137,6 @@ const proyectosData = [
             { text: 'Educación', class: 'bg-success' },
             { text: 'Sensores', class: 'bg-info' },
             { text: 'Prototipado', class: 'bg-success' },
-            { text: 'Programación', class: 'bg-secondary' }
         ],
         featured: false,  // ← Cambiar a true para agregar a destacados
         visible: true
@@ -147,7 +146,7 @@ const proyectosData = [
         title: 'Control de Indicadores SISPI - La Guajira',
         description: 'Aplicación de escritorio en Rust, Tauri y React para el seguimiento de los indicadores del SISPI en La Guajira, con cálculo de cumplimiento, tableros y reportes. En desarrollo: primera versión de prototipo.',
         image: 'assets/img/SISPI/Banner.jpg',
-        imageFit: 'contain',   // opcional: imagen completa de lado a lado, centrada verticalmente
+        imageFit: 'cover',   // opcional: imagen completa de lado a lado, centrada verticalmente
         imageBg: '#0f4e45',    // opcional: color de relleno arriba y abajo (verde del banner)
         // opcional: colores propios de la tarjeta en la galería (modo claro, oscuro y etiquetas)
         cardTheme: {
@@ -157,13 +156,140 @@ const proyectosData = [
         },
         video: null,
         link: 'proyectos/Control_Indicadores_SISPI.html',
-        tags: ['investigación', 'programación', 'software', 'datos', 'rust', 'typescript', 'sqlite', 'sispi', 'en desarrollo'],
+        tags: ['investigación', 'programación','ad hoc', 'software', 'datos', 'rust', 'typescript', 'sqlite', 'sispi', 'en desarrollo'],
         badges: [
             { text: 'Investigación', class: 'bg-warning text-dark' },
             { text: 'Programación', class: 'bg-primary' },
             { text: 'Software', class: 'bg-success' },
             { text: 'Datos', class: 'bg-info' },
-            { text: 'En desarrollo', class: 'bg-secondary' }
+            { text: 'En desarrollo', class: 'bg-secondary' },
+            { text: 'Ad hoc', class: 'bg-warning' }
+        ],
+        featured: true,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'm250-daq-ui',
+        title: 'M2.50 DAQ-UI',
+        description: 'Sistema de adquisición de datos a 50 Hz para el simulador con réplica neumática de la M2 .50, desarrollado para la Armada con ONIRIS-ID por contrato de TECNALIA. ESP32-S3 con MicroPython, dashboard web en tiempo real por WebSocket y mouse USB HID para apuntar en el simulador.',
+        image: 'assets/img/M250-DAQ-UI/Dashboard.jpg',
+        video: null,
+        link: 'proyectos/M2.50_DAQ-UI.html',
+        tags: ['armada', 'oniris-id', 'tecnalia', 'programación', 'software', 'electrónica', 'm2.50', 'esp32', 'micropython', 'daq', 'websocket', 'dashboard', 'usb hid'],
+        badges: [
+            { text: 'ONIRIS-ID', class: 'bg-warning text-dark' },
+            { text: 'Armada', class: 'bg-primary' },
+            { text: 'TECNALIA', class: 'bg-danger' },
+            { text: 'Programación', class: 'bg-success' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Electrónica', class: 'bg-info' }
+        ],
+        featured: false,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'm250-instrumentacion',
+        title: 'M2.50 Instrumentación Optimizada',
+        description: 'Versión optimizada del sistema de adquisición de datos del mímico M2.50 para la Armada, a través de TECNALIA con ONIRIS-ID: firmware MicroPython en ESP32-S3 con USB HID y protocolo binario, pantalla GC9A01 por ESPNow con el conteo de balas y aplicación PySide6 con simulador.',
+        image: 'assets/img/M250-Instrumentacion/App-Dashboard.jpg',
+        video: null,
+        link: 'proyectos/M2.50_Instrumentacion_Optimizada.html',
+        tags: ['armada', 'oniris-id', 'tecnalia', 'programación', 'software', 'electrónica', 'esp32', 'micropython', 'pyside6', 'espnow', 'usb hid', 'instrumentación', 'm2.50'],
+        badges: [
+            { text: 'ONIRIS-ID', class: 'bg-warning text-dark' },
+            { text: 'Armada', class: 'bg-primary' },
+            { text: 'TECNALIA', class: 'bg-danger' },
+            { text: 'Programación', class: 'bg-success' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Electrónica', class: 'bg-info' }
+        ],
+        featured: false,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'neotraductor',
+        title: 'NeoTraductor GNOME Shell',
+        description: 'Extensión de traducción para GNOME Shell 45+ con Google Translate (sin API Key), más de 80 idiomas, historial y apariencia personalizable. Incluye una versión de bandeja del sistema para Windows en Electron.',
+        image: 'assets/img/NeoTraductor/Traductor.jpg',
+        video: null,
+        link: 'proyectos/NeoTraductor.html',
+        tags: ['programación','calidad de vida', 'software', 'herramienta', 'gnome', 'linux', 'javascript', 'electron', 'traductor'],
+        badges: [
+            { text: 'Programación', class: 'bg-primary' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Herramienta', class: 'bg-info' },
+            { text: 'Calidad de vida', class: 'bg-warning' }
+
+        ],
+        featured: true,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'etc-calculator',
+        title: 'ETC Calculator',
+        description: 'Calculadora del tiempo estimado de finalización de carga marítima (ETC), con horas de intermedio, desatraque e inspección subacuática. Disponible como app de escritorio, app Android y extensión de GNOME.',
+        image: 'assets/img/ETC_Calculator/ETC_Calculadora_Resultados.png',
+        imageFit: 'contain',   // opcional: imagen completa, centrada
+        imageBg: '#f5f0e8',    // opcional: color de relleno (fondo beige de la app)
+        video: null,
+        link: 'proyectos/ETC_Calculator.html',
+        tags: ['programación', 'software','ad hoc', 'herramienta', 'javascript', 'electron', 'carga marítima', 'calculadora', 'android'],
+        badges: [
+            { text: 'Programación', class: 'bg-primary' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Herramienta', class: 'bg-info' },
+            { text: 'Ad hoc', class: 'bg-warning' }
+        ],
+        featured: false,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'dotcruzart',
+        title: 'DotCruzArt',
+        description: 'Aplicación web en React para diseñar patrones de punto de cruz: convierte texto en una malla de puntadas, permite pintar celda a celda por capas y exporta el patrón a PNG.',
+        image: 'assets/img/DotCruzArt/DotCruzArt-Editor.jpg',
+        video: null,
+        link: 'proyectos/DotCruzArt.html',
+        tags: ['programación', 'software', 'herramienta', 'punto de cruz', 'react', 'javascript', 'canvas', 'diseño', 'arte'],
+        badges: [
+            { text: 'Programación', class: 'bg-primary' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Herramienta', class: 'bg-info' },
+            { text: 'Arte', class: 'bg-warning' }
+        ],
+        featured: true,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'clipnotes',
+        title: 'ClipNotes',
+        description: 'Herramienta de escritorio para Windows que, desde la bandeja del sistema, copia al portapapeles con un clic el contenido de notas de texto organizadas en carpetas. Puerto con Electron de la extensión de GNOME gnome-extension-copier.',
+        image: 'assets/img/ClipNotes/ClipNotes_Vistas.jpg',
+        video: null,
+        link: 'proyectos/ClipNotes.html',
+        tags: ['programación', 'software', 'herramienta','calidad de vida', 'electron', 'javascript', 'portapapeles', 'windows', 'bandeja del sistema'],
+        badges: [
+            { text: 'Programación', class: 'bg-primary' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Herramienta', class: 'bg-info' },
+            { text: 'Calidad de vida', class: 'bg-warning' }
+        ],
+        featured: true,  // ← Cambiar a true para agregar a destacados
+        visible: true
+    },
+    {
+        id: 'markitdown-ui',
+        title: 'MarkItDown UI',
+        description: 'Interfaz gráfica de escritorio para MarkItDown de Microsoft, que convierte por lotes PDF, Office, imágenes y otros formatos a Markdown con OCR local y sin servicios en la nube.',
+        image: 'assets/img/MarkItDown-UI/markitdown-ui-conversion-oscuro.png',
+        video: null,
+        link: 'proyectos/MarkItDown-UI.html',
+        tags: ['programación', 'software', 'herramienta','calidad de vida', 'electron', 'python', 'markdown', 'ocr', 'linux'],
+        badges: [
+            { text: 'Programación', class: 'bg-primary' },
+            { text: 'Software', class: 'bg-success' },
+            { text: 'Herramienta', class: 'bg-info' },
+            { text: 'Calidad de vida', class: 'bg-warning' }
         ],
         featured: false,  // ← Cambiar a true para agregar a destacados
         visible: true
@@ -205,21 +331,26 @@ const filterGroups = [
         chips: [
             { label: 'Armada', tag: 'armada' },
             { label: 'ONIRIS-ID', tag: 'oniris-id' },
-            { label: 'UAC', tag: 'uac' }
+            { label: 'UAC', tag: 'uac' },
+            { label: 'TECNALIA', tag: 'tecnalia' }
         ]
     },
     {
         title: 'Tecnologías',
         chips: [
             { label: 'IoT', tag: 'iot' },
-            { label: '3D Printing', tag: '3d printing' }
+            { label: '3D Printing', tag: '3d printing' },
+            { label: 'Ad hoc', tag: 'ad hoc' }
         ]
     },
     {
         title: 'Area',
         chips: [
             {label: 'Programación', tag: 'programación'},
-            { label: 'Datos', tag: 'datos' }
+            { label: 'Datos', tag: 'datos' },
+            { label: 'Herramienta', tag: 'herramienta' },
+            { label: 'Arte', tag: 'arte' },
+            { label: 'Calidad de vida', tag: 'calidad de vida' }
         ]
     }
 ];
@@ -252,22 +383,22 @@ const colecciones = [
     {
         id: 'armada',
         title: 'Armada',
-        description: 'Proyectos desarrollados para la Armada: simulación, mecanismos y control de botes.',
+        description: 'Proyectos desarrollados para la Armada Nacional De Colombia: simulación, mecanismos, control de botes e intrumentación de equipos.',
         icon: 'life-preserver',
-        projects: ['simulador-bote', 'encoders-m250', 'momo-boat']
+        projects: ['simulador-bote', 'encoders-m250', 'momo-boat', 'm250-daq-ui', 'm250-instrumentacion']
     },
     {
         id: 'investigacion',
         title: 'Investigación',
-        description: 'Proyectos de investigación aplicada en robótica, sensores y simulación.',
+        description: 'Proyectos de investigación aplicada.',
         icon: 'lightbulb',
         projects: ['scorbot', 'sensoracore', 'simulador-bote', 'protocalib', 'sispi-guajira']
     },
     {
         id: 'personales',
         title: 'Proyectos personales',
-        description: 'Proyectos propios de automatización, software y robótica.',
+        description: 'Proyectos propios de practicas en diversas areas de la Mecatronica y desarrollo de herramientas dedicadas para soluciones especificas.',
         icon: 'person-workspace',
-        projects: ['sensoracore', 'granja-3d', 'scorbot', 'protocalib', 'sispi-guajira']
+        projects: ['sensoracore', 'granja-3d', 'scorbot', 'protocalib', 'sispi-guajira', 'neotraductor', 'etc-calculator', 'dotcruzart', 'clipnotes', 'markitdown-ui']
     }
 ];

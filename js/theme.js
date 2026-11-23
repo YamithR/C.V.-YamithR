@@ -23,23 +23,34 @@
         }
     }
     
-    // Inicializar tema según localStorage o hora del día
+    // Modo del sistema operativo (claro u oscuro)
+    const mediaOscuro = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    // Inicializar tema: 1) lo que eligió el visitante (localStorage),
+    // 2) si nunca lo eligió, el modo del sistema operativo
     function initializeTheme() {
         const savedTheme = localStorage.getItem('theme');
-        
+
         if (savedTheme) {
             // Si hay tema guardado, usar ese
             applyTheme(savedTheme === 'dark');
         } else {
-            // Si no hay tema guardado, usar hora del día (6 AM - 11 AM claro)
-            const hour = new Date().getHours();
-            const isDay = hour >= 6 && hour < 11;
-            applyTheme(!isDay);
+            // Sin elección guardada: seguir el modo del sistema
+            applyTheme(mediaOscuro ? mediaOscuro.matches : false);
         }
     }
-    
+
     // Inicializar tema inmediatamente
     initializeTheme();
+
+    // Si el visitante no ha elegido tema, seguir los cambios del sistema en vivo
+    if (mediaOscuro) {
+        const seguirSistema = (e) => {
+            if (!localStorage.getItem('theme')) applyTheme(e.matches);
+        };
+        if (mediaOscuro.addEventListener) mediaOscuro.addEventListener('change', seguirSistema);
+        else if (mediaOscuro.addListener) mediaOscuro.addListener(seguirSistema);
+    }
     
     // Toggle manual de tema
     themeToggle.addEventListener('click', () => {

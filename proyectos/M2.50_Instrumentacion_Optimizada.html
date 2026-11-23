@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2.50 Instrumentación Optimizada - Yamith Romero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/proyectos.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-person-circle"></i> Yamith Romero
+            </a>
+            <button id="theme-toggle" class="btn btn-outline-light btn-sm ms-2">
+                <i class="bi bi-moon-fill"></i> <span>Modo Oscuro</span>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#proyectos">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#experiencia">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row">
+            <!-- Imagen Principal -->
+            <div class="col-lg-8 mb-4">
+                <div class="project-hero h-100 rounded d-flex align-items-center justify-content-center p-3">
+                    <video controls autoplay muted loop playsinline preload="metadata" class="rounded shadow img-fluid w-100" style="max-height: 420px; object-fit: contain;">
+                        <source src="../assets/vid/M250-Instrumentacion/Ensamblaje.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+            </div>
+
+
+            <!-- Detalles del Proyecto -->
+            <div class="col-lg-4">
+                <div class="project-sidebar p-4 rounded shadow h-100">
+                    <h3 class="project-title">M2.50 Instrumentación Optimizada</h3>
+                    <div class="project-meta mb-3">
+                        <span class="badge bg-warning text-dark">ONIRIS-ID</span>
+                        <span class="badge bg-primary">Armada</span>
+                        <span class="badge bg-danger">TECNALIA</span>
+                        <span class="badge bg-success">Programación</span>
+                        <span class="badge bg-success">Software</span>
+                        <span class="badge bg-info">Electrónica</span>
+                    </div>
+                    <div class="project-tech">
+                        <h6><i class="bi bi-chevron-right"></i> Tecnologías:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> ESP32-S3 + MicroPython</li>
+                            <li><i class="bi bi-check-circle text-success"></i> App PySide6 + pyqtgraph</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Protocolo binario por USB UART</li>
+                            <li><i class="bi bi-check-circle text-success"></i> ESPNow + pantalla GC9A01</li>
+                            <li><i class="bi bi-check-circle text-success"></i> USB HID (mouse y teclado)</li>
+                        </ul>
+                    </div>
+                    <!-- Botones 50/50: plano (PDF) y visor 3D de las piezas -->
+                    <div class="d-flex gap-2 mb-2">
+                        <button type="button" class="btn btn-outline-primary w-50" data-bs-toggle="modal" data-bs-target="#planoModal">
+                            <i class="bi bi-file-earmark-pdf"></i> Ver Plano
+                        </button>
+                        <button type="button" class="btn btn-outline-primary w-50" data-bs-toggle="modal" data-bs-target="#visor3dModal">
+                            <i class="bi bi-box"></i> Visor 3D
+                        </button>
+                    </div>
+                    <a href="https://github.com/YamithR/M2.50_Instrumentacion-Optimized" target="_blank" rel="noopener" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-github"></i> Ver Repositorio
+                    </a>
+                    <a href="../index.html" class="btn btn-outline-secondary w-100 mb-2">
+                        <i class="bi bi-arrow-left"></i> Volver al CV
+                    </a>
+                    <a href="galeria.html" class="btn btn-outline-info w-100">
+                        <i class="bi bi-images"></i> Ir a Galería
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Descripción Detallada -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h4 class="mb-4">Descripción del Proyecto</h4>
+                <p class="lead">
+                    Versión optimizada del sistema de adquisición de datos del mímico del arma M2.50, desarrollada para la Armada a través de TECNALIA junto a ONIRIS-ID. Parte del proyecto M2.50 DAQ-UI y elimina lo que no era esencial: WiFi, servidor WebSocket/HTTP, interfaz web e IMU. Conserva los sensores del ciclo de disparo (S1, S2 y S3), los dos encoders, la electroválvula y el control USB HID, en un firmware MicroPython para ESP32-S3. Como novedad, agrega un ESP32-C3 con pantalla redonda GC9A01 que recibe el conteo de balas por ESPNow, y una aplicación de escritorio en PySide6 para depuración en tiempo real con simulador integrado.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-target"></i> Objetivos</h5>
+                        <ul>
+                            <li>Reducir el firmware a los componentes esenciales</li>
+                            <li>Mantener el control HID: encoders como mouse, disparo como clic y recarga como tecla</li>
+                            <li>Mostrar la munición restante en una pantalla montada en el arma</li>
+                            <li>Depurar y probar el sistema sin accionar el arma</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-graph-up"></i> Resultados</h5>
+                        <ul>
+                            <li>Trama binaria de 14 bytes a 50 Hz (700 bytes/s) por USB UART</li>
+                            <li>Pantalla circular con cartuchos .50 animados y arco de color según las balas</li>
+                            <li>App con dashboard, gráficas de encoders y sensores y réplica de la pantalla C3</li>
+                            <li>Simulador intercambiable y ControlLink para forzar sensores desde la app</li>
+                            <li>LED RGB que indica cada fase de arranque y operación</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <h3>Galería</h3>
+        <div class="row g-3">
+            <!-- Imágenes -->
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Instrumentacion/App-Dashboard.jpg" class="img-fluid rounded gallery-img" alt="Dashboard de la aplicación" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Instrumentacion/App-Graficas.jpg" class="img-fluid rounded gallery-img" alt="Gráficas de encoders y timeline de sensores" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Instrumentacion/Pantalla-C3.jpg" class="img-fluid rounded gallery-img" alt="Réplica de la pantalla del ESP32-C3" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Instrumentacion/App-Simulador.jpg" class="img-fluid rounded gallery-img" alt="Ventana del simulador y ControlLink" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Informe/Electronica-CAD-2.jpg" class="img-fluid rounded gallery-img" alt="Render de la electrónica montada en el arma" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Informe/Electronica-CAD-1.jpg" class="img-fluid rounded gallery-img" alt="Render de la tarjeta electrónica" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Informe/Sensor-Instalado.jpg" class="img-fluid rounded gallery-img" alt="Sensor instalado en el arma" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+            <div class="col-6 col-md-4">
+                <img src="../assets/img/M250-Informe/Mimico-M250.png" class="img-fluid rounded gallery-img" alt="Mímico del arma M2.50" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
+        </div>
+
+        <!-- Modal para imágenes -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <div class="zoom-controls">
+                            <button class="btn btn-outline-light me-2" id="zoomIn" title="Acercar"><i class="bi bi-zoom-in"></i></button>
+                            <button class="btn btn-outline-light me-2" id="zoomOut" title="Alejar"><i class="bi bi-zoom-out"></i></button>
+                            <button class="btn btn-outline-light" id="resetZoom" title="Restablecer zoom"><i class="bi bi-arrows-angle-contract"></i></button>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="image-container">
+                            <img id="modalImage" src="" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <small id="modalCaption" class="text-white"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Ventana flotante: plano de AmmoUI (PDF) -->
+    <div class="modal fade" id="planoModal" tabindex="-1" aria-labelledby="planoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="planoModalLabel"><i class="bi bi-file-earmark-pdf"></i> Plano AmmoUI</h5>
+                    <a href="../assets/docs/M250-Instrumentacion/Plano_AmmoUI.pdf" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm ms-auto me-2"><i class="bi bi-box-arrow-up-right"></i> Abrir en otra pestaña</a>
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe id="planoFrame" title="Plano AmmoUI" data-src="../assets/docs/M250-Instrumentacion/Plano_AmmoUI.pdf" style="width: 100%; height: 80vh; border: 0;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ventana flotante: visor 3D de las piezas de AmmoUI (convertidas de STEP a GLB) -->
+    <div class="modal fade" id="visor3dModal" tabindex="-1" aria-labelledby="visor3dModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="visor3dModalLabel"><i class="bi bi-box"></i> Piezas AmmoUI en 3D</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn active" data-glb="../assets/3d/M250-Instrumentacion/Union.glb">Unión</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn" data-glb="../assets/3d/M250-Instrumentacion/bateriaCover.glb">Tapa de batería</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn" data-glb="../assets/3d/M250-Instrumentacion/bodyExtention.glb">Extensión del cuerpo</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn" data-glb="../assets/3d/M250-Instrumentacion/elevadorHolder.glb">Soporte del elevador</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn" data-glb="../assets/3d/M250-Instrumentacion/capElevadorHolder.glb">Tapa del soporte del elevador</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn" data-glb="../assets/3d/M250-Instrumentacion/pantallaCover.glb">Tapa de pantalla</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary pieza-btn" data-glb="../assets/3d/M250-Instrumentacion/soporteBateria.glb">Soporte de batería</button>
+                    </div>
+                    <model-viewer id="visor3d" alt="Pieza 3D de AmmoUI" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" shadow-intensity="1" exposure="1.1" interaction-prompt="none" style="width: 100%; height: 65vh; background: var(--card-bg); border-radius: .5rem;"></model-viewer>
+                    <p class="small text-muted mt-2 mb-0">Arrastra para girar, rueda o pellizco para acercar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Yamith Juseth Romero Aldana. Ingeniero Mecatrónico.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/proyectos.js"></script>
+    <script>
+        // Visor 3D: model-viewer se carga solo al abrir la ventana flotante
+        (function () {
+            var modal = document.getElementById('visor3dModal');
+            var visor = document.getElementById('visor3d');
+            var botones = modal.querySelectorAll('.pieza-btn');
+            modal.addEventListener('show.bs.modal', function () {
+                if (!window.customElements.get('model-viewer')) {
+                    var sc = document.createElement('script');
+                    sc.type = 'module';
+                    sc.src = 'https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';
+                    document.head.appendChild(sc);
+                }
+                if (!visor.getAttribute('src')) visor.setAttribute('src', botones[0].dataset.glb);
+            });
+            botones.forEach(function (b) {
+                b.addEventListener('click', function () {
+                    botones.forEach(function (x) { x.classList.remove('active'); });
+                    b.classList.add('active');
+                    visor.setAttribute('src', b.dataset.glb);
+                });
+            });
+        })();
+
+        // El PDF solo se carga al abrir la ventana flotante
+        document.getElementById('planoModal').addEventListener('show.bs.modal', function () {
+            var f = document.getElementById('planoFrame');
+            if (!f.getAttribute('src')) f.setAttribute('src', f.dataset.src);
+        });
+    </script>
+</body>
+</html>
