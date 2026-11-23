@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-lg-10">
                     <p class="lead fs-5">
-                        Ingeniero Mecatrónico en formación (UAC, 2025) con experiencia práctica en integración de sistemas embebidos, robótica, IoT y fabricación digital. Lideré el desarrollo de prototipos funcionales como una extrusora de filamento reciclado (reducción del 20% en costos) y un simulador mecánico de bote fluvial (Oniris-ID). Experto en impresión 3D (Klipper/OrcaSlicer), Python, Raspberry Pi y automatización industrial. Miembro activo del IEEE, promotor STEM y participante en congresos internacionales (INNOVATEC-NM México, CIITI Argentina). Enfoque en innovación sostenible, trabajo interdisciplinario y soluciones técnicas de alto impacto.
+                        Ingeniero Mecatrónico de la Universidad Autónoma del Caribe (2026), con tesis meritoria en el desarrollo de módulos didácticos para la caracterización y calibración de sensores industriales. Actualmente apoyo la integración de sistemas mecatrónicos para la Armada de Colombia a través de la Fundación Tecnalia Colombia, en la Fase 2 del Prototipo de Simulador Inmersivo para Entrenamiento de Tripulaciones en Lanchas de Combate Fluvial, con instrumentación y adquisición de datos sobre ESP32 y MicroPython. Experiencia en sistemas embebidos, robótica, IoT y fabricación digital, y en desarrollo de software de escritorio y web con Python (PySide6), Rust, TypeScript y Electron. Autor del artículo ProtoCalib (OnBoard Knowledge Journal, 2025), lideré el prototipo del simulador mecánico de bote fluvial (ONIRIS-ID), soy miembro activo del IEEE, promotor STEM y participante en congresos internacionales (INNOVATEC-NM México, CIITI Argentina).
                     </p>
                 </div>
             </div>
@@ -111,49 +111,92 @@
         <!-- Educación -->
         <section id="educacion" class="mb-5">
             <h2 class="section-title">Educación</h2>
-            <div class="timeline-container">
-                <div class="timeline">
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Bachiller Académico <span class="text-muted fw-normal">— Colegio Sagrado Corazón de Jesús</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> 2020</p>
-                    <a href="certificados/Diploma de bachiller.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Diploma
-                    </a>
-                </div>
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Estructura y sintaxis de C++ <span class="text-muted fw-normal">— SENA</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Dic 12 2020</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Curso de programacion C++ Nivel Básico</li>
-                    </ul>
-                    <a href="certificados/Certificado de C++Lv1.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado C++Lv1
-                    </a>
-                </div>
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Boocamp Programación <span class="text-muted fw-normal">— Talento Tech</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Ago 13 2025</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Bootcamp de Programación Full Stack Nivel Básico</li>
-                    </ul>
-                    <a href="certificados/TalectoTech-Programación.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado Bootcamp
-                    </a>
-                </div>
+            <!-- Línea de tiempo (Opción C): Resumen tipo calendario + tarjetas suaves.
+                 data-inicio / data-fin en formato AAAA-MM (data-fin="actual" si sigue en curso).
+                 La duración, la barra de progreso y el resumen superior se calculan solas (js/main.js).
+                 Para añadir imágenes, incluye un bloque <details class="tl-carpeta"> como en los ejemplos. -->
+            <div class="estilo-a estilo-c">
+                <div class="tl-resumen"></div>
+                <ol class="tl">
+                <li class="tl-item" data-inicio="2021-02" data-fin="2026-03">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Feb 2021 - Mar 2026</span>
+                        <span class="tl-duracion"></span>
+                        <span class="tl-estado tl-estado-ok"><i class="bi bi-patch-check-fill"></i> Graduado</span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-mortarboard-fill"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Ingeniería Mecatrónica</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> Universidad Autónoma del Caribe · Barranquilla</p>
+                        <ul class="tl-logros">
+                            <li>Título de Ingeniero Mecatrónico (20 de marzo de 2026).</li>
+                            <li>Tesis meritoria: <em>“Desarrollo de módulos didácticos para la caracterización y calibración de sensores industriales”</em>.</li>
+                            <li>Artículo ProtoCalib publicado en OnBoard Knowledge Journal (2025).</li>
+                            <li>Miembro activo de IEEE · INNOVATEC-NM 2024 (México) <span class="cert-badge">Internacional</span></li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="proyectos/ProtoCalib.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> ProtoCalib</a>
+                            <a href="certificados/GraduadoIngMecatronico/Tesis Meritoria Ing.Mecatronico.pdf" target="_blank" rel="noopener" class="tl-chip tl-chip-doc"><i class="bi bi-award"></i> Reconocimiento tesis meritoria</a>
+                        </div>
+                        <details class="tl-carpeta">
+                            <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
+                            <div class="tl-galeria">
+                                <img src="assets/img/ProtoCalib/Figura3-PruebasEstudiantes.png" alt="Pruebas con estudiantes de Ingeniería Mecatrónica" loading="lazy">
+                                <img src="assets/img/ProtoCalib/Figura2-ModulosSensores.png" alt="Módulos didácticos de sensores" loading="lazy">
+                                <img src="assets/img/ProtoCalib/Figura1-VentanaPrincipal.png" alt="Aplicación de monitoreo y calibración" loading="lazy">
+                            </div>
+                        </details>
+                    </article>
+                </li>
 
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Ingeniería Mecatrónica <span class="text-muted fw-normal">— Universidad Autónoma del Caribe</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-range"></i> Feb 2021 – Jun 2025 (Previsto)</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Miembro Activo de IEEE</li>
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Cursos destacados: Automatización Industrial, IoT aplicado, Control de Sistemas Embebidos</li>
-                        <li><i class="bi bi-mortarboard-fill text-info"></i> Participación en INNOVATEC-NM 2024 (México) <span class="cert-badge">Internacional</span></li>
-                    </ul>
-                    <a href="certificados/innovatec_nm2024.pdf" download class="btn btn-sm btn-outline-info mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado INNOVATEC-NM
-                    </a>
-                </div>
-            </div>
+                <li class="tl-item" data-inicio="2025-08" data-fin="2025-08">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Ago 2025</span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-code-slash"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Bootcamp de Programación</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> Talento Tech</p>
+                        <ul class="tl-logros">
+                            <li>Bootcamp de Programación Full Stack, nivel básico.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="certificados/TalectoTech-Programación.pdf" download class="tl-chip tl-chip-doc"><i class="bi bi-download"></i> Certificado</a>
+                        </div>
+                    </article>
+                </li>
+
+                <li class="tl-item" data-inicio="2020-12" data-fin="2020-12">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Dic 2020</span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-braces"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Estructura y sintaxis de C++</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> SENA</p>
+                        <ul class="tl-logros">
+                            <li>Curso de programación en C++, nivel básico.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="certificados/Certificado de C++Lv1.pdf" download class="tl-chip tl-chip-doc"><i class="bi bi-download"></i> Certificado</a>
+                        </div>
+                    </article>
+                </li>
+
+                <li class="tl-item" data-inicio="2020-12" data-fin="2020-12">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">2020</span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-book"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Bachiller Académico</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> Colegio Sagrado Corazón de Jesús</p>
+                        <div class="tl-chips">
+                            <a href="certificados/Diploma de bachiller.pdf" download class="tl-chip tl-chip-doc"><i class="bi bi-download"></i> Diploma</a>
+                        </div>
+                    </article>
+                </li>
+            </ol>
             </div>
 
             <h5 class="mt-4 fw-bold">Formación Adicional</h5>
@@ -178,13 +221,13 @@
                     <ul class="list-unstyled">
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="bi bi-book text-primary"></i> Feria de la Ciencia ACS 2025 – Anglo Colombia School <span class="cert-badge">2025</span>
+                                <i class="bi bi-book text-primary"></i> Feria de la Ciencia ACS 2025 - Anglo Colombia School <span class="cert-badge">2025</span>
                             </div>
                             <a href="certificados/acs2025.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
                         </li>
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="bi bi-book text-primary"></i> Certificado de Pertenencia Indígena – Ministerio del Interior (2022)
+                                <i class="bi bi-book text-primary"></i> Certificado de Pertenencia Indígena - Ministerio del Interior (2022)
                             </div>
                             <a href="certificados/indigena.pdf" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
                         </li>
@@ -196,36 +239,156 @@
         <!-- Experiencia Laboral -->
         <section id="experiencia" class="mb-5">
             <h2 class="section-title">Experiencia Laboral</h2>
-            <div class="timeline-container">
-                <div class="timeline">
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Consultor en Ingeniería de Materiales <span class="text-muted fw-normal">— ONIRIS-ID</span> <span class="cert-badge">Certificado</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-event"></i> Diciembre 2024</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-arrow-right-circle text-primary"></i> Lideré desarrollo y validación de prototipo a escala de simulador mecánico de bote fluvial.</li>
-                        <li><i class="bi bi-arrow-right-circle text-primary"></i> Análisis de materiales, experimentación y redacción de informes técnicos.</li>
-                    </ul>
-                    <a href="certificados/oniris.pdf" download class="btn btn-sm btn-outline-primary mt-2">
-                        <i class="bi bi-download"></i> Descargar Certificado
-                    </a>
-                </div>
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Promotor de Prototipado y Miembro Activo IEEE <span class="text-muted fw-normal">— Universidad Autónoma del Caribe</span></h5>
-                    <p class="text-muted"><i class="bi bi-calendar-event"></i> 2022 – 2023</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-arrow-right-circle text-primary"></i> Incentivé a 150+ estudiantes de colegios a ingresar a carreras STEM mediante talleres prácticos.</li>
-                        <li><i class="bi bi-arrow-right-circle text-primary"></i> Participación en proyectos tecnológicos y promoción de la innovación estudiantil.</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <h5 class="fw-bold">Proyecto: Entorno Inteligente para SCORBOT</h5>
-                    <p class="text-muted"><i class="bi bi-calendar-event"></i> 2023</p>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-arrow-right-circle text-primary"></i> Integración de sensores IoT y programación en Python para optimizar interacción humano-robot.</li>
-                        <li><i class="bi bi-arrow-right-circle text-primary"></i> Validación mediante pruebas funcionales y documentación técnica.</li>
-                    </ul>
-                </div>
-            </div>
+            <!-- Línea de tiempo (Opción C): Resumen tipo calendario + tarjetas suaves.
+                 mismas reglas que en Educación (data-inicio / data-fin AAAA-MM o "actual"). -->
+            <div class="estilo-a estilo-c">
+                <div class="tl-resumen"></div>
+                <ol class="tl">
+                <li class="tl-item" data-inicio="2026-05" data-fin="2026-12">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">May 2026 - Dic 2026</span>
+                        <span class="tl-duracion"></span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-hexagon-half"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Joven Investigador</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> ONIRIS-ID · COOAPOMIEL</p>
+                        <ul class="tl-logros">
+                            <li>Proyecto “Sistema inteligente para el monitoreo, análisis y optimización de la producción de miel en los Montes de María” (SENAINNOVA, convocatoria 962-2024).</li>
+                            <li>Diseño del sistema, pruebas e instalación de sensores IoT en colmenas piloto y recolección de datos en campo.</li>
+                            <li>Organización de la base de datos, tableros de visualización y preparación de datasets para modelos de inteligencia artificial.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="proyectos/Monitoreo_Apicola_Montes_de_Maria.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> Sistema Inteligente de Monitoreo Apícola</a>
+                        </div>
+                        <details class="tl-carpeta">
+                            <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
+                            <div class="tl-galeria">
+                                <img src="assets/img/Cooapomiel/Colmenas-Sensores-Apiario.jpg" alt="Colmenas con sensores instalados en el apiario" loading="lazy">
+                                <img src="assets/img/Cooapomiel/Bascula-Colmena.jpg" alt="Colmena sobre báscula con celdas de carga" loading="lazy">
+                                <img src="assets/img/Cooapomiel/Prueba-Panel-Solar.jpg" alt="Panel solar de prueba" loading="lazy">
+                                <img src="assets/img/Cooapomiel/2026-11-22 at 10.13.09 PM.jpeg" alt="Colmena demostrativa con pantalla de monitoreo" loading="lazy">
+                                <img src="assets/img/Cooapomiel/2026-11-22 at 10.13.27 PM.jpeg" alt="Mapa LED de apiarios en los Montes de María" loading="lazy">
+                                <video src="assets/vid/Cooapomiel/2026-11-22 at 10.20.52 PM (1).mp4" class="tl-video" data-titulo="Video del apiario" muted autoplay loop playsinline preload="metadata"></video>
+                                <video src="assets/vid/Cooapomiel/2026-11-22 at 10.20.52 PM.mp4" class="tl-video" data-titulo="Video del apiario" muted autoplay loop playsinline preload="metadata"></video>
+                            </div>
+                        </details>
+                    </article>
+                </li>
+
+                <li class="tl-item" data-inicio="2026-04" data-fin="actual">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Abr 2026 - Actual</span>
+                        <span class="tl-duracion"></span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-life-preserver"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Agente Marítimo</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> LBH Colombia · Santa Marta</p>
+                        <ul class="tl-logros">
+                            <li>Apoyo a las operaciones portuarias y de agenciamiento marítimo de buques en el puerto de Santa Marta.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="proyectos/ETC_Calculator.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> ETC Calculator</a>
+                        </div>
+                         <details class="tl-carpeta">
+                            <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
+                            <div class="tl-galeria">
+                                <img src="assets/img/LBH/Buque-Cubiertas-Puerto.jpg" alt="Buque de carga con cubiertas abiertas en el puerto" loading="lazy">
+                                <img src="assets/img/LBH/Buque-Muelle-Cubierta.jpg" alt="Cubierta del buque junto al muelle" loading="lazy">
+                                <img src="assets/img/LBH/Puente-Mando-Radar.jpg" alt="Puente de mando con radar y sistema AIS" loading="lazy">
+                                <img src="assets/img/LBH/Equipo-Tripulacion.jpg" alt="Equipo de tripulación a bordo" loading="lazy">
+                                <img src="assets/img/LBH/Tolva-Carbon-Noche.jpg" alt="Tolva de carga de noche en el muelle" loading="lazy">
+                                <img src="assets/img/LBH/Cinta-Muelle-Noche.jpg" alt="Cinta transportadora del muelle de noche" loading="lazy">
+                                <img src="assets/img/LBH/Puente-Acceso-Muelle.jpg" alt="Puente de acceso al muelle al amanecer" loading="lazy">
+                                <video src="assets/vid/LBH/Muelle-Video.mp4" class="tl-video" data-titulo="Video del muelle" muted autoplay loop playsinline preload="metadata"></video>
+                            </div>
+                        </details>
+                    </article>
+                </li>
+
+                <li class="tl-item" data-inicio="2026-01" data-fin="2026-12">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Ene 2026 - Dic 2026</span>
+                        <span class="tl-duracion"></span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-cpu"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Senior Systems Engineer</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> Fundación Tecnalia Colombia · Armada de Colombia</p>
+                        <ul class="tl-logros">
+                            <li>Integración de sistemas mecatrónicos (hardware y software) en la Fase 2 del Prototipo de Simulador Inmersivo para Entrenamiento de Tripulaciones en Lanchas de Combate Fluvial.</li>
+                            <li>Montaje de la plataforma de movimiento, adaptación del bote y de los mímicos de consola de mando y torreta, y ampliación de la visualización inmersiva a 180°.</li>
+                            <li>Lógica de enclavamiento, desacople seguro de potencia y parada controlada; pruebas con personal de la Armada y transferencia de conocimiento al grupo CEDNAV.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="proyectos/M2.50_Instrumentacion_Optimizada.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> M2.50 Instrumentación Optimizada</a>
+                            <a href="proyectos/M2.50_DAQ-UI.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> M2.50 DAQ-UI</a>
+
+                        </div>
+                        <details class="tl-carpeta">
+                            <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
+                            <div class="tl-galeria">
+                                <img src="assets/img/Senior-Systems-Engineer/Equipo-Tecnalia-Armada-Simulador.jpeg" alt="Equipo de Investigadores Oniris ID y Armada de Colombia frente al simulador" loading="lazy">
+                                <img src="assets/img/Senior-Systems-Engineer/Pantalla-Inmersiva-180-Armada.jpeg" alt="Pantalla curva de inmersión 180° y personal de la Armada de Colombia" loading="lazy">
+                                <img src="assets/img/Senior-Systems-Engineer/Bote-Simulador-Plataforma-Movimiento.jpeg" alt="Bote de combate fluvial en plataforma de movimiento con torreta M2" loading="lazy">
+                                <img src="assets/img/Senior-Systems-Engineer/Reunion-Tecnica-Fase2-TRL6.jpeg" alt="Reunión técnica de avance Fase 2 del Prototipo de Simulador Inmersivo TRL 6" loading="lazy">
+                                <img src="assets/img/Senior-Systems-Engineer/Presentacion-Plataforma-Movimiento.jpeg" alt="Presentación técnica de la plataforma de movimiento con oficiales de la Armada" loading="lazy">
+                                <img src="assets/img/Senior-Systems-Engineer/CAD-Visualizacion-Inmersiva-Tripulacion.jpeg" alt="Modelo CAD 3D de visualización inmersiva y campo visual de la tripulación" loading="lazy">
+                                <img src="assets/img/Senior-Systems-Engineer/Esquema-Visualizacion-TopView-Simulador.jpeg" alt="Esquema superior de ángulos de visión y distribución del simulador" loading="lazy">
+                                <img src="assets/img/M250-Informe/Montaje-Arma.jpg" alt="Montaje en el arma M2.50" loading="lazy">
+                                <video src="assets/vid/Senior-Systems-Engineer/Simulacion-CAD-Movimiento-Bote.mp4" class="tl-video" data-titulo="Simulación CAD de movimiento y cabeceo del bote fluvial" muted autoplay loop playsinline preload="metadata"></video>
+                                <video src="assets/vid/Senior-Systems-Engineer/Lanchas-Combate-Fluvial-Operacion.mp4" class="tl-video" data-titulo="Lanchas de combate fluvial de la Armada de Colombia en operación" muted autoplay loop playsinline preload="metadata"></video>
+                                <video src="assets/vid/Senior-Systems-Engineer/Operacion-Torreta-M250-Bote-Real.mp4" class="tl-video" data-titulo="Operación de ametralladora M2 .50 y torreta en lancha ARC-1025" muted autoplay loop playsinline preload="metadata"></video>
+                            </div>
+                        </details>
+                    </article>
+                </li>
+
+                <li class="tl-item" data-inicio="2024-12" data-fin="2025-01">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Dic 2024 - Ene 2025</span>
+                        <span class="tl-duracion"></span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-gear-wide-connected"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Consultor en Ingeniería de Materiales</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> ONIRIS-ID · Armada de Colombia</p>
+                        <ul class="tl-logros">
+                            <li>Lideré el desarrollo y la validación del prototipo a escala del simulador mecánico de bote fluvial.</li>
+                            <li>Análisis de materiales, experimentación y redacción de informes técnicos.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="proyectos/Simulador_Mecánico_Bote_fluvial.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> Simulador de Bote Fluvial</a>
+                            <a href="proyectos/Mecanismos_de_Encoders_de_M2.50.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> Mecanismos de Encoders M2.50</a>
+                            <a href="proyectos/MOMO-BoatController-RPi4.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> MOMO-BoatController-RPi4</a>
+                        </div>
+                        <details class="tl-carpeta">
+                            <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
+                            <div class="tl-galeria">
+                                <img src="assets/img/Consultor-Materiales/Pruebas-Simulador-Oniris-Armada.jpeg" alt="Pruebas del simulador inmersivo con personal de la Armada y Oniris ID" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Consola-Mando-Timon-Torreta.jpeg" alt="Consola de mando, timón y montaje de torreta en el bote piloto" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Operacion-Simulador-Bote-Armada.jpeg" alt="Operación del simulador de bote en escenario fluvial virtual" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Calibracion-Torreta-Alineacion-Pantalla.jpeg" alt="Calibración y alineación de la torreta frente a la pantalla de visualización" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Prueba-Navegacion-Oficiales-Armada.jpeg" alt="Prueba de navegación y tiro del simulador con oficiales navales" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Ajuste-Mecanico-Arma-Oficial-Naval.jpeg" alt="Ajuste mecánico e instrumentación del arma con oficial naval" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Evaluacion-Puesto-Artillero-Simulador.jpeg" alt="Evaluación y registro de la posición de tiro del artillero" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Montaje-Ametralladora-M250-Pedestal.jpeg" alt="Montaje de réplica M2 .50 sobre el pedestal con cableado de sensores" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Consola-Mando-M250-Taller.jpeg" alt="Consola de mando y pedestal con arma en plataforma del taller" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Mecanismo-Enclavamiento-Seguro.jpeg" alt="Mecanismo mecánico de enclavamiento y desacople de potencia" loading="lazy">
+                                <img src="assets/img/Consultor-Materiales/Render-Simulador-Bote-Pantalla-Curva.jpeg" alt="Render 3D del simulador con pantalla curva, tripulación y puesto de control" loading="lazy">
+                                <img src="assets/img/SimuladorBote/prototipoV2-Ensamble.jpg" alt="Prototipo V2: ensamble" loading="lazy">
+                                <img src="assets/img/SimuladorBote/EnsambleEnPresentacion.jpg" alt="Ensamble en presentación" loading="lazy">
+                                <img src="assets/img/SimuladorBote/MaquetaOriginal-VistaFrontal.jpg" alt="Maqueta original: vista frontal" loading="lazy">
+                                <video src="assets/vid/Consultor-Materiales/Prueba-Simulador-Escala-M250.mp4" class="tl-video" data-titulo="Prueba funcional del prototipo a escala con plataforma móvil y software" muted autoplay loop playsinline preload="metadata"></video>
+                                <video src="assets/vid/Consultor-Materiales/Prueba-Retroceso-Neumatico-M250.mp4" class="tl-video" data-titulo="Prueba de disparo y retroceso neumático en réplica instrumentada M2 .50" muted autoplay loop playsinline preload="metadata"></video>
+                                <video src="assets/vid/Consultor-Materiales/Maqueta-Carton-Escala-Real.mp4" class="tl-video" data-titulo="Verificación de dimensiones y ergonomía en maqueta a escala real" muted autoplay loop playsinline preload="metadata"></video>
+                                <video src="assets/vid/Consultor-Materiales/Prueba-Ergonomia-Maqueta-Bote.mp4" class="tl-video" data-titulo="Prueba de ergonomía y habitabilidad en maqueta de cartón del bote" muted autoplay loop playsinline preload="metadata"></video>
+                            </div>
+                        </details>
+                    </article>
+                </li>
+            </ol>
             </div>
         </section>
 
@@ -255,7 +418,7 @@
                         </li>
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="bi bi-award text-success"></i> Bootcamp Programación Nivel Básico – Talento Tech (159h, Agosto 2025) <span class="cert-badge">Nuevo</span>
+                                <i class="bi bi-award text-success"></i> Bootcamp Programación Nivel Básico - Talento Tech (159h, Agosto 2025) <span class="cert-badge">Nuevo</span>
                             </div>
                             <a href="certificados/TalectoTech-Programación.pdf" download class="btn btn-sm btn-outline-success"><i class="bi bi-download"></i></a>
                         </li>
@@ -265,19 +428,19 @@
                     <ul class="list-unstyled">
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="bi bi-award text-success"></i> Salvamento Acuático – GLEM (Febrero 2024)
+                                <i class="bi bi-award text-success"></i> Salvamento Acuático - GLEM (Febrero 2024)
                             </div>
                             <a href="certificados/salvavidas.pdf" download class="btn btn-sm btn-outline-success"><i class="bi bi-download"></i></a>
                         </li>
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="bi bi-award text-success"></i> Workshop: Transformación Digital y Eficiencia – UNAL (2023)
+                                <i class="bi bi-award text-success"></i> Workshop: Transformación Digital y Eficiencia - UNAL (2023)
                             </div>
                             <a href="certificados/unal_workshop.pdf" download class="btn btn-sm btn-outline-success"><i class="bi bi-download"></i></a>
                         </li>
                         <li class="d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="bi bi-award text-success"></i> Asistente XXII CIITI 2024 – UAI Interamericana (Septiembre 2024) <span class="cert-badge">Internacional</span>
+                                <i class="bi bi-award text-success"></i> Asistente XXII CIITI 2024 - UAI Interamericana (Septiembre 2024) <span class="cert-badge">Internacional</span>
                             </div>
                             <a href="certificados/ciiti2024.pdf" download class="btn btn-sm btn-outline-success"><i class="bi bi-download"></i></a>
                         </li>
@@ -297,7 +460,7 @@
                 <div class="col-md-6">
                     <div class="p-3 border rounded bg-light h-100">
                         <strong>Pablo Daniel Bonaveri</strong><br>
-                        <small class="text-muted">Vicerrector Académico – Universidad Autónoma del Caribe</small><br>
+                        <small class="text-muted">Vicerrector Académico - Universidad Autónoma del Caribe</small><br>
                         <i class="bi bi-telephone text-primary"></i> +57 315 789 815
                     </div>
                 </div>
@@ -311,7 +474,7 @@
                 <div class="col-md-6">
                     <div class="p-3 border rounded bg-light h-100">
                         <strong>Carlos Mario Soto</strong><br>
-                        <small class="text-muted">Ingeniero Mecánico – Director de Oniris ID</small><br>
+                        <small class="text-muted">Ingeniero Mecánico - Director de Oniris ID</small><br>
                         <i class="bi bi-telephone text-primary"></i> +57 300 863 880
                     </div>
                 </div>
@@ -326,6 +489,24 @@
         </section>
 
     </main>
+
+    <!-- Visor de imágenes de la línea de tiempo -->
+    <div class="modal fade" id="tlVisor" tabindex="-1" aria-labelledby="tlVisorTitulo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h6 class="modal-title" id="tlVisorTitulo"></h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="tl-visor-nav tl-visor-prev" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
+                    <img id="tlVisorImg" src="" alt="">
+                    <video id="tlVisorVid" controls playsinline class="d-none"></video>
+                    <button type="button" class="tl-visor-nav tl-visor-next" aria-label="Siguiente"><i class="bi bi-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="text-center">
