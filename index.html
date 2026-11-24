@@ -46,6 +46,7 @@
                 <a href="https://www.linkedin.com/in/yamith-romero" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none disabled" aria-disabled="true" tabindex="-1" style="pointer-events: none; opacity: 0.5; filter: grayscale(100%);"><i class="bi bi-linkedin"></i> LinkedIn</a>
                 <a href="https://github.com/YamithR" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-github"></i> GitHub</a>
                 <a href="https://orcid.org/0000-0001-9002-533X" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-person-badge"></i> ORCID</a>
+                <button type="button" class="badge bg-dark text-white contact-icon text-decoration-none border-0" data-bs-toggle="modal" data-bs-target="#cvAtsModal"><i class="bi bi-file-earmark-pdf"></i> C.V. ATS Format</button>
                 
             </div>
             <div class="mt-4">
@@ -111,18 +112,60 @@
         <!-- Educación -->
         <section id="educacion" class="mb-5">
             <h2 class="section-title">Educación</h2>
-            <!-- Línea de tiempo (Opción C): Resumen tipo calendario + tarjetas suaves.
+            <!-- Línea de tiempo: Resumen tipo calendario + tarjetas.
                  data-inicio / data-fin en formato AAAA-MM (data-fin="actual" si sigue en curso).
                  La duración, la barra de progreso y el resumen superior se calculan solas (js/main.js).
                  Para añadir imágenes, incluye un bloque <details class="tl-carpeta"> como en los ejemplos . -->
             <div class="estilo-a estilo-c is-collapsed">
                 <div class="tl-resumen"></div>
                 <ol class="tl">
+
+                <li class="tl-item" data-inicio="2026-02" data-fin="2026-04">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Feb 2026 - Abr 2026</span>
+                        <span class="tl-duracion"></span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-book-half"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Programación en C con FreeRTOS para STM32 y ESP32</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> INTECX Academy</p>
+                        <ul class="tl-logros">
+                            <li> Comprender la arquitectura y funcionamiento de FreeRTOS.</li>
+                            <li>Desarrollar firmware en lenguaje C orientado a multitarea.</li>
+                            <li>Implementar tareas, colas y eventos en STM32 y ESP32.</li>
+                            <li>Integrar periféricos UART, I2C y SPI en entornos FreeRTOS.</li>
+                            <li>Diseñar firmware estructurado, escalable y mantenible.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="certificados/Programacion en C con FreeRTOS para STM32 y ESP32.pdf" download class="tl-chip tl-chip-doc"><i class="bi bi-download"></i> Certificado</a>
+                        </div>
+                    </article>
+                </li>
+                <li class="tl-item" data-inicio="2026-08" data-fin="2026-10">
+                    <div class="tl-periodo">
+                        <span class="tl-fechas">Ago 2026 - Oct 2026</span>
+                        <span class="tl-duracion"></span>
+                    </div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-book-half"></i></div>
+                    <article class="tl-card">
+                        <h5 class="tl-cargo">Diseño Electrónico de PCB para la Industria con KiCad</h5>
+                        <p class="tl-org"><i class="bi bi-building"></i> INTECX Academy</p>
+                        <ul class="tl-logros">
+                            <li>Dominio profesional del entorno de KiCad.</li>
+                            <li>Diseño y gestión de librerías: símbolos, huellas y 3D.</li>
+                            <li>Selección de componentes bajo criterios estándares.</li>
+                            <li>Diseño industrial de todas las etapas de un PLC.</li>
+                            <li>Diseño de PCB aplicando normas: IPC-2221, IPC-7351.</li>
+                        </ul>
+                        <div class="tl-chips">
+                            <a href="certificados/Diseño Electrónico de PCB para la Industria con KiCad.pdf" download class="tl-chip tl-chip-doc"><i class="bi bi-download"></i> Certificado</a>
+                        </div>
+                    </article>
                 <li class="tl-item" data-inicio="2021-02" data-fin="2026-03">
                     <div class="tl-periodo">
                         <span class="tl-fechas">Feb 2021 - Mar 2026</span>
                         <span class="tl-duracion"></span>
-                        <span class="tl-estado tl-estado-ok"><i class="bi bi-patch-check-fill"></i> Graduado</span>
+                        <span class="tl-estado tl-estado-ok"><i class="bi bi-patch-check-fill"></i> Pregrado</span>
                     </div>
                     <div class="tl-marca" aria-hidden="true"><i class="bi bi-mortarboard-fill"></i></div>
                     <article class="tl-card">
@@ -132,26 +175,42 @@
                             <li>Título de Ingeniero Mecatrónico (20 de marzo de 2026).</li>
                             <li>Tesis meritoria: <em>“Desarrollo de módulos didácticos para la caracterización y calibración de sensores industriales”</em>.</li>
                             <li>Artículo ProtoCalib publicado en OnBoard Knowledge Journal (2025).</li>
-                            <li>Miembro activo de IEEE · INNOVATEC-NM 2024 (México) <span class="cert-badge">Internacional</span></li>
+                            <li>Participante INNOVATEC-NM 2024 (México)</li>
                         </ul>
                         <div class="tl-chips">
+                            <a href="proyectos/SensoraCore.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> SensoraCore</a>
                             <a href="proyectos/ProtoCalib.html" class="tl-chip"><i class="bi bi-box-arrow-up-right"></i> ProtoCalib</a>
                             <a href="certificados/GraduadoIngMecatronico/Tesis Meritoria Ing.Mecatronico.pdf" target="_blank" rel="noopener" class="tl-chip tl-chip-doc"><i class="bi bi-award"></i> Reconocimiento tesis meritoria</a>
                         </div>
                         <details class="tl-carpeta">
                             <summary><i class="bi bi-folder2 tl-ico-cerrada"></i><i class="bi bi-folder2-open tl-ico-abierta"></i> Recuerdos <span class="tl-cuenta"></span></summary>
                             <div class="tl-galeria">
-                                <img src="assets/img/ProtoCalib/Figura3-PruebasEstudiantes.png" alt="Pruebas con estudiantes de Ingeniería Mecatrónica" loading="lazy">
-                                <img src="assets/img/ProtoCalib/Figura2-ModulosSensores.png" alt="Módulos didácticos de sensores" loading="lazy">
-                                <img src="assets/img/ProtoCalib/Figura1-VentanaPrincipal.png" alt="Aplicación de monitoreo y calibración" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/ft1.jpeg" alt="Foto de graduación 1" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/ft2.jpeg" alt="Foto de graduación 2" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/ft3.jpeg" alt="Foto de graduación 3" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/ft4.jpeg" alt="Foto de graduación 4" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/ft5.jpeg" alt="Foto de graduación 5" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/ft6.jpeg" alt="Foto de graduación 6" loading="lazy">
+                                <video src="assets/vid/GraduacionPregrado/vd1.mp4" class="tl-video" data-titulo="Video de graduación" muted autoplay loop playsinline preload="metadata"></video>
+                                <img src="assets/img/GraduacionPregrado/MX/mx1.jpeg" alt="Foto en México" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/MX/mx2.jpeg" alt="Foto en México" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/MX/mx3.jpeg" alt="Foto en México" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/MX/mx4.jpeg" alt="Foto en México" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/MX/mx5.jpeg" alt="Foto en México" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/MX/mx6.jpeg" alt="Foto en México" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/Natacion/Natacion.jpeg" alt="Foto de natación" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/Natacion/Natacion (1).jpeg" alt="Foto de natación 2" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/Natacion/Natacion (2).jpeg" alt="Foto de natación 3" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/Natacion/Natacion (3).jpeg" alt="Foto de natación 4" loading="lazy">
+                                <img src="assets/img/GraduacionPregrado/Natacion/Natacion (4).jpeg" alt="Foto de natación 5" loading="lazy">
                             </div>
                         </details>
                     </article>
                 </li>
 
-                <li class="tl-item" data-inicio="2025-08" data-fin="2025-08">
+                <li class="tl-item" data-inicio="2025-02" data-fin="2025-08">
                     <div class="tl-periodo">
-                        <span class="tl-fechas">Ago 2025</span>
+                        <span class="tl-fechas">Feb - Ago 2025</span>
                     </div>
                     <div class="tl-marca" aria-hidden="true"><i class="bi bi-code-slash"></i></div>
                     <article class="tl-card">
@@ -166,9 +225,10 @@
                     </article>
                 </li>
 
-                <li class="tl-item" data-inicio="2020-12" data-fin="2020-12">
+                <li class="tl-item" data-inicio="2020-09" data-fin="2020-12">
                     <div class="tl-periodo">
-                        <span class="tl-fechas">Dic 2020</span>
+                        <span class="tl-fechas">Sep - Dic 2020</span>
+                        
                     </div>
                     <div class="tl-marca" aria-hidden="true"><i class="bi bi-braces"></i></div>
                     <article class="tl-card">
@@ -183,11 +243,14 @@
                     </article>
                 </li>
 
-                <li class="tl-item" data-inicio="2020-12" data-fin="2020-12">
+                <li class="tl-item" data-inicio="2015-02" data-fin="2020-12">
                     <div class="tl-periodo">
-                        <span class="tl-fechas">2020</span>
+                        <span class="tl-fechas">2015 - 2020</span>
+                        <span class="tl-duracion"></span>
+                        <span class="tl-estado tl-estado-ok"><i class="bi bi-patch-check-fill"></i> Bachiller</span>
                     </div>
-                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-book"></i></div>
+                    <div class="tl-marca" aria-hidden="true"><i class="bi bi-book"></i>
+                    </div>
                     <article class="tl-card">
                         <h5 class="tl-cargo">Bachiller Académico</h5>
                         <p class="tl-org"><i class="bi bi-building"></i> Colegio Sagrado Corazón de Jesús</p>
@@ -508,6 +571,24 @@
         </div>
     </div>
 
+    <!-- Visor del C.V. ATS Format (PDF) -->
+    <div class="modal fade" id="cvAtsModal" tabindex="-1" aria-labelledby="cvAtsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cvAtsModalLabel"><i class="bi bi-file-earmark-pdf"></i> C.V. ATS Format</h5>
+                    <a href="assets/docs/CV_ATS/CV-YamithJRA2026.pdf" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm ms-auto me-2">
+                        <i class="bi bi-box-arrow-up-right"></i> Abrir en otra pestaña
+                    </a>
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe id="cvAtsFrame" title="C.V. ATS Format - Yamith Romero" data-src="assets/docs/CV_ATS/CV-YamithJRA2026.pdf" style="width: 100%; height: 80vh; border: 0;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="text-center">
         <div class="container">
@@ -525,7 +606,13 @@
     <script src="js/proyectos-data.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
-    
+    <script>
+        // C.V. ATS: cargar el PDF solo cuando se abra el modal
+        document.getElementById('cvAtsModal').addEventListener('show.bs.modal', function () {
+            var frame = document.getElementById('cvAtsFrame');
+            if (!frame.getAttribute('src')) frame.setAttribute('src', frame.dataset.src);
+        });
+    </script>
 
 
 </body>
