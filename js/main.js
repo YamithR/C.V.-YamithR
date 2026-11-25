@@ -55,55 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     
-    // Habilidades técnicas
-    // Para añadir o quitar una competencia, edita esta lista
-    const skills = [
-        'Python', 'MicroPython', 'C++', 'Rust', 'JavaScript', 'TypeScript',
-        'React', 'Tauri', 'Electron', 'PySide6 / Qt', 'SQLite', 'HTML/CSS',
-        'ESP32 / ESP32-S3', 'Arduino', 'Raspberry Pi', 'Ladder (PLC)',
-        'SolidWorks', 'Onshape', 'AutoCAD', 'Impresión 3D', 'Klipper / OrcaSlicer',
-        'MATLAB/Simulink', 'Proteus', 'Fritzing', 'Tinkercad', 'Linux',
-        'Git/GitHub', 'Inkscape', 'Microsoft Office'
-    ];
-
-    // Competencias en un solo renglón: si no caben, se deslizan en bucle continuo
-    const container = document.querySelector('.skills-container');
-    if (container) {
-        container.classList.add('skills-marquee');
-        const track = document.createElement('div');
-        track.className = 'skills-track';
-        const crearGrupo = (oculto) => {
-            const grupo = document.createElement('div');
-            grupo.className = 'skills-group';
-            if (oculto) grupo.setAttribute('aria-hidden', 'true');
-            skills.forEach(skill => {
-                const badge = document.createElement('span');
-                badge.className = 'skill-badge';
-                badge.textContent = skill;
-                grupo.appendChild(badge);
-            });
-            return grupo;
-        };
-        const grupoPrincipal = crearGrupo(false);
-        track.appendChild(grupoPrincipal);
-        container.appendChild(track);
-
-        const actualizarMarquesina = () => {
-            const copia = track.querySelector('.skills-group[aria-hidden]');
-            const desborda = grupoPrincipal.scrollWidth > container.clientWidth;
-            if (desborda && !copia) {
-                track.appendChild(crearGrupo(true));
-            } else if (!desborda && copia) {
-                copia.remove();
-            }
-            container.classList.toggle('is-scrolling', desborda);
-            // Velocidad constante (~40 px/s) sin importar cuántas competencias haya
-            track.style.setProperty('--skills-duration', (grupoPrincipal.scrollWidth / 40) + 's');
-        };
-        actualizarMarquesina();
-        window.addEventListener('resize', actualizarMarquesina);
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(actualizarMarquesina);
-    }
 
     // SLIDER DE PROYECTOS
     class ProjectSlider {
@@ -129,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             
             // Auto-play
-            this.autoPlayDelay = 5000;
+            this.autoPlayDelay = 2000; // 2 segundos
             this.startAutoPlay = () => {
                 this.stopAutoPlay();
                 this.autoPlayInterval = setInterval(() => this.nextSlide(), this.autoPlayDelay);
@@ -295,8 +246,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ===== Línea de tiempo: duración, estado "Actual", barra de avance y carpetas de imágenes =====
     (function iniciarLineaDeTiempo() {
-        const hoy = new Date();
-        const mesActual = hoy.getFullYear() * 12 + hoy.getMonth(); // meses absolutos (0 = enero)
+        // Para probar otra fecha sin cambiar el reloj del PC: index.html?fecha=2027-01
+        const fechaPrueba = /^(\d{4})-(\d{2})$/.exec(new URLSearchParams(window.location.search).get('fecha') || '');
+        const mesDeHoy = () => { const h = new Date(); return h.getFullYear() * 12 + h.getMonth(); };
+        const mesActual = fechaPrueba ? Number(fechaPrueba[1]) * 12 + Number(fechaPrueba[2]) - 1 : mesDeHoy(); // meses absolutos (0 = enero)
+
+        // Si la página queda abierta y cambia el mes (o la fecha del PC), se recarga sola al volver a ella
+        if (!fechaPrueba) {
+            const revisarMes = () => { if (mesDeHoy() !== mesActual) window.location.reload(); };
+            window.addEventListener('focus', revisarMes);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) revisarMes(); });
+            setInterval(revisarMes, 60 * 1000);
+        }
 
         const aMeses = (valor) => {
             const m = /^(\d{4})-(\d{2})$/.exec(valor || '');
