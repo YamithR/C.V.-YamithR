@@ -24,18 +24,26 @@
     <!-- Header / Hero -->
     <header class="hero">
         <div class="container position-relative">
-        <div class="profile-image-container mb-4">
-                <div class="flip-container">
-                    <div class="flipper">
-                        <div class="front">
-                            <img src="assets/Firma/Firma Oscuro.PNG" alt="Yamith Romero" class="profile-image dark-theme-image">
-                            <img src="assets/Firma/Firma Claro.png" alt="Yamith Romero" class="profile-image light-theme-image">
+            <!-- Networking: el botón "Networking" despliega una lista radial de contactos desde la foto.
+                 Los contactos se definen en js/networking.js (lista "contactosRed"). -->
+            <div class="net-zona mb-4" id="netZona">
+                <div class="net-escena">
+                    <div class="profile-image-container">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <img src="assets/Firma/Firma Oscuro.PNG" alt="Yamith Romero" class="profile-image dark-theme-image">
+                                    <img src="assets/Firma/Firma Claro.png" alt="Yamith Romero" class="profile-image light-theme-image">
+                                </div>
+                                <div class="back">
+                                    <img src="assets/Profile/img1.jpg" alt="Yamith Romero Alternate" class="profile-image dark-theme-image">
+                                    <img src="assets/Profile/img2.jpg" alt="Yamith Romero Alternate" class="profile-image light-theme-image">
+                                </div>
+                            </div>
                         </div>
-                        <div class="back">
-                            <img src="assets/Profile/img1.jpg" alt="Yamith Romero Alternate" class="profile-image dark-theme-image">
-                            <img src="assets/Profile/img2.jpg" alt="Yamith Romero Alternate" class="profile-image light-theme-image">
-                        </div>
+                        <img class="net-foto-juntos" alt="" aria-hidden="true">
                     </div>
+                    <ul class="net-contactos" id="netContactos" aria-labelledby="netBoton"></ul>
                 </div>
             </div>
             <h1>Yamith Juseth Romero Aldana</h1>
@@ -47,6 +55,7 @@
                 <a href="https://github.com/YamithR" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-github"></i> GitHub</a>
                 <a href="https://orcid.org/0000-0001-9002-533X" target="_blank" class="badge bg-dark text-white contact-icon text-decoration-none"><i class="bi bi-person-badge"></i> ORCID</a>
                 <button type="button" class="badge bg-dark text-white contact-icon text-decoration-none border-0" data-bs-toggle="modal" data-bs-target="#cvAtsModal"><i class="bi bi-file-earmark-pdf"></i> C.V.</button>
+                <button type="button" id="netBoton" class="badge bg-dark text-white contact-icon text-decoration-none border-0" aria-expanded="false" aria-controls="netContactos"><i class="bi bi-people"></i> Networking</button>
                 
             </div>
             <div class="mt-4">
@@ -775,6 +784,7 @@
     <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
     <script src="js/secciones.js"></script>
+    <script src="js/networking.js"></script>
     <script>
         // C.V. ATS: cargar el PDF solo cuando se abra el modal
         document.getElementById('cvAtsModal').addEventListener('show.bs.modal', function () {

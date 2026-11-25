@@ -70,3 +70,218 @@
 [data-theme="dark"] .light-theme-image {
     opacity: 0;
 }
+
+/* =====================================================================
+   NETWORKING: lista radial de contactos que sale de la foto de perfil
+   ===================================================================== */
+.net-zona {
+    --net-mover: -170px;   /* cuánto se corre la foto a la izquierda */
+    --net-radio: 172px;    /* distancia del centro de la foto a cada contacto */
+    --net-tam: 56px;       /* tamaño de la foto de cada contacto */
+    --net-extra: 70px;     /* espacio que se abre bajo la foto mientras la lista está visible */
+    position: relative;
+    z-index: 2;
+    transition: margin-bottom 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.net-zona.is-abierta { margin-bottom: calc(1.5rem + var(--net-extra)) !important; }
+
+.net-escena {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.net-zona.is-abierta .net-escena { transform: translateX(var(--net-mover)); }
+
+/* La foto queda por encima de las líneas y de los contactos (salen desde detrás de ella) */
+.net-escena .profile-image-container {
+    z-index: 3;
+    transition: box-shadow 0.35s ease;
+}
+
+/* Foto compartida que reemplaza la mía al pasar sobre un contacto */
+.net-foto-juntos {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 3;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 0.35s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+.net-zona.is-juntos .net-foto-juntos { opacity: 1; transform: scale(1); }
+.net-zona.is-juntos .profile-image-container {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 8px 26px rgba(0, 0, 0, 0.3);
+}
+
+/* Lista radial: cada contacto se ancla en un punto del arco a la derecha de la foto */
+.net-contactos {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+    z-index: 2;
+}
+.net-nodo {
+    --net-color: #475569;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: rotate(var(--net-ang, 0deg)) translateX(calc(var(--net-radio) * 0.55)) rotate(calc(var(--net-ang, 0deg) * -1));
+    transition: transform 0.35s ease, opacity 0.25s ease, visibility 0s linear 0.35s;
+}
+.net-zona.is-abierta .net-nodo {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: rotate(var(--net-ang, 0deg)) translateX(var(--net-radio)) rotate(calc(var(--net-ang, 0deg) * -1));
+    transition:
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(0.12s + var(--net-i, 0) * 0.07s),
+        opacity 0.4s ease calc(0.12s + var(--net-i, 0) * 0.07s),
+        visibility 0s;
+}
+
+/* Línea fina que une la foto con cada contacto */
+.net-radio {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: calc(var(--net-radio) - 110px);
+    height: 1px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.08));
+    transform-origin: 100% 50%;
+    transform: rotate(var(--net-ang, 0deg));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+.net-zona.is-abierta .net-radio {
+    opacity: 1;
+    transition: opacity 0.5s ease calc(0.45s + var(--net-i, 0) * 0.07s);
+}
+
+/* Cada contacto: foto + texto. El botón se ancla para que el centro de la foto caiga en el arco */
+.net-item {
+    position: absolute;
+    left: calc(var(--net-tam) / -2);
+    top: calc(var(--net-tam) / -2);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    font: inherit;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+}
+.net-item:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.9); outline-offset: 6px; border-radius: 999px 10px 10px 999px; }
+
+.net-avatar {
+    flex: none;
+    width: var(--net-tam);
+    height: var(--net-tam);
+    border-radius: 50%;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: var(--net-color);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.net-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.net-texto { display: grid; line-height: 1.25; }
+.net-ambito {
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+.net-nombre { font-size: 0.95rem; font-weight: 600; }
+.net-detalle { font-size: 0.8rem; opacity: 0.85; }
+.net-detalle .net-sep { opacity: 0.55; margin: 0 0.35em; }
+
+/* Al enfocar un contacto, el resto se atenúa */
+.net-zona.has-foco .net-nodo:not(.is-activo) .net-item { opacity: 0.4; }
+.net-zona.has-foco .net-nodo:not(.is-activo) .net-radio { opacity: 0.25; }
+.net-nodo.is-activo .net-avatar {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.28), 0 6px 16px rgba(0, 0, 0, 0.28);
+}
+.net-nodo.is-activo .net-nombre {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+/* Botón Networking activo */
+.contact-icon.is-activo {
+    background: #fff !important;
+    color: #1f2937 !important;
+}
+
+/* Móvil: la foto no se mueve y los contactos aparecen como lista debajo */
+@media (max-width: 767.98px) {
+    .net-zona { --net-mover: 0px; --net-tam: 46px; }
+    .net-zona.is-abierta { margin-bottom: 1.5rem !important; }
+    .net-escena { width: auto; height: auto; }
+    .net-contactos {
+        position: static;
+        display: none;
+        width: min(100%, 340px);
+        margin: 1.1rem auto 0;
+        pointer-events: auto;
+    }
+    .net-zona.is-abierta .net-contactos { display: grid; gap: 0.45rem; }
+    .net-nodo,
+    .net-zona.is-abierta .net-nodo {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+    }
+    .net-zona.is-abierta .net-nodo { animation: netFila 0.4s ease both; animation-delay: calc(var(--net-i, 0) * 0.06s); }
+    .net-radio { display: none; }
+    .net-item {
+        position: static;
+        width: 100%;
+        padding: 0.45rem 0.7rem 0.45rem 0.45rem;
+        border-radius: 999px 14px 14px 999px;
+        background: rgba(255, 255, 255, 0.08);
+        white-space: normal;
+    }
+    .net-nodo.is-activo .net-item { background: rgba(255, 255, 255, 0.18); }
+}
+@keyframes netFila {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .net-zona, .net-escena, .net-nodo, .net-zona.is-abierta .net-nodo, .net-radio, .net-zona.is-abierta .net-radio, .net-foto-juntos {
+        transition-duration: 0.01s !important;
+        transition-delay: 0s !important;
+    }
+    .net-zona.is-abierta .net-nodo { animation: none !important; }
+}
