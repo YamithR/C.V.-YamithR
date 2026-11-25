@@ -28,7 +28,9 @@
                  Los contactos se definen en js/networking.js (lista "contactosRed"). -->
             <div class="net-zona mb-4" id="netZona">
                 <div class="net-escena">
-                    <div class="profile-image-container">
+                    <!-- Foto de perfil: la firma se dibuja y luego gira hacia la foto (js/main.js).
+                         Es un botón: clic, Enter o Espacio la voltean. -->
+                    <div class="profile-image-container perfil-intro" role="button" tabindex="0" aria-pressed="false" aria-label="Girar entre mi firma y mi foto">
                         <div class="flip-container">
                             <div class="flipper">
                                 <div class="front">
@@ -42,6 +44,30 @@
                             </div>
                         </div>
                         <img class="net-foto-juntos" alt="" aria-hidden="true">
+                        <span class="perfil-pista" aria-hidden="true"><i class="bi bi-arrow-repeat"></i> Girar</span>
+                    </div>
+                    <!-- Adornos de la foto: cada carga elige una variante al azar (js/main.js) y solo se ve el suyo.
+                         Van fuera del círculo para que no se recorten. -->
+                    <svg class="perfil-anillo" viewBox="0 0 228 228" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="perfilGradAnillo" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#ffffff"/>
+                                <stop offset="0.6" stop-color="#bae6fd"/>
+                                <stop offset="1" stop-color="#ffffff" stop-opacity="0.5"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="114" cy="114" r="112" pathLength="100"/>
+                    </svg>
+                    <span class="perfil-onda" aria-hidden="true"></span>
+                    <div class="perfil-orbita" aria-hidden="true">
+                        <span class="icono" style="--a:0deg;--i:0"><span class="icono-giro"><span class="icono-pop" data-nombre="Robótica"><i class="bi bi-robot"></i></span></span></span>
+                        <span class="icono" style="--a:45deg;--i:1"><span class="icono-giro"><span class="icono-pop" data-nombre="Impresión 3D"><i class="bi bi-printer"></i></span></span></span>
+                        <span class="icono" style="--a:90deg;--i:2"><span class="icono-giro"><span class="icono-pop" data-nombre="IoT"><i class="bi bi-wifi"></i></span></span></span>
+                        <span class="icono" style="--a:135deg;--i:3"><span class="icono-giro"><span class="icono-pop" data-nombre="Automatización"><i class="bi bi-gear-wide-connected"></i></span></span></span>
+                        <span class="icono" style="--a:180deg;--i:4"><span class="icono-giro"><span class="icono-pop" data-nombre="Electrónica"><i class="bi bi-cpu"></i></span></span></span>
+                        <span class="icono" style="--a:225deg;--i:5"><span class="icono-giro"><span class="icono-pop" data-nombre="Mecánica"><i class="bi bi-tools"></i></span></span></span>
+                        <span class="icono" style="--a:270deg;--i:6"><span class="icono-giro"><span class="icono-pop" data-nombre="Programación"><i class="bi bi-code-slash"></i></span></span></span>
+                        <span class="icono" style="--a:315deg;--i:7"><span class="icono-giro"><span class="icono-pop" data-nombre="Dibujo técnico"><i class="bi bi-rulers"></i></span></span></span>
                     </div>
                     <ul class="net-contactos" id="netContactos" aria-labelledby="netBoton"></ul>
                 </div>

@@ -195,18 +195,110 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     
-    // Animación de volteo de imagen de perfil
+    // Foto de perfil: primero se ve la firma y, cuando la foto ya cargó, pasa a la foto.
+    // Cada carga de la página elige al azar una de estas variantes (estilos en css/profile.css):
+    //   moneda  -> la firma se dibuja y la foto gira como una moneda
+    //   iris    -> la firma aparece con rebote y la foto se abre como un iris desde donde tocas
+    //   trazo   -> un aro se dibuja con la firma y queda como marco; la foto entra desenfocada
+    //   orbita  -> tras la firma, íconos de las áreas orbitan la foto
+    // Para ver una en concreto: index.html?perfil=iris (o moneda, trazo, orbita).
+    // Clic, Enter o Espacio la voltean. (Con la lista de networking abierta, networking.js
+    // intercepta el clic y cierra la lista en vez de voltear.)
     const profileContainer = document.querySelector('.profile-image-container');
     if (profileContainer) {
-        // Giro automático después de 1.5 segundos
-        setTimeout(() => {
-            profileContainer.classList.add('flipped');
-        }, 1500);
+        const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-        // Mantener la funcionalidad de giro al hacer clic
-        profileContainer.addEventListener('click', function() {
+        const variantes = { moneda: 2200, iris: 1500, trazo: 2200, orbita: 2600 }; // ms hasta el giro automático
+        const pedida = new URLSearchParams(location.search).get('perfil');
+        // Al azar, pero sin repetir la de la carga anterior (así cada actualización se nota distinta)
+        function elegirVariante() {
+            let anterior = null;
+            try { anterior = localStorage.getItem('perfilVariante'); } catch (_) {}
+            const opciones = Object.keys(variantes).filter((v) => v !== anterior);
+            const elegida = opciones[Math.floor(Math.random() * opciones.length)];
+            try { localStorage.setItem('perfilVariante', elegida); } catch (_) {}
+            return elegida;
+        }
+        // Con "reducir movimiento" todas se ven igual (un fundido), así que se usa la más simple
+        const variante = sinMovimiento.matches ? 'moneda'
+            : (pedida in variantes ? pedida : elegirVariante());
+        const zonaPerfil = profileContainer.closest('.net-zona') || profileContainer.parentElement;
+        zonaPerfil.classList.add('perfil-v-' + variante);
+        if (variante !== 'moneda') zonaPerfil.classList.add('perfil-plano'); // sin giro 3D
+        let tGirando = null;
+        const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+        const cargada = (img) => (img.complete && img.naturalWidth)
+            ? Promise.resolve()
+            : new Promise((r) => {
+                img.addEventListener('load', r, { once: true });
+                img.addEventListener('error', r, { once: true });
+            });
+        let tocada = false; // si el visitante ya la giró, no se fuerza el giro automático
+
+        const firmas = [...profileContainer.querySelectorAll('.front img')];
+        const fotos = [...profileContainer.querySelectorAll('.back img')];
+        Promise.all(firmas.map(cargada))
+            .then(() => {
+                profileContainer.classList.add('is-lista'); // arranca la entrada de la firma (CSS)
+                // Gira cuando la foto cargó y la firma tuvo tiempo de verse completa
+                return Promise.all([...fotos.map(cargada), esperar(sinMovimiento.matches ? 1200 : variantes[variante])]);
+            })
+            .then(() => {
+                if (tocada) return esperar(900);
+                quitarOrigen(); // el giro automático (iris) se abre desde el centro
+                profileContainer.classList.add('flipped');
+                return esperar(900);
+            })
+            .then(mostrarPistaUnaVez);
+
+        // Cada cambio de cara marca "is-girando" un momento (venga de donde venga el giro):
+        // la moneda se eleva, el iris lanza una onda y el aro del trazo late
+        let volteada = profileContainer.classList.contains('flipped');
+        new MutationObserver(() => {
+            const ahora = profileContainer.classList.contains('flipped');
+            if (ahora === volteada) return;
+            volteada = ahora;
+            profileContainer.setAttribute('aria-pressed', String(ahora));
+            if (sinMovimiento.matches) return;
+            profileContainer.classList.remove('is-girando');
+            void profileContainer.offsetWidth; // reinicia la animación
+            profileContainer.classList.add('is-girando');
+            clearTimeout(tGirando);
+            tGirando = setTimeout(() => profileContainer.classList.remove('is-girando'), 1000);
+        }).observe(profileContainer, { attributes: true, attributeFilter: ['class'] });
+
+        // Origen del iris: el punto tocado (con teclado o giro automático, el centro)
+        function quitarOrigen() {
+            profileContainer.style.removeProperty('--cx');
+            profileContainer.style.removeProperty('--cy');
+        }
+        profileContainer.addEventListener('click', function (e) {
+            tocada = true;
+            if (e.clientX || e.clientY) {
+                const r = this.getBoundingClientRect();
+                this.style.setProperty('--cx', ((e.clientX - r.left) / r.width * 100) + '%');
+                this.style.setProperty('--cy', ((e.clientY - r.top) / r.height * 100) + '%');
+            } else {
+                quitarOrigen();
+            }
             this.classList.toggle('flipped');
         });
+        profileContainer.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            e.preventDefault();
+            this.click();
+        });
+
+        // La primera visita muestra unos segundos la pista "Girar" (en móvil no hay hover que la revele)
+        function mostrarPistaUnaVez() {
+            try {
+                if (localStorage.getItem('perfilPistaVista')) return;
+                localStorage.setItem('perfilPistaVista', '1');
+            } catch (_) { return; }
+            if (document.getElementById('netZona')?.classList.contains('is-abierta')) return;
+            profileContainer.classList.add('muestra-pista');
+            setTimeout(() => profileContainer.classList.remove('muestra-pista'), 3200);
+        }
     }
     // Búsqueda de proyectos
     function filterProjects() {
